@@ -1,7 +1,7 @@
 import React, {Component}from 'react';
 import { connect } from 'dva';
 import styles from './Meun.css';
-import { Menu, Dropdown, Icon, Layout, Switch  } from 'antd';
+import { Menu, Dropdown, Icon, Layout  } from 'antd';
 import 'antd/dist/antd.css'
 
 class ExaminationMenu extends Component {
