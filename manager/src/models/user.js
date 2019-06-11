@@ -5,7 +5,8 @@ export default {
 
     // 模块内部的状态
     state: {
-        
+        list: "123" ,
+        user: {}
     },
 
     subscriptions: {
@@ -38,11 +39,9 @@ export default {
     // 同步操作
     reducers: {
         save(state, {action}) {
-            
-            return {
-                ...state ,
-                ...action
-            };
+            console.log(state)
+            state.user = action;
+            return state;
         },
     },
 
