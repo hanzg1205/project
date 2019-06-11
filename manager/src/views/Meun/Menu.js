@@ -108,9 +108,9 @@ class ExaminationMenu extends Component {
                                 </span>
                                 }
                             >
-                                <Menu.Item key="15">班级管理</Menu.Item>
+                                {/* <Menu.Item key="15">班级管理</Menu.Item>
                                 <Menu.Item key="16">教室管理</Menu.Item>
-                                <Menu.Item key="17">学生管理</Menu.Item>
+                                <Menu.Item key="17">学生管理</Menu.Item> */}
                             </SubMenu>
                             <SubMenu
                                 key="sub7"
