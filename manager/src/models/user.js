@@ -1,45 +1,48 @@
-import { login } from '../services'
+import {login} from '../services'
 export default {
     // 命名空间
     namespace: 'user',
-  
+
     // 模块内部的状态
     state: {
-      user:{}
+        list: "123" ,
+        user: {}
     },
-  
-    subscriptions: {
-      setup({ dispatch, history }) {  // eslint-disable-line
-      },
-    },
-  
 
+    subscriptions: {
+        setup({
+            dispatch,
+            history
+        }) { // eslint-disable-line
+        },
+    },
 
     // 异步操作
     effects: {
-      *login({ payload },{ call , put }){
-        console.log(payload)
-        let data = yield call(login,payload)
-        console.log(data)
-        yield put({
-          type:'save',
-          action:data
-        })
-      },
-      *fetch({ payload }, { call, put }) {  // eslint-disable-line
-        // yield put({ type: 'save' });
-      },
+        *login({payload},{call,put}){
+            // console.log('payload...',payload)
+            let data = yield call(login,payload)
+            // console.log('data...',data)
+            yield put({
+                type: 'save',
+                action: data
+            });
+        },
+
+        * fetch({ payload }, { call, put }) { // eslint-disable-line
+            yield put({
+                type: 'save'
+            });
+        },
     },
-  
+
     // 同步操作
     reducers: {
-      save(state, {action}) {
-        console.log(action)
-        state.user=action
-        console.log(state)
-        return state
-        // return { ...state, ...action.payload };
-      },
+        save(state, {action}) {
+            console.log(state)
+            state.user = action;
+            return state;
+        },
     },
-  };
-  
+
+};
