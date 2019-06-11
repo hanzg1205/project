@@ -8,9 +8,18 @@ function Login(props){
     useEffect(()=>{
         console.log(props);
     }, []);
-    useState(()=>{
-        console.log('useState....',props);
-    })
+
+    // 监听state状态
+    let [state,setState] = useState(user);
+    console.log(state);
+    
+    // 判断登录态
+    // if(state.user.code == 1){
+    //     props.history.push('/meun')
+    // }else if(state.user.code == 0){
+    //     alert("用户名或密码错误！")
+    // }
+    
     // 表单提交
     let handleSubmit = e => {
         e.preventDefault();
@@ -22,7 +31,8 @@ function Login(props){
                 user_pwd: values.password
             });
             console.log(props);
-            // props.history.push('/meun')
+
+            
           }
         });
     }
@@ -44,6 +54,7 @@ function Login(props){
                     </Form.Item>
                     <Form.Item>
                         {getFieldDecorator('password', {
+                            validateTrigger: 'onBlur',
                             rules: [{ required: true, message: '请输入您的密码!' },
                             {pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/,message: '请输入正确的密码!'}],
                         })(
