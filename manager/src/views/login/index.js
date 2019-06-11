@@ -7,19 +7,24 @@ function Login(props){
     const { getFieldDecorator } = props.form;
     let  { login } = props
     useEffect(()=>{
-            login({
-                user_name:'chenmanjie',
-                user_pwd:'Chenmanjie123!'
-            })
+           
         },[])
-        console.log(props)
+        // console.log(props)
         let state=useState(props.user)
         let handleSubmit = e => {
             e.preventDefault();
-            this.props.form.validateFields((err, values) => {
+            props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                this.props.history.push('/meun')
+                login({
+                    user_name:values.username,
+                    user_pwd:values.password
+                })
+                if(state.code==1){
+                    console.log(props.history)
+                    props.history.push('/meun')
+                }else if(state.coed==0){
+                    alert('请输入正确的账号或密码')
+                }
             }
         });
       };

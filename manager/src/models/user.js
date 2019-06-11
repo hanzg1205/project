@@ -4,7 +4,9 @@ export default {
     namespace: 'user',
   
     // 模块内部的状态
-    state: {},
+    state: {
+      user:{}
+    },
   
     subscriptions: {
       setup({ dispatch, history }) {  // eslint-disable-line
@@ -19,16 +21,24 @@ export default {
         console.log(payload)
         let data = yield call(login,payload)
         console.log(data)
+        yield put({
+          type:'save',
+          action:data
+        })
       },
       *fetch({ payload }, { call, put }) {  // eslint-disable-line
-        yield put({ type: 'save' });
+        // yield put({ type: 'save' });
       },
     },
   
     // 同步操作
     reducers: {
-      save(state, action) {
-        return { ...state, ...action.payload };
+      save(state, {action}) {
+        console.log(action)
+        state.user=action
+        console.log(state)
+        return state
+        // return { ...state, ...action.payload };
       },
     },
   };
