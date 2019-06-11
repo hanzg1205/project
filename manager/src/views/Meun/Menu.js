@@ -66,7 +66,7 @@ class ExaminationMenu extends Component {
                                 key="sub1"
                                 title={
                                 <span>
-                                    <Icon type="mail" />
+                                    <Icon type="project" />
                                     <span>试题管理</span>
                                 </span>
                                 }
@@ -79,7 +79,7 @@ class ExaminationMenu extends Component {
                                 key="sub2"
                                 title={
                                 <span>
-                                    <Icon type="appstore" />
+                                    <Icon type="user" />
                                     <span>用户管理</span>
                                 </span>
                                 }
@@ -103,14 +103,14 @@ class ExaminationMenu extends Component {
                                 key="sub5"
                                 title={
                                 <span>
-                                    <Icon type="appstore" />
+                                    <Icon type="desktop" />
                                     <span>班级管理</span>
                                 </span>
                                 }
                             >
-                                <Menu.Item key="5">班级管理</Menu.Item>
-                                <Menu.Item key="6">教室管理</Menu.Item>
-                                <Menu.Item key="7">学生管理</Menu.Item>
+                                <Menu.Item key="15">班级管理</Menu.Item>
+                                <Menu.Item key="16">教室管理</Menu.Item>
+                                <Menu.Item key="17">学生管理</Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub7"
@@ -121,7 +121,7 @@ class ExaminationMenu extends Component {
                                 </span>
                                 }
                             >
-                                <Menu.Item key="5">特批班级</Menu.Item>
+                                <Menu.Item key="25">特批班级</Menu.Item>
                             </SubMenu>
                             </Menu>
                         </Sider>
