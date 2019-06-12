@@ -8,3 +8,11 @@ export function login(params){
         data: params
     })
 }
+
+export function type(params){
+    return request({
+        data:params,
+        url:'/exam/insertQuestionsType',
+        method:'GET'
+    })
+}

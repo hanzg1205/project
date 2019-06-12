@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Meun.css';
 import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch } from 'dva/router';
-import 'antd/dist/antd.css'
 import MenuView from '@/components/Menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
 import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
@@ -37,7 +36,7 @@ function ExaminationMenu(){
             </Header>
             <div className={styles.section}>
                 <MenuView />
-                <Content>
+                <Content style={{ overflow: 'auto' }}>
                     <Switch>
                         <Route path="/questions/add" component={QuestionsAdd}></Route>
                         <Route path="/questions/type" component={QuestionsType}></Route>
