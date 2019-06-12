@@ -8,18 +8,9 @@ function Login(props){
     useEffect(()=>{
         console.log(props);
     }, []);
-
     // 监听state状态
     let [state,setState] = useState(user);
-    console.log(state);
-    
-    // 判断登录态
-    // if(state.user.code == 1){
-    //     props.history.push('/meun')
-    // }else if(state.user.code == 0){
-    //     alert("用户名或密码错误！")
-    // }
-    
+
     // 表单提交
     let handleSubmit = e => {
         e.preventDefault();
@@ -31,12 +22,11 @@ function Login(props){
                 user_pwd: values.password
             });
             console.log(props);
-
+            props.history.push('/meun')
             
           }
         });
     }
-    // 表单校验
     const { getFieldDecorator } = props.form;
     return <div className='login_wrapper'>
             <div className='login_form'>
@@ -76,7 +66,6 @@ function Login(props){
                                 忘记密码
                             </a>
                         </div>
-                        
                         <Button type="primary" htmlType="submit" className='login_form_button'>
                             登 录
                         </Button>
@@ -85,27 +74,25 @@ function Login(props){
             </div>
         </div>
 }
-
 // props的类型检测
-Login.propTypes = {
+    Login.propTypes = {
 
-}
-// props的默认值
-Login.defaultProps = {
-
-}
-
-const mapState = state => {
-    console.log('atate...',state)
-    return state;
-}
-const mapDispatch = dispatch => ({
-    login(payload){
-        dispatch({
-            type: 'user/login',
-            payload
-        })
     }
-})
+    // props的默认值
+    Login.defaultProps = {
+
+    }
+    const mapState = state => {
+        console.log('atate...',state)
+        return state;
+    }
+    const mapDispatch = dispatch => ({
+        login(payload){
+            dispatch({
+                type: 'user/login',
+                payload
+            })
+        }
+    })
 
 export default connect(mapState,mapDispatch)(Form.create()(Login));

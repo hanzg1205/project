@@ -24,8 +24,8 @@ export default {
             let data = yield call(login,payload)
             // console.log('data...',data)
             yield put({
-                type: 'save',
-                action: data
+                type: 'userLogin',
+                action: payload
             });
         },
 
@@ -38,9 +38,9 @@ export default {
 
     // 同步操作
     reducers: {
-        save(state, {action}) {
-            console.log(state)
+        userLogin(state, {action}) {
             state.user = action;
+            console.log(state)
             return state;
         },
     },
