@@ -5,8 +5,7 @@ export default {
 
     // 模块内部的状态
     state: {
-        list: "123" ,
-        user: {}
+        isLogin: false,
     },
 
     subscriptions: {

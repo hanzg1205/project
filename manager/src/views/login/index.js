@@ -4,86 +4,76 @@ import { connect } from 'dva';
 import style from './login.scss';
 
 function Login(props){
-    const {login,user} = props;
+    // 判断是否登录
     useEffect(()=>{
         console.log(props);
-    }, []);
-
-    // 监听state状态
-    let [state,setState] = useState(user);
-    console.log(state);
-    
-    // 判断登录态
-    // if(state.user.code == 1){
-    //     props.history.push('/meun')
-    // }else if(state.user.code == 0){
-    //     alert("用户名或密码错误！")
-    // }
+        
+    }, [props.user]);
     
     // 表单提交
     let handleSubmit = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-            login({
-                user_name: values.username,
-                user_pwd: values.password
-            });
-            console.log(props);
+            if (!err) {
+                console.log('Received values of form: ', values);
+                props.login({
+                    user_name: values.username,
+                    user_pwd: values.password
+                });
+                console.log(props);
 
-            
-          }
+                // props.history.push('/meun')
+            }
         });
     }
     // 表单校验
     const { getFieldDecorator } = props.form;
     return <div className='login_wrapper'>
-            <div className='login_form'>
-                <Form onSubmit={handleSubmit} className="login-form">
-                    <Form.Item>
-                        {getFieldDecorator('username', {
-                            rules: [{ required: true, message: '请输入您的用户名!' }],
-                        })(
-                            <Input
-                                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                placeholder="请输入用户名"
-                                className='login_input'
-                            />,
-                        )}
-                    </Form.Item>
-                    <Form.Item>
-                        {getFieldDecorator('password', {
-                            validateTrigger: 'onBlur',
-                            rules: [{ required: true, message: '请输入您的密码!' },
-                            {pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/,message: '请输入正确的密码!'}],
-                        })(
-                            <Input
-                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                type="password"
-                                placeholder="请输入密码"
-                                className='login_input'
-                            />,
-                        )}
-                    </Form.Item>
-                    <Form.Item>
-                        <div className='login_form_remember'>
-                            {getFieldDecorator('remember', {
-                                valuePropName: 'checked',
-                                initialValue: true,
-                            })(<Checkbox>记住密码</Checkbox>)}
-                            <a className="login-form-forgot" href="">
-                                忘记密码
-                            </a>
-                        </div>
-                        
-                        <Button type="primary" htmlType="submit" className='login_form_button'>
-                            登 录
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </div>
+        <div className='login_form'>
+            <Form onSubmit={handleSubmit} className="login-form">
+                <Form.Item>
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: '请输入您的用户名!' }],
+                    })(
+                        <Input
+                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            placeholder="请输入用户名"
+                            className='login_input'
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('password', {
+                        validateTrigger: 'onBlur',
+                        rules: [{ required: true, message: '请输入您的密码!' },
+                        {pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/,message: '请输入正确的密码!'}],
+                    })(
+                        <Input
+                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            type="password"
+                            placeholder="请输入密码"
+                            className='login_input'
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    <div className='login_form_remember'>
+                        {getFieldDecorator('remember', {
+                            valuePropName: 'checked',
+                            initialValue: true,
+                        })(<Checkbox>记住密码</Checkbox>)}
+                        <a className="login-form-forgot" href="">
+                            忘记密码
+                        </a>
+                    </div>
+                    
+                    <Button type="primary" htmlType="submit" className='login_form_button'>
+                        登 录
+                    </Button>
+                </Form.Item>
+            </Form>
         </div>
+    </div>
 }
 
 // props的类型检测
