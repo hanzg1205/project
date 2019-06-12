@@ -27,7 +27,7 @@ function ExaminationMenu(){
                             <Dropdown overlay={menu}>
                                 <a className="ant-dropdown-link" href="#" className={styles.headerBottomList}>
                                   <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" />
-                                  <span>chenmanjie</span>
+                                  <span>chenmanjie1111</span>
                                 </a>
                             </Dropdown>
                         }
