@@ -1,9 +1,10 @@
 import  React from 'react';
+import typeStyle from './QuestionsType.css'
 
 function QuestionsType(){   
     return (
-        <div>
-            试题类型
+        <div className>
+            
         </div>
     )
 }
