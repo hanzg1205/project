@@ -1,4 +1,4 @@
-const path = reauire('path');
+const path = require('path');
 
 export default {
     alias: {

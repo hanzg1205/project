@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import { connect } from 'dva';
-import style from './login.scss';
+import './login.scss';
 
 function Login(props){
     // 判断是否登录
+    console.log(props);
     useEffect(()=>{
-        console.log(props);
+        if(props.isLogin === 1){
+            // 登录成功
+            message.success('登录成功！')
+            // 跳主页面
+            let pathname = decodeURIComponent(props.history.location.split('=')[1]);
+            props.history.replace(pathname);
+        }else if(props.isLogin === -1){
+            // 登录失败
+            message.error('用户名或密码错误！')
+        }
         
-    }, [props.user]);
+    }, [props.isLogin]);
     
     // 表单提交
     let handleSubmit = e => {
@@ -20,9 +30,6 @@ function Login(props){
                     user_name: values.username,
                     user_pwd: values.password
                 });
-                console.log(props);
-
-                // props.history.push('/meun')
             }
         });
     }
@@ -87,7 +94,9 @@ Login.defaultProps = {
 
 const mapState = state => {
     console.log('atate...',state)
-    return state;
+    return {
+        ...state.user
+    };
 }
 const mapDispatch = dispatch => ({
     login(payload){

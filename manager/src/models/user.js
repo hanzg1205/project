@@ -1,18 +1,43 @@
-import {login} from '../services'
+import {login} from '@/services'
+import { setToken, getToken } from '@/utils/user';
+import { routerRedux } from 'dva/router';
+
 export default {
     // 命名空间
     namespace: 'user',
 
     // 模块内部的状态
     state: {
-        isLogin: false,
+        isLogin: 0,
     },
 
+    // 订阅路由跳转
     subscriptions: {
         setup({
             dispatch,
             history
         }) { // eslint-disable-line
+            return history.listen(({ pathname }) => {
+                console.log(pathname.indexOf('/login'))
+                console.log(routerRedux)
+                if(pathname.indexOf('/login') === -1){
+                    // 不去登录页；做token检测
+                    // 如果没有登录跳到登录页
+                    if(!getToken()){
+                        // 利用redux做路由跳转
+                        dispatch(routerRedux.replace({
+                            pathname: `/login?redirect=${encodeURIComponent(pathname)}`
+                        }))
+                    }
+                }else{
+                    // 去登录页，如果已经登录跳回首页
+                    if(getToken()){
+                        dispatch(routerRedux.replace({
+                            pathname: '/'
+                        }))
+                    }
+                }
+            })
         },
     },
 
@@ -22,25 +47,27 @@ export default {
             // console.log('payload...',payload)
             let data = yield call(login,payload)
             // console.log('data...',data)
+
+            // 设置登录态到cookie里
+            if(data.code === 1){
+                setToken(data.token)
+            }
+
             yield put({
                 type: 'save',
-                action: data
+                action: data.code === 1 ? 1 : -1
             });
-        },
-
-        * fetch({ payload }, { call, put }) { // eslint-disable-line
-            yield put({
-                type: 'save'
-            });
-        },
+        }
     },
 
     // 同步操作
     reducers: {
         save(state, {action}) {
-            console.log(state)
-            state.user = action;
-            return state;
+            console.log(action)
+            return {
+                ...state,
+                isLogin: action
+            };
         },
     },
 
