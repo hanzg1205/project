@@ -7,7 +7,7 @@ function Login(props){
     // 判断是否登录
     // console.log(props);
     useEffect(()=>{
-        console.log(props);
+        // console.log(props);
         if(props.isLogin === 1){
             // 登录成功
             message.success('登录成功！')
@@ -17,8 +17,7 @@ function Login(props){
         }else if(props.isLogin === -1){
             // 登录失败
             message.error('用户名或密码错误！')
-        }
-        
+        }      
     }, [props.isLogin]);
     
     // 表单提交
@@ -34,7 +33,6 @@ function Login(props){
             }
         });
     }
-    // 表单校验
     const { getFieldDecorator } = props.form;
     return <div className='login_wrapper'>
         <div className='login_form'>
@@ -73,8 +71,7 @@ function Login(props){
                         <a className="login-form-forgot" href="">
                             忘记密码
                         </a>
-                    </div>
-                    
+                    </div>                    
                     <Button type="primary" htmlType="submit" className='login_form_button'>
                         登 录
                     </Button>
@@ -83,14 +80,13 @@ function Login(props){
         </div>
     </div>
 }
-
 // props的类型检测
 Login.propTypes = {
 
 }
 // props的默认值
 Login.defaultProps = {
-
+    
 }
 
 const mapState = state => {
@@ -106,6 +102,6 @@ const mapDispatch = dispatch => ({
             payload
         })
     }
-})
 
+})
 export default connect(mapState,mapDispatch)(Form.create()(Login));

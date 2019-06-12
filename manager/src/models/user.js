@@ -18,15 +18,14 @@ export default {
             history
         }) { // eslint-disable-line
             return history.listen(({ pathname }) => {
-                console.log(pathname.indexOf('/login'))
-                console.log(routerRedux)
+                console.log(pathname)
                 if(pathname.indexOf('/login') === -1){
                     // 不去登录页；做token检测
                     // 如果没有登录跳到登录页
                     if(!getToken()){
                         // 利用redux做路由跳转
                         dispatch(routerRedux.replace({
-                            pathname: `/login?redirect=${encodeURIComponent(pathname)}`
+                            pathname: `/login`
                         }))
                     }
                 }else{
@@ -63,12 +62,10 @@ export default {
     // 同步操作
     reducers: {
         save(state, {action}) {
-            console.log(action)
             return {
                 ...state,
                 isLogin: action
             };
         },
     },
-
 };
