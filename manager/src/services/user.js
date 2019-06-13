@@ -16,6 +16,11 @@ export function exam(params){
         method:'GET'
     })
 }
+export function examadd(params){
+    return request({
+        url:`/exam/insertQuestionsType?text=${params.text}&sort=${params.sort}`,
+    })
+}
 // 获取用户信息
 export function userInfo(params){
     return request({
