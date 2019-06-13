@@ -16,3 +16,10 @@ export function exam(params){
         method:'GET'
     })
 }
+// 获取用户信息
+export function userInfo(params){
+    return request({
+        url:'/user/userInfo',
+        method:'GET'
+    })
+}

@@ -6,9 +6,14 @@ export default {
 
     // 模块内部的状态
     state: {
+        // 考试类型
         examTypeData: [],
+        // 课程类型
         subjectTypeData: [],
-        questionsTypeData: []
+        // 题目类型
+        questionsTypeData: [],
+        // 试题添加状态
+        addQuestionsFlag: 0
     },
 
     // 订阅路由跳转
@@ -24,15 +29,17 @@ export default {
     effects: {
         // 添加试题
         *add({payload},{call,put}){
-            console.log('payload...',payload)
-            // let data = yield call(add,payload)
-            // console.log('data...',data)
-            
+            // console.log('payload...',payload)
+            let data = yield call(add,payload)
+            console.log('add..data...',data)
+            yield put({ 
+                type: 'updateAdd' ,
+                action: data.code === 1 ? 1 : -1
+            });
         },
         // 获取考试类型
         *examType({payload},{call,put}){
             let data = yield call(examType)
-            // console.log('data...',data)
             yield put({ 
                 type: 'getExamType' ,
                 action: data.data
@@ -41,7 +48,6 @@ export default {
         // 获取课程类型
         *subjectType({payload},{call,put}){
             let data = yield call(subjectType)
-            console.log('data...',data)
             yield put({ 
                 type: 'getSubjectType' ,
                 action: data.data
@@ -50,7 +56,6 @@ export default {
         // 获取题目类型
         *questionsType({payload},{call,put}){
             let data = yield call(getQuestionsType)
-            console.log('data...',data)
             yield put({ 
                 type: 'getQuestionsType' ,
                 action: data.data
@@ -78,6 +83,11 @@ export default {
                 questionsTypeData: action
             };
         },
-
+        updateAdd(state, {action}){
+            return {
+                ...state,
+                addQuestionsFlag: action
+            };
+        }
     },
 };
