@@ -8,7 +8,8 @@ class QuestionsType extends Component{
         super(props)
         this.state={
             visible: false,
-            value:''
+            value:'',
+            num:9
         }
     }
     handleCancel = e => {
@@ -22,8 +23,9 @@ class QuestionsType extends Component{
         }) 
     };
     handleOk = e => {
-        let { examadd } = this.props
-        examadd({text:this.state.value,sort:'chenmanjie'})
+        let { examadd } = this.props;
+        console.log(this.state.num)
+        examadd({text:this.state.value,sort:this.state.num})
         this.setState({
             visible: false
         })

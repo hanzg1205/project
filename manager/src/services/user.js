@@ -16,3 +16,9 @@ export function exam(params){
         method:'GET'
     })
 }
+export function examadd(params){
+    return request({
+        url:`/exam/insertQuestionsType?text=${params.text}&sort=${params.sort}`,
+        method:'GET'
+    })
+}

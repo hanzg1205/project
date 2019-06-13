@@ -1,4 +1,4 @@
-import {exam} from '@/services'
+import {exam,examadd} from '@/services'
 export default {
     // 命名空间
     namespace: 'exam',
@@ -19,18 +19,23 @@ export default {
 
     // 异步操作
     effects: {
-        *getQuestionsType({plyload},{call,put}){
+        *getQuestionsType({payload},{call,put}){
             let data = yield call(exam)
             yield put({
                 type: 'save',
                 action: data.data
             });
+        },
+        *insertQuestionsType({payload},{call,put}){
+            let data = yield call(examadd,payload);
+            console.log(data)
         }
     },
 
     // 同步操作
     reducers: {
         save(state, {action}) {
+            console.log(action)
             return {
                 ...state,
                 typeList: action

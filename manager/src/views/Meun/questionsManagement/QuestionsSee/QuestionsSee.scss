@@ -13,14 +13,14 @@
     .bottom{
         width: 100%;
         height: auto;
-        padding: 30px 30px 50px;
+        padding: 20px;
         background: #fff;
         margin: 0 auto;
         border-radius: 10px;
         .Bottom_top{
             display:flex;
             .Bottom_tit{
-                width:80px;
+                width:90px;
                 line-height: 32px;
             }
             .radio_list{
@@ -31,6 +31,8 @@
             border:0;
             border-radius:5px;
             outline: none!important;
+            width: 90px;
+            text-align: center;
             &:not(:first-child)::before{
                 width: 0;
             }
@@ -47,5 +49,12 @@
                 }
             }
         }
+    }
+    .see_context{
+        width: 100%;
+        height: auto;
+        background: #fff;
+        margin-top: 20px;
+        border-radius: 10px;
     }
 }
