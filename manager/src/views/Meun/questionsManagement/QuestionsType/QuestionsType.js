@@ -22,8 +22,8 @@ class QuestionsType extends Component{
         })
     };
     handleOk = e => {
-        let { questionType } = this.props
-        questionType({
+        let { Examadd } = this.props
+        Examadd({
             text:this.state.value,
             sort:'chenmanjie'
         })
@@ -31,46 +31,24 @@ class QuestionsType extends Component{
             visible: false
         })
     };
+    componentDidMount(){
+        let { exam } = this.props
+        exam()
+    }
     render(){
         const columns = [
             {
               title: '类型ID',
-              dataIndex: 'name',
+              dataIndex: 'questions_type_id',
             },
             {
               title: '类型名称',
-              dataIndex: 'age',
+              dataIndex: 'questions_type_text',
             },
             {
               title: '操作',
-              dataIndex: 'address',
+              dataIndex: 'questions_type_sort',
             },
-        ];
-    const data = [
-            {
-              key: '1',
-              name: 'John Brown',
-              age: 32,
-              address: 'New York No. 1 Lake Park',
-            },
-            {
-              key: '2',
-              name: 'Jim Green',
-              age: 42,
-              address: 'London No. 1 Lake Park',
-            },
-            {
-              key: '3',
-              name: 'Joe Black',
-              age: 32,
-              address: 'Sidney No. 1 Lake Park',
-            },
-            {
-              key: '4',
-              name: 'Joe Black',
-              age: 32,
-              address: 'Sidney No. 1 Lake Park',
-              },
         ];
         return (
             <div className={typeStyle.wrap}>
@@ -92,7 +70,7 @@ class QuestionsType extends Component{
                         </Modal>
                     </div>
                     <div className={typeStyle.list}>
-                        <Table columns={columns} dataSource={data} size="middle" />
+                        <Table columns={columns} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
                     </div>
                 </div>
             </div>
@@ -101,14 +79,16 @@ class QuestionsType extends Component{
 }
 const mapStateToProps=(state)=>{
     return {
-
+        ...state.exam
     }
 }
 const mapDispatchToProps=(dispatch)=>{
     return {
-        questionType(typeAdd){
-            console.log(typeAdd)
-            dispatch({type:'exam/insertQuestionsType',typeAdd})
+        exam(){
+            dispatch({type:'exam/getQuestionsType'})
+        },
+        Examadd(payload){
+            dispatch({type:'exam/insertQuestionsType',payload})
         }
     }
 }

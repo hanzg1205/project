@@ -1,12 +1,12 @@
-import {type} from '@/services'
-
+import {exam,insertQuestions} from '@/services'
+console.log(insertQuestions)
 export default {
     // 命名空间
-    namespace: 'type',
+    namespace: 'exam',
 
     // 模块内部的状态
     state: {
-        
+        typeList:[]
     },
 
     // 订阅路由跳转
@@ -20,15 +20,18 @@ export default {
 
     // 异步操作
     effects: {
-        *questionType({typeAdd},{call,put}){
-            console.log('payload...',typeAdd)
-            let data = yield call(type,typeAdd)
-            console.log('data...',data)
+        *getQuestionsType({plyload},{call,put}){
+            let data = yield call(exam)
             yield put({
                 type: 'save',
-                action: data.code === 1 ? 1 : -1
+                action: data.data
             });
-        }
+        },
+        *insertQuestionsType({payload},{call,put}){
+          console.log(payload)
+         let data = yield call(insertQuestions,payload)
+         console.log(data)
+      }
     },
 
     // 同步操作
@@ -36,7 +39,7 @@ export default {
         save(state, {action}) {
             return {
                 ...state,
-                isLogin: action
+                typeList: action
             };
         },
     },

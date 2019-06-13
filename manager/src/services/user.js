@@ -9,10 +9,19 @@ export function login(params){
     })
 }
 
-export function type(params){
+export function exam(params){
+    return request({
+        data:params,
+        url:'/exam/getQuestionsType',
+        method:'GET'
+    })
+}
+
+export function insertQuestions(params){
+    console.log(params)
     return request({
         data:params,
         url:'/exam/insertQuestionsType',
-        method:'GET'
+        method:'GET',
     })
 }

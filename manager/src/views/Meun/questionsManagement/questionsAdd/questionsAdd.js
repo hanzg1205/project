@@ -67,11 +67,11 @@ const mapStateToProps=state=>{
 }
 const mapDispatchToProps=dispatch=>{
     return{
-    add(){
-        dispatch({
-        type:"questions/add"
-        })
-    }
+        add(){
+            dispatch({
+            type:"questions/add"
+            })
+        }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(questionsAdd)
