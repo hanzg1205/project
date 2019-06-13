@@ -16,12 +16,3 @@ export function exam(params){
         method:'GET'
     })
 }
-
-export function insertQuestions(params){
-    console.log(params)
-    return request({
-        data:params,
-        url:'/exam/insertQuestionsType',
-        method:'GET',
-    })
-}

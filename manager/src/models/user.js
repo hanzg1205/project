@@ -18,7 +18,6 @@ export default {
             history
         }) { // eslint-disable-line
             return history.listen(({ pathname }) => {
-                console.log(pathname)
                 if(pathname.indexOf('/login') === -1){
                     // 不去登录页；做token检测
                     // 如果没有登录跳到登录页

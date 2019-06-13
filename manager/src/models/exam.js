@@ -1,5 +1,4 @@
-import {exam,insertQuestions} from '@/services'
-console.log(insertQuestions)
+import {exam} from '@/services'
 export default {
     // 命名空间
     namespace: 'exam',
@@ -26,12 +25,7 @@ export default {
                 type: 'save',
                 action: data.data
             });
-        },
-        *insertQuestionsType({payload},{call,put}){
-          console.log(payload)
-         let data = yield call(insertQuestions,payload)
-         console.log(data)
-      }
+        }
     },
 
     // 同步操作

@@ -19,14 +19,11 @@ class QuestionsType extends Component{
     typeAdd = () => {
         this.setState({
             visible: true
-        })
+        }) 
     };
     handleOk = e => {
-        let { Examadd } = this.props
-        Examadd({
-            text:this.state.value,
-            sort:'chenmanjie'
-        })
+        let { examadd } = this.props
+        examadd({text:this.state.value,sort:'chenmanjie'})
         this.setState({
             visible: false
         })
@@ -47,7 +44,7 @@ class QuestionsType extends Component{
             },
             {
               title: '操作',
-              dataIndex: 'questions_type_sort',
+              dataIndex: "",
             },
         ];
         return (
@@ -87,7 +84,7 @@ const mapDispatchToProps=(dispatch)=>{
         exam(){
             dispatch({type:'exam/getQuestionsType'})
         },
-        Examadd(payload){
+        examadd(payload){
             dispatch({type:'exam/insertQuestionsType',payload})
         }
     }
