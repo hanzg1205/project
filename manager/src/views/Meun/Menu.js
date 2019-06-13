@@ -38,10 +38,10 @@ function ExaminationMenu(){
                 <MenuView />
                 <Content style={{ overflow: 'auto' }}>
                     <Switch>
-                        <Redirect from='/' exact to="/questions/add" />
+                        <Redirect from="/" to="/questions/add" exact></Redirect>
                         <Route path="/questions/add" component={QuestionsAdd}></Route>
                         <Route path="/questions/type" component={QuestionsType}></Route>
-                        <Route path="/questions/See" component={QuestionsSee}></Route>
+                        <Route path="/questions/See" component={QuestionsSee}></Route>                      
                     </Switch>
                 </Content>
             </div>

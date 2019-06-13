@@ -7,9 +7,22 @@ import  styles from './questionsAdd.scss';
 const { Option } = Select;
 function questionsAdd(props){  
     useEffect(()=>{
-        props.add()
+        props.add({
+            questions_type_id: '1',
+            questions_stem: '2',
+            subject_id: '3',
+            exam_id: '2',
+            user_id: '2',
+            questions_answer:'2',
+            title: '2'
+        })
+        // 获取考试类型
+        props.examType();
+        // 获取课程类型
+        props.subjectType();
+        // 获取题目类型
+        props.questionsType();
     }, []);
-
     return <div className={styles.content}>
     <h2 className={styles.title}>添加试题</h2>
     <div className={styles.main}>
@@ -21,26 +34,32 @@ function questionsAdd(props){
         </div>
         <div>
             <p>请选择考试类型：</p>
-            <Select defaultValue="lucy" style={{ width: 120 }}>
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-            </Select>
+            <Select defaultValue='请选择考试类型' style={{ width: 160 }}>
+            {                
+                props.examTypeData.map(item=>(
+                    <Option value={item.exam_name} key={item.exam_id}>{item.exam_name}</Option>
+                ))
+            }
+            </Select>        
         </div>
         <div>
             <p>请选择课程类型：</p>
-            <Select defaultValue="lucy" style={{ width: 120 }}>
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
+            <Select defaultValue="请选择课程类型" style={{ width: 160 }}>
+            {                
+                props.subjectTypeData.map(item=>(
+                    <Option value={item.subject_text} key={item.subject_id}>{item.subject_text}</Option>
+                ))
+            }
             </Select>
         </div>
         <div>
-            <p>请选择题目类型：</p>
-            <Select defaultValue="lucy" style={{ width: 120 }}>
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
+            <p>请选择题目类型：</p> 
+            <Select defaultValue="请选择题目类型" style={{ width: 160 }}>
+            {                
+                props.questionsTypeData.map(item=>(
+                    <Option value={item.questions_type_text} key={item.questions_type_id}>{item.questions_type_text}</Option>
+                ))
+            }
             </Select>
         </div>
         <div className={styles.markcont}>
@@ -60,18 +79,40 @@ questionsAdd.defaultProps={
     
 }
 const mapStateToProps=state=>{
-    // console.log("state",state)
+    console.log("state...",state)
     return{
-    ...state.questions
+        ...state.questions
     }
 }
 const mapDispatchToProps=dispatch=>{
     return{
-        add(){
+        // 添加试题
+        add(payload){
+            console.log(payload)
             dispatch({
-            type:"questions/add"
+                type:"questions/add",
+                payload
+            })
+        },
+        // 获取考试类型
+        examType(){
+            dispatch({
+                type:"questions/examType"
+            })
+        },
+        // 获取课程类型
+        subjectType(){
+            dispatch({
+                type:"questions/subjectType"
+            })
+        },
+        // 获取题目类型
+        questionsType(){
+            dispatch({
+                type:"questions/questionsType"
             })
         }
+
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(questionsAdd)

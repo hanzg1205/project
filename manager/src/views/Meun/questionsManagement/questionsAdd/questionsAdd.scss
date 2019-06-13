@@ -21,13 +21,14 @@ html,body,#root{
         flex:1;
         padding: 20px;
         box-sizing: border-box;
-        border-radius:5px;
+        border-radius:10px;
     }
     .markcont{
         width:500px;
         overflow: hidden;
         p{
             font-size: 20px;
+            margin-top:10px;
         }
         input{
             height: 45px;
