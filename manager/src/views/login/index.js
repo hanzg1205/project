@@ -12,8 +12,9 @@ function Login(props){
             // 登录成功
             message.success('登录成功！')
             // 跳主页面
-            let pathname = decodeURIComponent(props.history.location.search.split('=')[1]);
-            props.history.replace(pathname);
+            // let pathname = decodeURIComponent(props.history.location.search.split('=')[1]);
+            // props.history.replace(pathname || '/');
+            props.history.replace('/');
         }else if(props.isLogin === -1){
             // 登录失败
             message.error('用户名或密码错误！')

@@ -23,10 +23,7 @@ class QuestionsType extends Component{
     };
     handleOk = e => {
         let { questionType } = this.props
-        questionType({
-            text:this.state.value,
-            sort:'chenmanjie'
-        })
+        
         this.setState({
             visible: false
         })
@@ -70,7 +67,7 @@ class QuestionsType extends Component{
               name: 'Joe Black',
               age: 32,
               address: 'Sidney No. 1 Lake Park',
-              },
+            },
         ];
         return (
             <div className={typeStyle.wrap}>
@@ -106,10 +103,7 @@ const mapStateToProps=(state)=>{
 }
 const mapDispatchToProps=(dispatch)=>{
     return {
-        questionType(typeAdd){
-            console.log(typeAdd)
-            dispatch({type:'exam/insertQuestionsType',typeAdd})
-        }
+        
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(QuestionsType)

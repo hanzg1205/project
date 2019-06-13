@@ -25,7 +25,8 @@ export default {
                     if(!getToken()){
                         // 利用redux做路由跳转
                         dispatch(routerRedux.replace({
-                            pathname: `/login`
+                            pathname: `/login`,
+                            search: `?redirect=${encodeURIComponent(pathname)}`
                         }))
                     }
                 }else{
