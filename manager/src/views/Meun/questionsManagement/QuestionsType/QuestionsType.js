@@ -35,16 +35,22 @@ class QuestionsType extends Component{
     render(){
         const columns = [
             {
-              title: '类型ID',
-              dataIndex: 'questions_type_id',
+                key: 1,
+                id: 1,
+                title: '类型ID',
+                dataIndex: 'questions_type_id',
             },
             {
-              title: '类型名称',
-              dataIndex: 'questions_type_text',
+                key: 2,
+                id: 2,
+                title: '类型名称',
+                dataIndex: 'questions_type_text',
             },
             {
-              title: '操作',
-              dataIndex: "",
+                key: 3,
+                id: 3,
+                title: '操作',
+                dataIndex: "",
             },
         ];
         return (
@@ -67,7 +73,7 @@ class QuestionsType extends Component{
                         </Modal>
                     </div>
                     <div className={typeStyle.list}>
-                        <Table columns={columns} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
+                        <Table columns={columns} rowKey={record=>record.id} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
                     </div>
                 </div>
             </div>

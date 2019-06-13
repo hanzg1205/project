@@ -181,8 +181,7 @@ const mapDispatchToProps=dispatch=>{
             dispatch({
                 type: "user/userInfo"
             })
-        }
-
+        },
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(questionsAdd))

@@ -36,7 +36,7 @@ function ExaminationMenu(){
             </Header>
             <div className={styles.section}>
                 <MenuView />
-                <Content style={{ overflow: 'auto' }}>
+                <Content style={{ overflow: 'auto' }} className={styles.main}>
                     <Switch>
                         <Redirect from="/" to="/questions/add" exact></Redirect>
                         <Route path="/questions/add" component={QuestionsAdd}></Route>
