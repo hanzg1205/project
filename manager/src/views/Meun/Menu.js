@@ -44,8 +44,8 @@ function ExaminationMenu(){
                         <Route path="/questions/add" component={QuestionsAdd}></Route>
                         <Route path="/questions/type" component={QuestionsType}></Route>
                         <Route path="/questions/See" component={QuestionsSee}></Route>                      
-                        <Route path="/questions/detail" component={QuestionDetail}></Route>                      
                         <Route path="/questions/edit/:id" component={QuestionsEdit}></Route>                      
+                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route>                      
                     </Switch>
                 </Content>
             </div>

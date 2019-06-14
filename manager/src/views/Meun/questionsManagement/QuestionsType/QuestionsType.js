@@ -9,7 +9,7 @@ class QuestionsType extends Component{
         this.state={
             visible: false,
             value:'',
-            num:9
+            num:0
         }
     }
     handleCancel = e => {
@@ -24,8 +24,7 @@ class QuestionsType extends Component{
     };
     handleOk = e => {
         let { examadd } = this.props;
-        console.log(this.state.num)
-        examadd({text:this.state.value,sort:this.state.num})
+        examadd({text:this.state.value,sort:Math.floor(Math.random()*100)})
         this.setState({
             visible: false
         })
@@ -95,6 +94,7 @@ const mapDispatchToProps=(dispatch)=>{
             dispatch({type:'exam/getQuestionsType'})
         },
         examadd(payload){
+            console.log(payload)
             dispatch({type:'exam/insertQuestionsType',payload})
         }
     }
