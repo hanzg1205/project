@@ -10,7 +10,6 @@ function QuestionsSee(props){
     useEffect(()=>{
         questions()
     },[])
-    console.log(props.questionsData.questions.getQuestionsData&&props.questionsData.questions.getQuestionsData)
     
     return (
         <div className={styleSee.wrap}>

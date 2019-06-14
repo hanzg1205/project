@@ -1,15 +1,14 @@
-import React from 'react'
+import React, {useState,useEffect}from 'react'
 import {connect} from 'dva'
-import { List, Avatar, Button, Skeleton } from 'antd';
+import { List } from 'antd';
 import '../views/Meun/questionsManagement/QuestionsSee/Table.scss'
 function TableView(props){
-    console.log(props.questionsData.questions.getQuestionsData&&props.questionsData.questions.getQuestionsData)
-    let list=props.questionsData.questions.getQuestionsData.action&&props.questionsData.questions.getQuestionsData.action
+    console.log(props)
     return (
         <List
             className="demo-loadmore-list"
             itemLayout="horizontal"
-            dataSource={list}
+            // dataSource={props.getQuestionsData&&props.getQuestionsData.action}
             style={{padding:20}}
             renderItem={item => (
             <List.Item actions={[<a>编辑</a>]} style={{display:'flex',justifyContent:'space-between'}}>
@@ -26,10 +25,6 @@ function TableView(props){
         )}
       />
     )
-}
-const mapStateToProps=(state)=>{
-    return {
-        questionsData:state
-    }
-}
-export default connect(mapStateToProps)(TableView)
+} 
+
+export default TableView

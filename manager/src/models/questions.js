@@ -57,6 +57,12 @@ export default {
         },
         // 获取题目类型
         *questionsType({payload},{call,put}){
+
+
+
+
+
+            
             let data = yield call(getQuestionsType)
             yield put({ 
                 type: 'getQuestionsType' ,
