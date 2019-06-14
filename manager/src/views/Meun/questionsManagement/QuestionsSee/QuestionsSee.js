@@ -54,7 +54,7 @@ function QuestionsSee(props){
                     </div>
                     <div className={styleSee.top_search}>
                         <div className={styleSee.Bottom_babel}>
-                            <div className={styleSee.Bottom_tit}>考试类型111:</div>
+                            <div className={styleSee.Bottom_tit}>考试类型:</div>
                             <Form.Item>
                                 {getFieldDecorator('exam_id', {
                                     initialValue: undefined
