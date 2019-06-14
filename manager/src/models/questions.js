@@ -1,4 +1,4 @@
-import {add,examType,subjectType,getQuestionsType,getQuestion,getQuestions} from '@/services'
+import {add,examType,subjectType,getQuestionsType,getQuestion,getQuestions,questionsOnly,questionsUpdate} from '@/services'
 
 export default {
     // 命名空间
@@ -17,7 +17,9 @@ export default {
         // 按条件获取的试题
         questionSearch: [],
         //获取全部类型
-        getQuestionsData:[]
+        getQuestionsData:[],
+        // 单个试题
+        questionsOnlyData: {},
     },
 
     // 订阅路由跳转
@@ -35,7 +37,6 @@ export default {
         *add({payload},{call,put}){
             // console.log('payload...',payload)
             let data = yield call(add,payload)
-            console.log('add..data...',data)
             yield put({ 
                 type: 'updateAdd' ,
                 action: data.code === 1 ? 1 : -1
@@ -68,7 +69,6 @@ export default {
         // 按条件获取试题
         *getQuestion({payload},{call,put}){
             let data = yield call(getQuestion,payload)
-            console.log("获取试题.....",data)
             yield put({ 
                 type: 'getQuestionSearch' ,
                 action: data.data
@@ -81,7 +81,24 @@ export default {
                 type:'getQuestionsAll',
                 action:data.data
             })
-        }
+        },
+        // 获取单个试题
+        *questionsOnly({payload},{call,put}){
+            let data = yield call(questionsOnly,payload);
+            yield put({
+                type:'getQuestionsOnly',
+                action:data.data[0]
+            })
+        },
+        // 更新试题
+        *questionsUpdate({payload},{call,put}){
+            let data = yield call(questionsUpdate,payload);
+            console.log('更新试题.....',data);
+            // yield put({
+            //     type:'getQuestionsOnly',
+            //     action:data.data[0]
+            // })
+        },
     },
 
     // 同步操作
@@ -120,6 +137,12 @@ export default {
             return {
                 ...state,
                 getQuestionsData: action
+            };
+        },
+        getQuestionsOnly(state, {action}){
+            return {
+                ...state,
+                questionsOnlyData: action
             };
         },
     },

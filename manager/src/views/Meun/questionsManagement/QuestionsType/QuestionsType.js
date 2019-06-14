@@ -37,24 +37,26 @@ class QuestionsType extends Component{
     render(){
         const columns = [
             {
-                key: 1,
-                id: 1,
+                
                 title: '类型ID',
                 dataIndex: 'questions_type_id',
+                key:1
             },
             {
-                key: 2,
-                id: 2,
+               
                 title: '类型名称',
                 dataIndex: 'questions_type_text',
             },
             {
-                key: 3,
-                id: 3,
+                
                 title: '操作',
                 dataIndex: "",
             },
         ];
+        let data=[];
+        this.props.typeList&&this.props.typeList.map((item,index)=>{
+            return data.push({...item,key:"'"+index+"'"})
+        })
         return (
             <div className={typeStyle.wrap}>
                 <p className={typeStyle.title}>试题分类</p>
@@ -75,7 +77,7 @@ class QuestionsType extends Component{
                         </Modal>
                     </div>
                     <div className={typeStyle.list}>
-                        <Table columns={columns} rowKey={record=>record.id} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
+                        <Table columns={columns} dataSource={data} size="middle" />
                     </div>
                 </div>
             </div>

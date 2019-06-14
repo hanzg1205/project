@@ -7,16 +7,16 @@ const { Option } = Select;
 
 function QuestionsSee(props){
     useEffect(()=>{
-        // 获取考试类型
-        props.examType();
-        // 获取课程类型
-        props.subjectType();
-        // 获取题目类型
-        props.questionsType();
-        // 获取所有试题
-        props.questions()
+         // 获取考试类型
+         props.examType();
+         // 获取课程类型
+         props.subjectType();
+         // 获取题目类型
+         props.questionsType();
+         // 获取所有试题
+         props.questions()
     },[])
-
+    
     // 查询
     let handleSearch = (e) => {
         e.preventDefault();
