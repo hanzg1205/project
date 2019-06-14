@@ -1,6 +1,6 @@
 import  React, {Component} from 'react';
 import typeStyle from './QuestionsType.css'
-import { Button, Input , Table, Modal } from 'antd'
+import { Button, Input, Table, Modal } from 'antd'
 import { connect } from 'dva';
 
 class QuestionsType extends Component{   
@@ -36,16 +36,22 @@ class QuestionsType extends Component{
     render(){
         const columns = [
             {
-              title: '类型ID',
-              dataIndex: 'questions_type_id',
+                key: 1,
+                id: 1,
+                title: '类型ID',
+                dataIndex: 'questions_type_id',
             },
             {
-              title: '类型名称',
-              dataIndex: 'questions_type_text',
+                key: 2,
+                id: 2,
+                title: '类型名称',
+                dataIndex: 'questions_type_text',
             },
             {
-              title: '操作',
-              dataIndex: "",
+                key: 3,
+                id: 3,
+                title: '操作',
+                dataIndex: "",
             },
         ];
         return (
@@ -57,7 +63,7 @@ class QuestionsType extends Component{
                             添加类型
                         </Button>
                         <Modal
-                            title="Basic Modal"
+                            title="创建新类型"
                             visible={this.state.visible}
                             onOk={this.handleOk}
                             onCancel={this.handleCancel}
@@ -68,7 +74,7 @@ class QuestionsType extends Component{
                         </Modal>
                     </div>
                     <div className={typeStyle.list}>
-                        <Table columns={columns} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
+                        <Table columns={columns} rowKey={record=>record.id} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
                     </div>
                 </div>
             </div>

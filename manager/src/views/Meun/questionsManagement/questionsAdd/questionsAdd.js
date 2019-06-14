@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import Markdown from "@/components/Markdown";
 import { connect } from 'dva';
 import { Input ,Select, Button, Form, message} from 'antd';
 import  styles from './questionsAdd.scss';
@@ -181,8 +180,7 @@ const mapDispatchToProps=dispatch=>{
             dispatch({
                 type: "user/userInfo"
             })
-        }
-
+        },
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(questionsAdd))
