@@ -34,12 +34,6 @@ export default {
 
     // 同步操作
     reducers: {
-        save(state, {action}) {
-            console.log(action)
-            return {
-                ...state,
-                typeList: action
-            };
-        },
+      
     },
 };

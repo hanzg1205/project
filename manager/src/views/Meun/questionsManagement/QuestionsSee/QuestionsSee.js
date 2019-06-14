@@ -52,14 +52,14 @@ function QuestionsSee(props){
                 </div>
             </div>
             <div className={styleSee.see_context}>
-                <TableView getQuestionsData={props.questionsData.questions.getQuestionsData&&props.questionsData.questions.getQuestionsData}/>
+                <TableView />
             </div>
         </div>
     )
 }
 const mapStateToProps=(state)=>{
     return{
-        questionsData:state
+       
     }
 }
 const mapDispatchToProps=(dispatch)=>{
