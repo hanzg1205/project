@@ -6,6 +6,7 @@ import { connect } from 'dva';
 const { Option } = Select;
 
 function QuestionsSee(props){
+    console.log(props)
     let  { questions } = props
     useEffect(()=>{
         questions()
@@ -58,7 +59,7 @@ function QuestionsSee(props){
 }
 const mapStateToProps=(state)=>{
     return{
-       
+       ...state.questions
     }
 }
 const mapDispatchToProps=(dispatch)=>{
