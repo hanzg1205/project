@@ -11,8 +11,8 @@ function TableView({props}){
             dataSource={props&&props}
             style={{padding:20}}
             renderItem={item => (                
-                <List.Item actions={[<Link to={{pathname:'/questions/add', state:item.questions_id}}>编辑</Link>]} style={{display:'flex',justifyContent:'space-between'}} className="table-list">
-                    <Link to={{pathname:'/questions/detail', state:item.questions_id}} className="table-href"> 
+                <List.Item actions={[<Link to={`/questions/edit/${item.questions_id}`}>编辑</Link>]} style={{display:'flex',justifyContent:'space-between'}} className="table-list">
+                    <Link to={`/questions/detail/${item.questions_id}`} className="table-href"> 
                     <div>
                         <p>{item.title}</p>
                         <div className="color">

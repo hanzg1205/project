@@ -74,7 +74,7 @@ class QuestionsType extends Component{
                         </Modal>
                     </div>
                     <div className={typeStyle.list}>
-                        <Table columns={columns} rowKey={record=>record.id} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
+                        <Table columns={columns} rowKey="1" dataSource={this.props.typeList&&this.props.typeList} size="middle" />
                     </div>
                 </div>
             </div>

@@ -36,3 +36,15 @@ export function getQuestions(){
     })
 }
 
+export function getDetailData(params){
+    return request({
+        params:{
+            questions_id:params
+        },
+        url:'/exam/questions/condition',
+        method:'GET'
+    })
+}
+
+
+
