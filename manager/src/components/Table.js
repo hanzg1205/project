@@ -1,17 +1,10 @@
 import React from 'react'
+import {connect} from 'dva'
 import { List, Avatar, Button, Skeleton } from 'antd';
 import '../views/Meun/questionsManagement/QuestionsSee/Table.scss'
 function TableView(props){
-    let list=[
-        {
-            name:111
-        },
-        {
-            name:111
-        },{
-            name:111
-        }
-    ]
+    console.log(props.questionsData.questions.getQuestionsData&&props.questionsData.questions.getQuestionsData)
+    let list=props.questionsData.questions.getQuestionsData.action&&props.questionsData.questions.getQuestionsData.action
     return (
         <List
             className="demo-loadmore-list"
@@ -21,17 +14,22 @@ function TableView(props){
             renderItem={item => (
             <List.Item actions={[<a>编辑</a>]} style={{display:'flex',justifyContent:'space-between'}}>
                 <div>
-                    <p>机器人归位</p>
+                    <p>{item.title}</p>
                     <div className="color">
-                        <p className="content_every_cont_left_left_y">代码不全</p>
-                        <p className="content_every_cont_left_center_y">javasxript</p>
-                        <p className="content_every_cont_left_right_y">周考一</p>
+                        <p className="content_every_cont_left_left_y">{item.questions_type_text}</p>
+                        <p className="content_every_cont_left_center_y">{item.subject_text}</p>
+                        <p className="content_every_cont_left_right_y">{item.exam_name}</p>
                     </div>
-                    <p>dingshaoshan 发布</p>
+                    <p>{item.user_name}</p>
                 </div>
             </List.Item>
         )}
       />
     )
 }
-export default TableView
+const mapStateToProps=(state)=>{
+    return {
+        questionsData:state
+    }
+}
+export default connect(mapStateToProps)(TableView)

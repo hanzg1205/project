@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect}from 'react'
 import { Radio, Select, Button } from 'antd';
 import styleSee from './QuestionsSee.scss'
 import TableView from  '../../../../components/Table.js'
+import { connect } from 'dva';
 const { Option } = Select;
 
-function QuestionsSee(){
+function QuestionsSee(props){
+    let  { questions } = props
+    useEffect(()=>{
+        questions()
+    },[])
+    console.log(props.questionsData.questions.getQuestionsData&&props.questionsData.questions.getQuestionsData)
+    
     return (
         <div className={styleSee.wrap}>
             <h2 className={styleSee.title}>查看试题</h2>
@@ -45,9 +52,21 @@ function QuestionsSee(){
                 </div>
             </div>
             <div className={styleSee.see_context}>
-                <TableView />
+                <TableView getQuestionsData={props.questionsData.questions.getQuestionsData&&props.questionsData.questions.getQuestionsData}/>
             </div>
         </div>
     )
 }
-export default QuestionsSee
+const mapStateToProps=(state)=>{
+    return{
+        questionsData:state
+    }
+}
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        questions(){
+            dispatch({type:'questions/getQuestions'})
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(QuestionsSee)
