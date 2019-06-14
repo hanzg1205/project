@@ -1,4 +1,4 @@
-import {add,examType,subjectType,getQuestionsType,getQuestion} from '@/services'
+import {add,examType,subjectType,getQuestionsType,getQuestion,getQuestions} from '@/services'
 
 export default {
     // 命名空间
@@ -15,7 +15,9 @@ export default {
         // 添加试题 状态
         addQuestionsFlag: 0,
         // 按条件获取的试题
-        questionSearch: []
+        questionSearch: [],
+        //获取全部类型
+        getQuestionsData:[]
     },
 
     // 订阅路由跳转
@@ -72,6 +74,14 @@ export default {
                 action: data.data
             });
         },
+        // 获取所有试题
+        *getQuestions({payload},{call,put}){
+            let data = yield call(getQuestions)
+            yield put({
+                type:'getQuestionsAll',
+                action:data.data
+            })
+        }
     },
 
     // 同步操作
@@ -103,8 +113,14 @@ export default {
         getQuestionSearch(state, {action}){
             return {
                 ...state,
-                questionSearch: action
+                getQuestionsData: action
             };
-        }
+        },
+        getQuestionsAll(state, {action}){
+            return {
+                ...state,
+                getQuestionsData: action
+            };
+        },
     },
 };

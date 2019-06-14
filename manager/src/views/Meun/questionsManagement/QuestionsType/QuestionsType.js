@@ -64,7 +64,7 @@ class QuestionsType extends Component{
                             添加类型
                         </Button>
                         <Modal
-                            title="Basic Modal"
+                            title="创建新类型"
                             visible={this.state.visible}
                             onOk={this.handleOk}
                             onCancel={this.handleCancel}

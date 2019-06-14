@@ -22,9 +22,17 @@ export function examadd(params){
     })
 }
 // 获取用户信息
-export function userInfo(params){
+export function userInfo(){
     return request({
         url:'/user/userInfo',
         method:'GET'
     })
 }
+
+export function getQuestions(){
+    return request({
+        url:'/exam/questions/new',
+        method:'GET'
+    })
+}
+

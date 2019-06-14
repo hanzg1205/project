@@ -13,6 +13,8 @@ function QuestionsSee(props){
         props.subjectType();
         // 获取题目类型
         props.questionsType();
+        // 获取所有试题
+        props.questions()
     },[])
 
     // 查询
@@ -27,7 +29,7 @@ function QuestionsSee(props){
         });        
     }
 
-    const { getFieldDecorator } = props.form;
+    const { getFieldDecorator } = props.form; 
     return (
         <div className={styleSee.wrap}>
             <Form onSubmit={handleSearch} className="login-form">
@@ -87,7 +89,9 @@ function QuestionsSee(props){
                     </div>
                 </div>
                 <div className={styleSee.see_context}>
-                    <TableView />
+                {
+                    props.getQuestionsData.length ? <TableView props={props.getQuestionsData}/> : null 
+                }                  
                 </div>
             </Form>
         </div>
@@ -126,7 +130,12 @@ const mapDispatchToProps = dispatch => {
                 type:"questions/getQuestion",
                 payload
             })
+        },
+        // 获取所有试题
+        questions(){
+            dispatch({type:'questions/getQuestions'})
         }
     }
 }
+
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(QuestionsSee))
