@@ -32,3 +32,13 @@ export function getQuestionsType(){
         method:'GET'
     })
 }
+
+// 按条件获取试题
+export function getQuestion(params){
+    console.log(params)
+    return request({
+        url:'/exam/questions/condition',
+        method:'GET',
+        params: params
+    })
+}

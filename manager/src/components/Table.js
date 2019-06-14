@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Avatar, Button, Skeleton } from 'antd';
+import { List } from 'antd';
 import '../views/Meun/questionsManagement/QuestionsSee/Table.scss'
 function TableView(props){
     let list=[

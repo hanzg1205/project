@@ -1,6 +1,6 @@
 import  React, {Component} from 'react';
 import typeStyle from './QuestionsType.css'
-import { Button, Input , Icon, Table, Modal } from 'antd'
+import { Button, Input, Table, Modal } from 'antd'
 import { connect } from 'dva';
 
 class QuestionsType extends Component{   
