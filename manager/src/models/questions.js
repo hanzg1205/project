@@ -20,6 +20,8 @@ export default {
         getQuestionsData:[],
         // 单个试题
         questionsOnlyData: {},
+        // 更新试题状态
+        questionsUpdateFlag: 0
     },
 
     // 订阅路由跳转
@@ -60,12 +62,6 @@ export default {
         },
         // 获取题目类型
         *questionsType({payload},{call,put}){
-
-
-
-
-
-            
             let data = yield call(getQuestionsType)
             yield put({ 
                 type: 'getQuestionsType' ,
@@ -100,10 +96,10 @@ export default {
         *questionsUpdate({payload},{call,put}){
             let data = yield call(questionsUpdate,payload);
             console.log('更新试题.....',data);
-            // yield put({
-            //     type:'getQuestionsOnly',
-            //     action:data.data[0]
-            // })
+            yield put({
+                type:'getQuestionsUpdate',
+                action:data.code === 1 ? 1 : -1
+            })
         },
     },
 
@@ -149,6 +145,12 @@ export default {
             return {
                 ...state,
                 questionsOnlyData: action
+            };
+        },
+        getQuestionsUpdate(state, {action}){
+            return {
+                ...state,
+                questionsUpdateFlag: action
             };
         },
     },

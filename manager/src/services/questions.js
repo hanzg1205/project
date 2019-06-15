@@ -54,8 +54,8 @@ export function questionsOnly(params){
 // 更新试题
 export function questionsUpdate(params){
     return request({
-        url:'/exam/questions/condition',
+        url:'/exam/questions/update',
         method:'PUT',
-        params
+        data:params
     })
 }
