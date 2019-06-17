@@ -10,6 +10,8 @@ import QuestionDetail from './questionsManagement/questionDetail/questionDetail'
 import QuestionsEdit from './questionsManagement/questionsEdit/questionsEdit';
 import UserSee from './userManagement/userSee';
 import userAdd from './userManagement/userAdd';
+import ExamAdd from './examManagement/examAdd';
+import ExamList from './examManagement/examList';
 function ExaminationMenu(){
     let menu = (
         <Menu>
@@ -41,6 +43,7 @@ function ExaminationMenu(){
                 <MenuView />
                 <Content style={{ overflow: 'auto' }} className={styles.main}>
                     <Switch>
+                        {/* 试题管理 */}
                         <Redirect from="/" to="/questions/add" exact></Redirect>
                         <Route path="/questions/add" component={QuestionsAdd}></Route>
                         <Route path="/questions/type" component={QuestionsType}></Route>
@@ -49,7 +52,10 @@ function ExaminationMenu(){
                         <Route path="/questions/detail/:id" component={QuestionDetail}></Route> 
                         {/* 用户管理 */}
                         <Route path="/user/see" component={UserSee}></Route>                                              
-                        <Route path="/user/add" component={userAdd}></Route>                                              
+                        <Route path="/user/add" component={userAdd}></Route>            
+                        {/* 考试管理 */}
+                        <Route path="/exam/add" component={ExamAdd}></Route>                                              
+                        <Route path="/exam/list" component={ExamList}></Route>
                     </Switch>
                 </Content>
             </div>
