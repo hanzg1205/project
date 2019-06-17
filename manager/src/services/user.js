@@ -46,5 +46,32 @@ export function getDetailData(params){
     })
 }
 
+export function getUserId(){
+    return request({
+        url:'/user/identity',
+        method:'GET'
+    })
+}
+
+export function getData(){
+    return request({
+        url:'/user/user',
+        method:'GET'
+    })
+}
+
+export function userAdd(params){
+    console.log(params)
+    return request({
+        data:{
+            user_name:params.userName,
+            user_pwd:params.userPwd,
+            identity_id:params.userId
+        },
+        url:'/user',
+        method:'POST'
+    })
+}
+
 
 

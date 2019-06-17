@@ -1,4 +1,4 @@
-import { login, userInfo } from '@/services'
+import { login, userInfo, getUserId, getData, userAdd} from '@/services'
 import { setToken, getToken } from '@/utils/user';
 import { routerRedux } from 'dva/router';
 
@@ -9,7 +9,9 @@ export default {
     // 模块内部的状态
     state: {
         isLogin: 0,
-        userInfoData: {}
+        userInfoData: {},
+        getUserIDs:[],
+        getUserDatas:[]
     },
 
     // 订阅路由跳转
@@ -65,6 +67,25 @@ export default {
                 type: 'getUserInfo',
                 action: data.data
             });
+        },
+        *userID({payload},{call,put}){
+            let data = yield call(getUserId);
+            yield put({
+                type:'getUserID',
+                action:data.data
+            })
+        },
+        *userData({payload},{call,put}){
+            let data = yield call(getData)
+            console.log(data.data)
+            yield put({
+                type:'getUserData',
+                action:data.data
+            })
+        },
+        *addUsers({payload},{call,put}){
+            let data = yield call(userAdd,payload)
+            console.log(data)
         }
     },
 
@@ -81,6 +102,18 @@ export default {
                 ...state,
                 userInfoData: action
             };
+        },
+        getUserID(state,{action}){
+            return {
+                ...state,
+                getUserIDs:action
+            }
+        },
+        getUserData(state,{action}){
+            return {
+                ...state,
+                getUserDatas:action
+            }
         }
     },
 };
