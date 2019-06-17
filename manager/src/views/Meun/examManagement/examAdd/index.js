@@ -6,7 +6,10 @@ import './examAdd.scss';
 
 function AddUser(props) {
     useEffect(()=>{
-
+         // 获取考试类型
+         props.examType();
+         // 获取课程类型
+         props.subjectType();
     },[]);
     // 表单提交
     let handleSubmit = e => {
@@ -41,10 +44,11 @@ function AddUser(props) {
                         initialValue: ''
                     })(
                         <Select style={{ width: 160 }}>
-                            <Option value="1" key='1'>11111</Option>
-                            <Option value="2" key='2'>11111</Option>
-                            <Option value="3" key='3'>11111</Option>
-                            <Option value="4" key='4'>11111</Option>                        
+                        {                
+                            props.examTypeData.map(item=>(
+                                <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
+                            ))
+                        }                       
                         </Select>
                     )}
                 </Form.Item>
@@ -54,10 +58,11 @@ function AddUser(props) {
                         initialValue: ''
                     })(
                         <Select style={{ width: 160 }}>
-                            <Option value="1" key='1'>11111</Option>
-                            <Option value="2" key='2'>11111</Option>
-                            <Option value="3" key='3'>11111</Option>
-                            <Option value="4" key='4'>11111</Option>
+                        {                
+                            props.subjectTypeData.map(item=>(
+                                <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
+                            ))
+                        }
                         </Select>
                     )}
                 </Form.Item>
@@ -100,12 +105,23 @@ function AddUser(props) {
 }
 
 const mapStateToProps = state => {
-    return state;
+    return state.questions;
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-    
+        // 获取考试类型
+        examType(){
+            dispatch({
+                type:"questions/examType"
+            })
+        },
+        // 获取课程类型
+        subjectType(){
+            dispatch({
+                type:"questions/subjectType"
+            })
+        },
     };
 };
 
