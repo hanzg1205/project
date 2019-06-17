@@ -8,7 +8,8 @@ import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
 import QuestionsSee from './questionsManagement/QuestionsSee/QuestionsSee'
 import QuestionDetail from './questionsManagement/questionDetail/questionDetail';
 import QuestionsEdit from './questionsManagement/questionsEdit/questionsEdit';
-
+import UserSee from './userManagement/userSee';
+import userAdd from './userManagement/userAdd';
 function ExaminationMenu(){
     let menu = (
         <Menu>
@@ -45,7 +46,10 @@ function ExaminationMenu(){
                         <Route path="/questions/type" component={QuestionsType}></Route>
                         <Route path="/questions/See" component={QuestionsSee}></Route>                      
                         <Route path="/questions/edit/:id" component={QuestionsEdit}></Route>                      
-                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route>                      
+                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route> 
+                        {/* 用户管理 */}
+                        <Route path="/user/see" component={UserSee}></Route>                                              
+                        <Route path="/user/add" component={userAdd}></Route>                                              
                     </Switch>
                 </Content>
             </div>
