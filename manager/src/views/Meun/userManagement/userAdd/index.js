@@ -1,20 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "dva";
 import userAddStyle from './userAdd.scss'
-import { Form, Input, Button, Radio, Select} from 'antd';
+import { Form, Input, Button, Radio, Select,message} from 'antd';
 
 class AddUser extends Component{
     constructor(props){
         super(props)
         this.state={
             formLayout:'horizontal',
-            flag:true
+            flag:true,
+            success:null,
+            viewText:''
         }
     }
     componentDidMount(){
-        let { choiceID , userData } = this.props 
+        let { choiceID , userData , getADddView , getApiView} = this.props 
         choiceID()
         userData()
+        getADddView()
+        getApiView()
     }
     handleFormLayoutChange = e => {
         this.setState({
@@ -22,19 +26,74 @@ class AddUser extends Component{
         })
         this.state.formLayout==='horizontal'?this.setState({flag:false}):this.setState({flag:true})
     }
-    handleSubmit = e => {
-            e.preventDefault();
+    upDataUser=(type)=>{
+        console.log(type)
+       type==='submit'?
             this.props.form.validateFields((err, values) => {
-              if (!err) {
-                let { addUser } = this.props
-                console.log('Received values of form: ', values);
+                if (!err) {
+                    let { upDataId } = this.props
+                    values.upData&&values.userId&&values.userName&&values.userPwd?upDataId(values):message.error('请输入身份')
+                }
+            }):this.props.form.resetFields();
+    }
+    addEdit=(type)=>{
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addEdit } = this.props
+                values.identityName?addEdit(values):message.error('请输入身份')
+            }
+        }):this.props.form.resetFields();
+    }
+    addUser = (type) => {
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addUser} = this.props
                 addUser(values)
             }
-        });
-    };  render(){
+        }):this.props.form.resetFields();
+    }; 
+    addView=(type)=>{
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addViewData} = this.props
+                values.identityName? addViewData(values):message.error('请选择身份id')
+            }
+        }):this.props.form.resetFields();
+    }
+    addApi = (type) =>{
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addApi } = this.props
+                values.apiIdentity&&values.apiIdentityUr&&values.apiIdentityFunc?addApi(values):message.error('请完善输入框的内容')
+            }
+        }):this.props.form.resetFields();
+    }
+    statusId = (type)=>{
+        type==='submit'?
+            this.props.form.validateFields((err, values) => {
+                if (!err) {
+                    let { setStatusView } = this.props;
+                    values.statusId&&values.viewId?setStatusView(values):message.error('请完善输入框的内容')
+                }
+            }):this.props.form.resetFields();
+    }
+    power=(type)=>{
+        type==='submit'?
+            this.props.form.validateFields((err, values) => {
+                if (!err) {
+                let { setApiView } = this.props
+                values.setID&&values.setPower?setApiView(values):message.error('请完善输入框的内容')
+            }
+        }):this.props.form.resetFields();
+    }
+    render(){
         const { Option } = Select;
-        // console.log(this.props)
-        let { getUserIDs , getUserDatas } = this.props;
+        let { getUserIDs , getUserDatas , viewData , getApiViewData} = this.props;
+        console.log(this.props)
         let { getFieldDecorator } = this.props.form;
         return (
             <div className={userAddStyle.wrap}>
@@ -42,31 +101,35 @@ class AddUser extends Component{
                 <div className={userAddStyle.bottom}>
                     <div className={userAddStyle.bottom_Top}>
                         <div className={userAddStyle.bottom_Center}>
-                            <Form style={{marginLeft:'10px'}} onSubmit={this.handleSubmit}>
+                            <Form style={{marginLeft:'10px'}} onSubmit={this.addUser}>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange} >
                                         <Radio.Button value="horizontal">添加用户</Radio.Button>
                                         <Radio.Button value="vertical">更新用户</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
-                                <Select
-                                    showSearch
-                                    style={{ width: 200 }}
-                                    placeholder="Select a person"
-                                    optionFilterProp="children"
-                                    style={this.state.flag?{display:'none'}:{display:'block'}}
-                                >
-                                   {
-                                       getUserDatas.map((item,index)=>{
-                                            return <Option value={item.user_id} key={index}>{item.user_name}</Option>
-                                       })
-                                   }
-                                </Select>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('userName',{
-                                            rules:[{required:true,message:"请输入用户名"}]
-                                        })(
+                                        getFieldDecorator('upData')(
+                                            <Select
+                                                showSearch
+                                                style={{ width: 200 }}
+                                                placeholder="Select a person"
+                                                optionFilterProp="children"
+                                                style={this.state.flag?{display:'none'}:{display:'block'}}
+                                            >
+                                                {
+                                                    getUserDatas.map((item,index)=>{
+                                                        return <Option value={item.user_id} key={index}>{item.user_name}</Option>
+                                                    })
+                                                }
+                                            </Select>
+                                        )
+                                    }
+                                </Form.Item>
+                                <Form.Item>
+                                    {
+                                        getFieldDecorator('userName')(
                                             <Input placeholder="请输入用户名" />
                                         )
                                     }
@@ -74,7 +137,7 @@ class AddUser extends Component{
                                 <Form.Item>
                                     {
                                         getFieldDecorator('userPwd',{
-                                            rules:[{required:true,message:"请输入密码"},{pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/,message: '请输入正确的密码!'}]
+                                            rules:[{pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/,message: '请输入正确的密码!'}]
                                         })(
                                             <Input placeholder="请输入密码" />
                                         )
@@ -82,9 +145,7 @@ class AddUser extends Component{
                                 </Form.Item >
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('userId',{
-                                            rules:[{required:true,message:"请选择用户"}]
-                                        })(
+                                        getFieldDecorator('userId')(
                                             <Select
                                                 showSearch
                                                 style={{ width: 200 }}
@@ -101,13 +162,13 @@ class AddUser extends Component{
                                     }
                                 </Form.Item>
                                 <Form.Item >
-                                    <Button type="primary" htmlType="submit">提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px'}}>重置</Button>
+                                    <Button type="primary" onClick={()=>{this.state.flag?this.addUser('submit'):this.upDataUser('submit')}}>提交</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.state.flag?this.addUser('sub'):this.upDataUser('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                         <div className={userAddStyle.bottom_Center}>
-                            <Form onSubmit={this.addIdentity}>
+                            <Form onSubmit={this.addEdit}>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
                                         <Radio.Button value="horizontal">添加身份</Radio.Button>
@@ -115,21 +176,19 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item >
                                     {
-                                        getFieldDecorator('userPwd',{
-                                            rules:[{required:true,message:"请输入密码"}]
-                                        })(
+                                        getFieldDecorator('identityName')(
                                             <Input placeholder="请输入身份名称" />
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" htmlType="submit">提交</Button>
-                                    <Button type="primary">重置</Button>
+                                    <Button type="primary" onClick={()=>{this.addEdit('submit')}}>提交</Button>
+                                    <Button type="primary" onClick={()=>{this.addEdit('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                         <div>
-                            <Form onSubmit={this.addIdentity}>
+                            <Form >
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" >
                                         <Radio.Button value="horizontal">添加api接口权限</Radio.Button>
@@ -137,41 +196,35 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('apiIdentity',{
-                                            rules:[{required:true,message:"请输入api接口权限名"}]
-                                        })(
+                                        getFieldDecorator('apiIdentity')(
                                             <Input placeholder="请输入api接口权限名" />
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('apiIdentityUr',{
-                                            rules:[{required:true,message:"请输入api接口权限ur"}]
-                                        })(
+                                        getFieldDecorator('apiIdentityUr')(
                                             <Input placeholder="请输入api接口权限ur" />
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('apiIdentityFunc',{
-                                            rules:[{required:true,message:"请输入api接口权限方法"}]
-                                        })(
+                                        getFieldDecorator('apiIdentityFunc')(
                                             <Input placeholder="请输入api接口权限方法" />
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" htmlType="submit">提交</Button>
-                                    <Button type="primary">重置</Button>
+                                    <Button type="primary" onClick={()=>{this.addApi('submit')}}>提交</Button>
+                                    <Button type="primary" onClick={()=>{this.addApi('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                     </div>
                     <div className={userAddStyle.bottom_Bottom}>
                         <div>
-                            <Form onSubmit={this.addView}>
+                            <Form>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" style={{marginLeft:'10px'}}>
                                         <Radio.Button value="horizontal">添加视图接口</Radio.Button>
@@ -179,76 +232,78 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('addView',{
-                                            rules:[{required:true,message:"请选择视图接口权限"}]
-                                        })(
+                                        getFieldDecorator('addView')(
                                             <Select
                                                 showSearch
-                                                placeholder="Select a person"
+                                                style={{ width: 200 }}
+                                                placeholder="请选则身份id"
                                                 optionFilterProp="children"
-                                            >
-                                                <Option value="jack">Jack</Option>
-                                                <Option value="lucy">Lucy</Option>
-                                                <Option value="tom">Tom</Option>
-                                            </Select>,
+                                                onChange={this.select}
+                                            >      
+                                            {
+                                                viewData.map((item,index)=>{
+                                                    return <Option value={item.view_authority_id} key={index}>{item.view_authority_text}</Option>
+                                                })
+                                            }
+                                            </Select>
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary"  htmlType="submit">提交</Button>
-                                    <Button type="primary">重置</Button>
+                                    <Button type="primary" onClick={()=>{this.addView('submit')}}>提交</Button>
+                                    <Button type="primary" onClick={()=>{this.addView('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                         <div>
-                            <Form onSubmit={this.userId}>
+                            <Form>
                             <Form.Item>
-                                    <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange} >
-                                        <Radio.Button value="horizontal">添加用户</Radio.Button>
+                                    <Radio.Group defaultValue="horizontal">
+                                        <Radio.Button value="horizontal">给身份设置api接口权限</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('setID',{
-                                            rules:[{required:true,message:"请选择身份id"}]
-                                        })(
+                                        getFieldDecorator('setID')(
                                             <Select
                                                 showSearch
                                                 placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
-                                                <Option value="jack">Jack</Option>
-                                                <Option value="lucy">Lucy</Option>
-                                                <Option value="tom">Tom</Option>
-                                            </Select>,
+                                                {
+                                                     getUserIDs.map((item,index)=>{
+                                                        return <Option value={item.identity_id} key={index}>{item.identity_text}</Option>
+                                                    })
+                                                }
+                                            </Select>
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('setPower',{
-                                            rules:[{required:true,message:"请选择接口权限"}]
-                                        })(
+                                        getFieldDecorator('setPower')(
                                             <Select
                                                 showSearch
                                                 placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
-                                                <Option value="jack">Jack</Option>
-                                                <Option value="lucy">Lucy</Option>
-                                                <Option value="tom">Tom</Option>
+                                                {
+                                                    getApiViewData.map((item,index)=>{
+                                                        return <Option value={item.identity_api_authority_relation_id} key={index}>{item.api_authority_text}</Option>
+                                                    })
+                                                }
                                             </Select>,
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary"  htmlType="submit">提交</Button>
-                                    <Button type="primary">重置</Button>
+                                    <Button type="primary" onClick={()=>{this.power('submit')}}>提交</Button>
+                                    <Button type="primary" onClick={()=>{this.power('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                         <div>
-                            <Form onSubmit={this.addStatusId}>
+                            <Form>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
                                         <Radio.Button value="horizontal">给身份设置视图</Radio.Button>
@@ -256,41 +311,41 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('statusId',{
-                                            rules:[{required:true,message:"请选择身份"}]
-                                        })(
+                                        getFieldDecorator('statusId')(
                                             <Select
                                                 showSearch
                                                 placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
-                                                <Option value="jack">Jack</Option>
-                                                <Option value="lucy">Lucy</Option>
-                                                <Option value="tom">Tom</Option>
+                                                {
+                                                     getUserIDs.map((item,index)=>{
+                                                        return <Option value={item.identity_id} key={index}>{item.identity_text}</Option>
+                                                    })
+                                                }
                                             </Select>,
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('viewId',{
-                                            rules:[{required:true,message:"请选则视图"}]
-                                        })(
+                                        getFieldDecorator('viewId')(
                                             <Select
                                                 showSearch
                                                 placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
-                                                <Option value="jack">Jack</Option>
-                                                <Option value="lucy">Lucy</Option>
-                                                <Option value="tom">Tom</Option>
+                                                {
+                                                viewData.map((item,index)=>{
+                                                        return <Option value={item.view_authority_id} key={index}>{item.view_authority_text}</Option>
+                                                    })
+                                                }
                                             </Select>,
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary"  htmlType="submit">提交</Button>
-                                    <Button type="primary">重置</Button>
+                                    <Button type="primary" onClick={()=>{this.statusId('submit')}}>提交</Button>
+                                    <Button type="primary" onClick={()=>{this.statusId('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
@@ -302,6 +357,7 @@ class AddUser extends Component{
 }
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
         ...state.user
     }
@@ -317,6 +373,30 @@ const mapDispatchToProps = dispatch => {
         },
         userData(){
             dispatch({type:'user/userData'})
+        },
+        addEdit(payload){
+            dispatch({type:'user/editData',payload:payload})
+        },
+        addApi(payload){
+            dispatch({type:'user/ApiData',payload:payload})
+        },
+        getADddView(){
+            dispatch({type:'user/getView'})
+        },
+        addViewData(payload){
+            dispatch({type:'user/addViews',payload:payload})
+        },
+        getApiView(){
+            dispatch({type:'user/getApiViews'})
+        },
+        setApiView(payload){
+            dispatch({type:'user/getApiViewData',payload:payload})
+        },
+        setStatusView(payload){
+            dispatch({type:'user/getApiStatus',payload:payload})
+        },
+        upDataId(payload){
+            dispatch({type:'user/upDataUser',payload:payload})
         }
     };
 };

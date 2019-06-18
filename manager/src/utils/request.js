@@ -3,7 +3,7 @@ import { getToken } from '@/utils/user';
 
 // create an axios instance
 const service = axios.create({
-    baseURL: 'http://169.254.120.1:7001',
+    baseURL: 'http://127.0.0.1:7001',
     // withCredentials: true, // 跨域请求时发送 cookies
     timeout: 5000 // request timeout
 })

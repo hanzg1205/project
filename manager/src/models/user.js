@@ -1,6 +1,7 @@
-import { login, userInfo, userShow, userIdentity, userApi, userIdentity_api, userView_authority, userIdentity_view,getUserId, getData, userAdd } from '@/services'
+import { login, userInfo, getUserId, getData, userAdd,editAdd,apiAdd,getAddViews,setAddViews,getApiData,getApiView,getApiViewStatus,upDateUserId,userShow,userIdentity,userApi,userIdentity_api,userView_authority,userIdentity_view} from '@/services'
 import { setToken, getToken } from '@/utils/user';
 import { routerRedux } from 'dva/router';
+import { message } from 'antd';
 
 export default {
     // 命名空间
@@ -24,7 +25,10 @@ export default {
         userIdentity_viewData: [],
 
         getUserIDs:[],
-        getUserDatas:[]
+        getUserDatas:[],
+        addUserCode:0,
+        viewData:[],
+        getApiViewData:[]
     },
 
     // 订阅路由跳转
@@ -153,7 +157,48 @@ export default {
         },
         *addUsers({payload},{call,put}){
             let data = yield call(userAdd,payload)
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *editData({payload},{call,put}){
+            let data = yield call(editAdd,payload)
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *ApiData({payload},{call,put}){
+            let data = yield call(apiAdd,payload)
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *getView({payload},{call,put}){
+            let data = yield call(getAddViews)
+            yield put({
+                type:'getViews',
+                action:data.data
+            })
+        },
+        *addViews({payload},{call,put}){
+            let data = yield call(setAddViews,payload)
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *getApiViews({payload},{call,put}){
+            let data = yield call(getApiData)
             console.log(data)
+            yield put({
+                type:'getApiViewS',
+                action:data.data
+            })
+        },
+        *getApiViewData({payload},{call,put}){
+            let data=yield call(getApiView,payload)
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *getApiStatus({payload},{call,put}){
+            let data=yield call(getApiViewStatus,payload)
+            console.log(data)
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *upDataUser({payload},{call,put}){
+            let data=yield call(upDateUserId,payload)
+            console.log(data)
+            data.code===1?message.success(data.msg):message.error(data.msg)
         }
     },
 
@@ -223,6 +268,18 @@ export default {
             return {
                 ...state,
                 getUserDatas:action
+            }
+        },
+        getViews(state,{action}){
+            return {
+                ...state,
+                viewData:action
+            }
+        },
+        getApiViewS(state,{action}){
+            return {
+                ...state,
+                getApiViewData:action
             }
         }
     },
