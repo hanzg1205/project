@@ -1,4 +1,4 @@
-import { login, userInfo, userShow, userIdentity, userApi, userIdentity_api, userView_authority, userIdentity_view } from '@/services'
+import { login, userInfo, userShow, userIdentity, userApi, userIdentity_api, userView_authority, userIdentity_view,getUserId, getData, userAdd } from '@/services'
 import { setToken, getToken } from '@/utils/user';
 import { routerRedux } from 'dva/router';
 
@@ -21,8 +21,10 @@ export default {
         // 视图接口权限   
         userView_authorityData: [],
         // 身份和视图权限关系
-        userIdentity_viewData: []
+        userIdentity_viewData: [],
 
+        getUserIDs:[],
+        getUserDatas:[]
     },
 
     // 订阅路由跳转
@@ -134,6 +136,25 @@ export default {
             });
         },
 
+        *userID({payload},{call,put}){
+            let data = yield call(getUserId);
+            yield put({
+                type:'getUserID',
+                action:data.data
+            })
+        },
+        *userData({payload},{call,put}){
+            let data = yield call(getData)
+            console.log(data.data)
+            yield put({
+                type:'getUserData',
+                action:data.data
+            })
+        },
+        *addUsers({payload},{call,put}){
+            let data = yield call(userAdd,payload)
+            console.log(data)
+        }
     },
 
     // 同步操作
@@ -192,5 +213,17 @@ export default {
                 userIdentity_viewData: action
             }
         },
+        getUserID(state,{action}){
+            return {
+                ...state,
+                getUserIDs:action
+            }
+        },
+        getUserData(state,{action}){
+            return {
+                ...state,
+                getUserDatas:action
+            }
+        }
     },
 };
