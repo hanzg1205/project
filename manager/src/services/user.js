@@ -61,7 +61,6 @@ export function getData(){
 }
 
 export function userAdd(params){
-    console.log(params)
     return request({
         data:{
             user_name:params.userName,
@@ -70,6 +69,93 @@ export function userAdd(params){
         },
         url:'/user',
         method:'POST'
+    })
+}
+
+export function editAdd(params){
+    return request({
+        params:{
+            identity_text:params.identityName,
+        },
+        url:'/user/identity/edit',
+        method:'GET'
+    })
+}
+
+export function apiAdd(params){
+    console.log(params)
+    return request({
+        params:{
+            api_authority_text:params.apiIdentity,
+            api_authority_url:params.apiIdentityUr,
+            api_authority_method:params.apiIdentityFunc
+        },
+        url:'/user/authorityApi/edit',
+        method:'GET'
+    })
+}
+
+export function getAddViews(){
+    return request({
+        url:'/user/view_authority',
+        method:'GET'
+    })
+}
+
+export function setAddViews(params){
+    return request({
+        params:{
+            view_authority_text:params.addView,
+            view_id:params.addView
+        },
+        url:'/user/authorityView/edit',
+        method:'GET'
+    })
+}
+
+export function getApiData(){
+    return request({
+        url:'/user/identity_api_authority_relation',
+        method:'GET'
+    })
+}
+
+export function getApiView(params){
+    console.log(params)
+    return request({
+        params:{
+            api_authority_text:params.setPower,
+            api_authority_url:params.setID,
+            api_authority_method:params.setPower
+        },
+        url:'/user/authorityApi/edit',
+        method:'GET'
+    })
+}
+
+export function getApiViewStatus(params){
+    console.log(params)
+    return request({
+        params:{
+            identity_id:params.statusId,
+            view_authority_id:params.viewId
+        },
+        url:'/user/setIdentityView',
+        method:'GET'
+    })
+}
+
+export function upDateUserId(params){
+    console.log(params)
+    return request({
+        params:{
+            user_id:params.userId,
+            user_name:params.userName,
+            user_pwd:params.userPwd,
+            identity_id:params.upData
+        },
+        url:'/user/setIdentityView',
+        method:'GET'
     })
 }
 
