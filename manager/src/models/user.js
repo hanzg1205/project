@@ -1,4 +1,4 @@
-import { login, userInfo, getUserId, getData, userAdd,editAdd,apiAdd,getAddViews,setAddViews,getApiData,getApiView,getApiViewStatus,upDateUserId} from '@/services'
+import { login, userInfo, getUserId, getData, userAdd,editAdd,apiAdd,getAddViews,setAddViews,getApiData,getApiView,getApiViewStatus,upDateUserId,userShow,userIdentity,userApi,userIdentity_api,userView_authority,userIdentity_view} from '@/services'
 import { setToken, getToken } from '@/utils/user';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
@@ -11,6 +11,19 @@ export default {
     state: {
         isLogin: 0,
         userInfoData: {},
+        // 用户数据
+        userData: [],
+        // 身份数据 
+        userIdentityData: [],
+        // api接口权限
+        userApiData: [],
+        // 身份和api权限关系  
+        userIdentity_apiData: [],
+        // 视图接口权限   
+        userView_authorityData: [],
+        // 身份和视图权限关系
+        userIdentity_viewData: [],
+
         getUserIDs:[],
         getUserDatas:[],
         addUserCode:0,
@@ -66,12 +79,67 @@ export default {
         },
         *userInfo({payload},{call,put}){
             let data = yield call(userInfo);
-            console.log(data);
+            // console.log(data);
             yield put({
                 type: 'getUserInfo',
                 action: data.data
             });
         },
+        // 用户数据
+        *userShow({payload},{call,put}){
+            let data = yield call(userShow);
+            // console.log(data);
+            yield put({
+                type: 'getUserShow',
+                action: data.data
+            });
+        },
+        // 身份数据
+        *userIdentity({payload},{call,put}){
+            let data = yield call(userIdentity);
+            // console.log(data);
+            yield put({
+                type: 'getUserIdentity',
+                action: data.data
+            });
+        },
+        // api接口权限
+        *userApi({payload},{call,put}){
+            let data = yield call(userApi);
+            console.log(data);
+            yield put({
+                type: 'getUserApi',
+                action: data.data
+            });
+        },
+        // 身份和api权限关系  
+        *userIdentity_api({payload},{call,put}){
+            let data = yield call(userIdentity_api);
+            console.log(data);
+            yield put({
+                type: 'getUserIdentity_api',
+                action: data.data
+            });
+        },
+        // 视图接口权限   
+        *userView_authority({payload},{call,put}){
+            let data = yield call(userView_authority);
+            console.log(data);
+            yield put({
+                type: 'getUserView_authority',
+                action: data.data
+            });
+        },
+        // 身份和视图权限关系
+        *userIdentity_view({payload},{call,put}){
+            let data = yield call(userIdentity_view);
+            console.log(data);
+            yield put({
+                type: 'getUserIdentity_view',
+                action: data.data
+            });
+        },
+
         *userID({payload},{call,put}){
             let data = yield call(getUserId);
             yield put({
@@ -147,6 +215,48 @@ export default {
                 ...state,
                 userInfoData: action
             };
+        },
+        // 用户数据
+        getUserShow(state, {action}){
+            return {
+                ...state,
+                userData: action
+            }
+        },
+        // 身份数据
+        getUserIdentity(state, {action}){
+            return {
+                ...state,
+                userIdentityData: action
+            }
+        },
+        // api接口权限
+        getUserApi(state, {action}){
+            return {
+                ...state,
+                userApiData: action
+            }
+        },
+        // 身份和api权限关系  
+        getUserIdentity_api(state, {action}){
+            return {
+                ...state,
+                userIdentity_apiData: action
+            }
+        },
+        // 视图接口权限   
+        getUserView_authority(state, {action}){
+            return {
+                ...state,
+                userView_authorityData: action
+            }
+        },
+        // 身份和视图权限关系
+        getUserIdentity_view(state, {action}){
+            return {
+                ...state,
+                userIdentity_viewData: action
+            }
         },
         getUserID(state,{action}){
             return {
