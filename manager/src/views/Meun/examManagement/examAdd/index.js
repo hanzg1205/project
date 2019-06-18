@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "dva";
-import { Form, Input, Button, Select, InputNumber, DatePicker } from 'antd';
+import { Form, Input, Button, Select, InputNumber, DatePicker,message } from 'antd';
 // import moment from 'moment';
 import './examAdd.scss';
 
@@ -10,14 +10,24 @@ function AddUser(props) {
          props.examType();
          // 获取课程类型
          props.subjectType();
-    },[]);
+
+        if(props.examAddFlag === 1){
+            message.success('添加考试成功！')
+        }else if(props.examAddFlag === -1){
+            message.error('添加考试失败！')
+        }
+    },[props.examAddFlag]);
     // 表单提交
     let handleSubmit = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                console.log( +values.start_time._d )
+                values.start_time = +values.start_time._d;
+                values.end_time = +values.end_time._d;
+                values.number = values.number * 1;
                 console.log('Received values of form: ', values);
+                // 添加考试
+                props.examAdd(values);
             }
         });
     }
@@ -29,7 +39,7 @@ function AddUser(props) {
         <div className="exam-add-box">
             <Form onSubmit={handleSubmit} className="login-form">
                 <Form.Item label="试卷名称：">
-                    {getFieldDecorator('tite', {
+                    {getFieldDecorator('title', {
                         rules: [{ required: true, message: '请输入试卷名称!' }],
                     })(
                         <Input
@@ -122,6 +132,13 @@ const mapDispatchToProps = dispatch => {
                 type:"questions/subjectType"
             })
         },
+        // 添加考试
+        examAdd(payload){
+            dispatch({
+                type: "questions/examAdd",
+                payload
+            })
+        }
     };
 };
 
