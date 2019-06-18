@@ -14,7 +14,7 @@ function AddUser(props) {
         if(props.examAddFlag === 1){
             message.success('添加考试成功！')
         }else if(props.examAddFlag === -1){
-            message.error('添加考试失败！')
+            message.success('添加考试失败！')
         }
     },[props.examAddFlag]);
     // 表单提交
