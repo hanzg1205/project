@@ -8,7 +8,8 @@ export default {
         typeList:[],
         getDetailDates:[],
         // 试卷列表
-        examListData: []
+        examListData: [],
+        
     },
 
     // 订阅路由跳转

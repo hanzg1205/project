@@ -12,6 +12,7 @@ import UserSee from './userManagement/userSee';
 import userAdd from './userManagement/userAdd';
 import ExamAdd from './examManagement/examAdd';
 import ExamList from './examManagement/examList';
+import ExamEdit from './examManagement/examEdit';
 function ExaminationMenu(){
     let menu = (
         <Menu>
@@ -56,6 +57,7 @@ function ExaminationMenu(){
                         {/* 考试管理 */}
                         <Route path="/exam/add" component={ExamAdd}></Route>                                              
                         <Route path="/exam/list" component={ExamList}></Route>
+                        <Route path="/exam/edit" component={ExamEdit}></Route>
                     </Switch>
                 </Content>
             </div>

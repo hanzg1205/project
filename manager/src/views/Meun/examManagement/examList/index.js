@@ -4,12 +4,12 @@ import { connect } from 'dva';
 import './examList.scss';
 const { Option } = Select;
 
-function QuestionsSee(props){
+function examList(props){
     useEffect(()=>{
-         // 获取考试类型
-         props.examType();
-         // 获取课程类型
-         props.subjectType();
+        // 获取考试类型
+        props.examType();
+        // 获取课程类型
+        props.subjectType();
         // 获取试卷列表
         props.examList();
     },[])
@@ -25,18 +25,18 @@ function QuestionsSee(props){
         });        
     }
     // 计算考试时间
-    function computTime() {
-        let startTime = props.examListData[0].start_time*1;
-        let endTime = props.examListData[0].end_time*1;
+    function computTime(obj) {
+        let startTime = obj.start_time*1;
+        let endTime = obj.end_time*1;
         let newTime = endTime - startTime;
          //计算出小时数
-        var leave1 = newTime % (24 * 3600 * 1000);    //计算天数后剩余的毫秒数
+        var leave1 = newTime % (24 * 3600 * 1000);   
         var hours = Math.floor(leave1 / (3600 * 1000));
         //计算相差分钟数
-        var leave2 = leave1 % (3600 * 1000);        //计算小时数后剩余的毫秒数
+        var leave2 = leave1 % (3600 * 1000);     
         var minutes = Math.floor(leave2 / (60 * 1000));
         //计算相差秒数
-        var leave3 = leave2 % (60 * 1000);      //计算分钟数后剩余的毫秒数
+        var leave3 = leave2 % (60 * 1000);    
         var seconds = Math.round(leave3 / 1000);
         return hours + ":" + minutes + ":" + seconds;
     }
@@ -45,11 +45,11 @@ function QuestionsSee(props){
             title: '试卷信息',
             dataIndex: 'title',
             key: 'title',
-            render: tags => {
+            render: (tags,obj) => {
                 return <div>
                     <h4>{tags}</h4>
-                    <p><span style={{marginRight:'10px'}}>考试时间：{computTime()}</span><span>{props.examListData[0].number}道题</span></p>
-                    <p>作弊{props.examListData[0].status}分</p>
+                    <p><span style={{marginRight:'10px'}}>考试时间：{computTime(obj)}</span><span>{obj.number}道题</span></p>
+                    <p>作弊{obj.status}分</p>
                 </div>
             },
         },
@@ -82,8 +82,7 @@ function QuestionsSee(props){
                     <p>{new Date(item*1).toLocaleDateString()}</p>
                     <p>{new Date(item*1).toLocaleTimeString()}</p>
                 </>
-            }
-           
+            }          
         },
         {
             title: '结束时间',
@@ -94,8 +93,7 @@ function QuestionsSee(props){
                     <p>{new Date(item*1).toLocaleDateString()}</p>
                     <p>{new Date(item*1).toLocaleTimeString()}</p>
                 </>
-            }
-            
+            }            
         },
         {
             title: '操作',
@@ -150,7 +148,7 @@ function QuestionsSee(props){
             </Form>
             <div className="exam-list-table">
                 <h4>试卷列表</h4>
-                <Table columns={columns} dataSource={props.examListData} rowKey={record =>`${record.exam_id}`}></Table>
+                <Table columns={columns} dataSource={props.examListData} rowKey={record =>`${record.exam_exam_id}`}></Table>
             </div>
         </div>
     )
@@ -187,4 +185,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(QuestionsSee))
+export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(examList))
