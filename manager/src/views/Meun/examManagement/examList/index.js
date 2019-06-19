@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { Select, Button, Form } from 'antd';
+import { Select, Button, Form, Table } from 'antd';
 import { connect } from 'dva';
 import './examList.scss';
 const { Option } = Select;
@@ -20,11 +20,91 @@ function QuestionsSee(props){
         props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                 
+
             }
         });        
     }
-
+    // 计算考试时间
+    function computTime() {
+        let startTime = props.examListData[0].start_time*1;
+        let endTime = props.examListData[0].end_time*1;
+        let newTime = endTime - startTime;
+         //计算出小时数
+        var leave1 = newTime % (24 * 3600 * 1000);    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000));
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000);        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000));
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000);      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000);
+        return hours + ":" + minutes + ":" + seconds;
+    }
+    const columns = [
+        {
+            title: '试卷信息',
+            dataIndex: 'title',
+            key: 'title',
+            render: tags => {
+                return <div>
+                    <h4>{tags}</h4>
+                    <p><span style={{marginRight:'10px'}}>考试时间：{computTime()}</span><span>{props.examListData[0].number}道题</span></p>
+                    <p>作弊{props.examListData[0].status}分</p>
+                </div>
+            },
+        },
+        {
+            title: '班级',
+            dataIndex: 'grade_name',
+            key: 'grade_name',
+            render: tags => (
+                <div>
+                    <h4>考试班级</h4>
+                    {tags.map((tag,index) => {
+                        return (
+                            <p key={index} style={{margin:0}}>{tag}</p>
+                        );
+                    })}
+                </div>
+            ),
+        },
+        {
+            title: '创建人',
+            dataIndex: 'user_name',
+            key: 'user_name',
+        },
+        {
+            title: '开始时间',
+            key: 'start_time',
+            dataIndex: 'start_time',
+            render: (item) => {
+                return <>
+                    <p>{new Date(item*1).toLocaleDateString()}</p>
+                    <p>{new Date(item*1).toLocaleTimeString()}</p>
+                </>
+            }
+           
+        },
+        {
+            title: '结束时间',
+            key: 'end_time',
+            dataIndex: 'end_time',
+            render: (item) => {
+                return <>
+                    <p>{new Date(item*1).toLocaleDateString()}</p>
+                    <p>{new Date(item*1).toLocaleTimeString()}</p>
+                </>
+            }
+            
+        },
+        {
+            title: '操作',
+            dataIndex: '',
+            key: 'x',
+            render: () => <a style={{color:'#0139FD'}}>详情</a>,
+        },
+    ];
+      
     const { getFieldDecorator } = props.form; 
     return (
         <div className='exam-wrapper'>
@@ -68,6 +148,10 @@ function QuestionsSee(props){
                     </div>
                 </div>
             </Form>
+            <div className="exam-list-table">
+                <h4>试卷列表</h4>
+                <Table columns={columns} dataSource={props.examListData} rowKey={record =>`${record.exam_id}`}></Table>
+            </div>
         </div>
     )
 }
@@ -75,7 +159,8 @@ function QuestionsSee(props){
 const mapStateToProps = state => {
     console.log("state...",state)
     return{
-        ...state.questions
+        ...state.questions,
+        ...state.exam
     }
 }
 const mapDispatchToProps = dispatch => {

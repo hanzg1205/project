@@ -6,7 +6,9 @@ export default {
     // 模块内部的状态
     state: {
         typeList:[],
-        getDetailDates:[]
+        getDetailDates:[],
+        // 试卷列表
+        examListData: []
     },
 
     // 订阅路由跳转
@@ -42,10 +44,10 @@ export default {
         *examList({payload},{call,put}){
             let data = yield call(examList,payload)
             console.log(data)
-            // yield put({
-            //     type: 'save',
-            //     action: data.data
-            // });
+            yield put({
+                type: 'getExamList',
+                action: data.exam
+            });
         },
     },
 
@@ -63,5 +65,12 @@ export default {
                 getDetailDates: action
             };
         },
+        // 获取试卷列表
+        getExamList(state, {action}){
+            return {
+                ...state,
+                examListData: action
+            };
+        }
     },
 };
