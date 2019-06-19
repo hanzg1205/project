@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'dva'
-import { Button, Icon,Table, Divider, Modal, Input, Select, Form} from 'antd'
+import { Button, Icon,Table, Divider, Modal, Input, Select, Form, message} from 'antd'
 import classManagementStyle from './classManagement.scss'
 
 class ClassManagement extends Component{
@@ -8,33 +8,61 @@ class ClassManagement extends Component{
         super(props)
         this.state={
             visible: false,
+            visibleUpdata: false,
             value:'',
             num:0,
-            selectedRowKeys: [],
+            selectedRowKeys: []
         }
     }
     componentDidMount(){
-        let { getClassRoomName , getClassData} = this.props
+        let { getClassRoomName , getClassData , getExamType} = this.props
         getClassRoomName()
         getClassData()
+        getExamType()
     }
-    handleCancel = e => {
-        this.setState({
-            visible: false
+    remote=(val)=>{
+        let { getClassRoomNum } = this.props
+        getClassRoomNum(val.room_id)
+    }   
+    addClass(type){
+        this.props.form.validateFields((err, values) => {
+            console.log(values)
+            if(type==='submit'){
+                this.setState({
+                    visible:false
+                })
+                let { addClass } = this.props
+                values.classRoomName&&values.curriculumName?(addClass(values),this.props.form.resetFields()):message.error('请将参数填写完整');
+            }else{
+                this.setState({
+                    visible:false
+                })
+                this.props.form.resetFields();
+            }       
         })
-    };
-    handleOk = e => {
-        let { examadd } = this.props;
-        examadd({text:this.state.value,sort:Math.floor(Math.random()*100)})
-        this.setState({
-            visible: false
+    }
+    updata(type){
+        this.props.form.validateFields((err, values) => {
+            console.log(values)
+            if(type==='submit'){
+                this.setState({
+                    visibleUpdata:false
+                })
+                let { updataClass } = this.props
+                values.classRoomName&&values.curriculumName?(updataClass(values),this.props.form.resetFields()):message.error('请将参数填写完整');
+            }else{
+                this.setState({
+                    visibleUpdata:false
+                })
+                this.props.form.resetFields();
+            }       
         })
-    };
+    }
     render(){
         const { getFieldDecorator } = this.props.form
         const { Option } = Select;
         console.log(this.props)
-        let { getClassRoomData , getClassRoomDataS } = this.props
+        let { getClassRoomData , getClassRoomDataS , getClassType } = this.props
         const columns = [
             {
               title: '班级名',
@@ -56,9 +84,9 @@ class ClassManagement extends Component{
               key: 'action',
               render: (text, record) => (
                 <span>
-                  <a href="javascript:;">修改</a>
+                  <a onClick={()=>{this.setState({visibleUpdata:true})}}>修改</a>
                   <Divider type="vertical" />
-                  <a href="javascript:;">删除</a>
+                  <a onClick={()=>{this.remote(text)}}>删除</a>
                 </span>
               ),
             },
@@ -71,19 +99,15 @@ class ClassManagement extends Component{
                     <Button type="primary" onClick={()=>{  this.setState({visible: true})}}><Icon type="plus" />添加班级</Button>
                     <Modal
                         title="创建新类型"
-                        visible={this.state.visible}
-                        onOk={this.handleOk}
-                        onCancel={this.handleCancel}
+                        visible={this.state.visible?this.state.visible:this.state.visibleUpdata}
                     >
-                        <Form>
+                        <Form onSubmit={this.addClass}>
                             <Form.Item label="班级名" hasFeedback>
-                                {getFieldDecorator('className', {
-                                    rules: [{required: true,message: 'Please input your password!'}],
-                                })(<Input placeholder="班级名" />)}
+                                {getFieldDecorator('className')(this.state.visible?<Input placeholder="班级名" />:<Input placeholder="班级名" disabled={true}/>)}
                             </Form.Item>
                             <Form.Item label="教室号">
                                 {getFieldDecorator('classRoomName', {
-                                    rules: [{required: true,message: 'Please confirm your password!',}]
+                                    rules: [{required: true,message: '请选择教室号',}]
                                 })(<Select placeholder="教室号">
                                         {
                                             getClassRoomDataS.map((item,index)=>{
@@ -94,14 +118,18 @@ class ClassManagement extends Component{
                             </Form.Item>
                             <Form.Item label="课程名">
                                 {getFieldDecorator('curriculumName', {
-                                    rules: [{ required: true, message: 'Please input your nickname!'}],
+                                    rules: [{ required: true, message: '请选择课程'}],
                                 })(<Select placeholder="课程名">
                                          {
-                                            getClassRoomData.map((item,index)=>{
-                                                return  <Option key={index} value={item.grade_id}>{item.subject_text}</Option>
+                                            getClassType.map((item,index)=>{
+                                                return  <Option value={item.subject_id} key={index}>{item.subject_text}</Option>
                                             })
                                         }
                                     </Select>)}
+                            </Form.Item>
+                            <Form.Item style={{width:'100%',display:'flex',justifyContent:'space-between'}}>
+                                <Button type="primary" onClick={()=>{this.state.visibleUpdata?this.updata('submit'):this.addClass('submit')}}>添加提交</Button>
+                                <Button type="primary"  onClick={()=>{this.state.visibleUpdata?this.updata('sub'):this.addClass('sub')}} style={{margin:'0 20px'}}>取消</Button>
                             </Form.Item>
                         </Form>
                     </Modal>
@@ -125,6 +153,24 @@ const mapDispatchToProps=(dispatch)=>{
         //获取教室号数据
         getClassData(){
             dispatch({type:'class/getClassName'})
+        },
+        //获取课程类型
+        getExamType(){
+            dispatch({
+                type:"class/getExamTypeData"
+            })
+        },
+        //添加班级
+        addClass(payload){
+            dispatch({type:'class/addClassRoom',payload:payload})
+        },
+        //修改班级
+        updataClass(payload){
+            dispatch({type:'class/upData',payload:payload})
+        },
+        getClassRoomNum(payload){
+            console.log(payload)
+            dispatch({type:'class/setClassNum',payload:payload})
         }
     }
 }

@@ -17,3 +17,8 @@
     background: #fff;
     border-radius: 10px;
 }
+:global{
+    .ant-modal-content .ant-modal-footer {
+        display: none !important;
+    }
+}
