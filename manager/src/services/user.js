@@ -46,6 +46,12 @@ export function getDetailData(params){
     })
 }
 
+// 用户数据
+export function userShow(){
+    return request({
+        url:'/user/user',
+    })
+}
 export function getUserId(){
     return request({
         url:'/user/identity',
@@ -53,6 +59,14 @@ export function getUserId(){
     })
 }
 
+
+// 身份数据
+export function userIdentity(){
+    return request({
+        url:'/user/identity',
+        method:'GET'
+    })
+}
 export function getData(){
     return request({
         url:'/user/user',
@@ -160,4 +174,35 @@ export function upDateUserId(params){
 }
 
 
+// api接口权限
+export function userApi(){
+    return request({
+        url:'/user/api_authority',
+        method:'GET'
+    })
+}
+
+// 身份和api权限关系
+export function userIdentity_api(){
+    return request({
+        url:'/user/identity_api_authority_relation',
+        method:'GET'
+    })
+}
+
+// 视图接口权限
+export function userView_authority(){
+    return request({
+        url:'/user/view_authority',
+        method:'GET'
+    })
+}
+
+// 身份和视图权限关系
+export function userIdentity_view(){
+    return request({
+        url:'/user/identity_view_authority_relation',
+        method:'GET'
+    })
+}
 

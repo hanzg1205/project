@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Breadcrumb, Card, Table } from "antd";
+import { Layout, Breadcrumb, Table , Tabs } from "antd";
 import { connect } from "dva";
+import './index.scss';
 
 function AddUser(props) {
   const [key, updataKey] = useState("tab1");
-
+  useEffect(()=>{
+    // 用户数据
+    props.userShow()
+    // 身份数据
+    props.userIdentity()
+    // api接口权限
+    props.userApi()
+    // 身份和api权限关系
+    props.userIdentity_api()
+    // 视图接口权限
+    props.userView_authority()
+    // 身份和视图权限关系
+    props.userIdentity_view()
+  },[])
   const tabList = [
     {
       key: "tab1",
@@ -32,10 +46,6 @@ function AddUser(props) {
     }
   ];
 
-  useEffect(() => {
-    
-  }, []);
-
   const contentList = {
     tab1: (
       <div>
@@ -58,7 +68,7 @@ function AddUser(props) {
               render: text => <>{text.identity_text}</>
             }
           ]}
-          
+          dataSource = {props.userData}
           rowKey={record => `${record.user_id}`}
         />
       </div>
@@ -74,7 +84,7 @@ function AddUser(props) {
               render: text => <>{text.identity_text}</>
             }
           ]}
-          
+          dataSource = {props.userIdentityData}    
           rowKey={record => `${record.identity_id}`}
         />
       </div>
@@ -99,7 +109,7 @@ function AddUser(props) {
               render: text => <>{text.api_authority_method}</>
             }
           ]}
-          
+          dataSource = {props.userApiData}    
           rowKey={record => `${record.api_authority_id}`}
         />
       </div>
@@ -127,7 +137,7 @@ function AddUser(props) {
               render: text => <>{text.api_authority_method}</>
             }
           ]}
-          
+          dataSource = {props.userIdentity_apiData}              
           rowKey={record => `${record.identity_api_authority_relation_id}`}
         />
       </div>
@@ -148,7 +158,7 @@ function AddUser(props) {
               render: text => <>{text.view_id}</>
             }
           ]}
-          
+          dataSource = {props.userView_authorityData}   
           rowKey={record => `${record.view_authority_id}`}
         />
       </div>
@@ -174,17 +184,17 @@ function AddUser(props) {
               render: text => <>{text.view_id}</>
             }
           ]}
-          
+          dataSource = {props.userIdentity_viewData} 
           rowKey={record => `${record.identity_view_authority_relation_id}`}
         />
       </div>
     )
   };
 
-
-  const onTabChange = key => {
+  const { TabPane } = Tabs;
+  function callback(key) {
     updataKey(key);
-  };
+  }
 
   return (
     <Layout>
@@ -192,18 +202,16 @@ function AddUser(props) {
         <Layout style={{ padding: "0 24px 24px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>
-              <h2>用户展示</h2>
-
-              <Card
-                style={{ width: "100%" }}
-                tabList={tabList}
-                activeTabKey={key}
-                onTabChange={key => {
-                  onTabChange(key);
-                }}
-              >
-                {contentList[key]}
-              </Card>
+              <h2 className="user-title">用户展示</h2>
+              <Tabs defaultActiveKey="tab1" onChange={callback} className="tab_box">
+                {
+                  tabList.map(item => (
+                    <TabPane tab={item.tab} key={item.key}>
+                      {contentList[key]}
+                    </TabPane>
+                  ))
+                }
+              </Tabs>
             </Breadcrumb.Item>
           </Breadcrumb>
         </Layout>
@@ -213,13 +221,50 @@ function AddUser(props) {
 }
 
 const mapStateToProps = state => {
-    return state;
+  console.log(state)
+  return state.user;
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-    
-    };
+  return {
+    // 用户数据
+    userShow(){
+      dispatch({
+        type: 'user/userShow',
+      })
+    },
+    // 身份数据
+    userIdentity(){
+      dispatch({
+        type: 'user/userIdentity',
+      })
+    },
+    // api接口权限
+    userApi(){
+      dispatch({
+        type: 'user/userApi',
+      })
+    },
+    // 身份和api权限关系 
+    userIdentity_api(){
+      dispatch({
+        type: 'user/userIdentity_api',
+      })
+    },
+    // 视图接口权限
+    userView_authority(){
+      dispatch({
+        type: 'user/userView_authority',
+      })
+    },
+    // 身份和视图权限关系
+    userIdentity_view(){
+      dispatch({
+        type: 'user/userIdentity_view',
+      })
+    }
+
+  };
 };
 
 export default connect(

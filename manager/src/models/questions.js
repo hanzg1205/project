@@ -1,4 +1,4 @@
-import {add,examType,subjectType,getQuestionsType,getQuestion,getQuestions,questionsOnly,questionsUpdate} from '@/services'
+import {add,examType,subjectType,getQuestionsType,getQuestion,getQuestions,questionsOnly,questionsUpdate,examAdd} from '@/services'
 
 export default {
     // 命名空间
@@ -21,7 +21,11 @@ export default {
         // 单个试题
         questionsOnlyData: {},
         // 更新试题状态
-        questionsUpdateFlag: 0
+        questionsUpdateFlag: 0,
+        // 添加考试
+        examAddData: [],
+        // 添加试题的状态
+        examAddFlag: 0
     },
 
     // 订阅路由跳转
@@ -95,9 +99,18 @@ export default {
         // 更新试题
         *questionsUpdate({payload},{call,put}){
             let data = yield call(questionsUpdate,payload);
-            console.log('更新试题.....',data);
+            // console.log('更新试题.....',data);
             yield put({
                 type:'getQuestionsUpdate',
+                action:data.code === 1 ? 1 : -1
+            })
+        },
+        // 添加考试
+        *examAdd({payload},{call,put}){
+            let data = yield call(examAdd,payload);
+            console.log(data);
+            yield put({
+                type:'getExamAdd',
                 action:data.code === 1 ? 1 : -1
             })
         },
@@ -153,5 +166,12 @@ export default {
                 questionsUpdateFlag: action
             };
         },
+        // 添加考试
+        getExamAdd(state, {action}){
+            return {
+                ...state,
+                examAddFlag: action
+            };
+        }
     },
 };
