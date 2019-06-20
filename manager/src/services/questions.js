@@ -77,3 +77,13 @@ export function examList(params){
         params
     })
 }
+
+// 创建试卷
+export function createExamGet(params){
+    console.log(params)
+    return request({
+        url:'/exam/exam/w5tcy-g2dts',
+        method:'PUT',
+        data:params
+    })
+}

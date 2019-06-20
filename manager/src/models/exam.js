@@ -1,4 +1,4 @@
-import {exam,examadd,getDetailData,examList} from '@/services'
+import {exam,examadd,getDetailData,examList,createExamGet} from '@/services'
 export default {
     // 命名空间
     namespace: 'exam',
@@ -49,6 +49,16 @@ export default {
                 type: 'getExamList',
                 action: data.exam
             });
+        },
+        // 创建试卷到试卷列表
+        *createExamGet({params},{call,put}){
+            console.log(params)
+            let data = yield call(createExamGet,params);
+            console.log('创建试题.....',data);
+            // yield put({
+            //     type:'getQuestionsUpdate',
+            //     action:data.code === 1 ? 1 : -1
+            // })
         },
     },
 
