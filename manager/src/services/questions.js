@@ -79,10 +79,10 @@ export function examList(params){
 }
 
 // 创建试卷
-export function createExamGet(params){
-    console.log(params)
+export function createExamGet(params,id){
+    console.log(params,id)
     return request({
-        url:'/exam/exam/w5tcy-g2dts',
+        url:'/exam/exam/'+id,
         method:'PUT',
         data:params
     })

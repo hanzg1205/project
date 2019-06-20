@@ -18,11 +18,11 @@ function examEdit(props){
         props.createpaperList.questions.forEach(item => {
             question_ids.push(item.questions_id)
         })
-        let str = JSON.stringify(question_ids);
-        console.log(str.replace(/\"/g,"'"));
+        let str = JSON.stringify(question_ids.join(','));
+        // console.log(str.replace(/\"/g,"'"));
         let params = {question_ids:str};
-        console.log(params);
-        props.createExamGet(params)
+        console.log(params,props.createpaperList.exam_exam_id);
+        props.createExamGet(params,props.createpaperList.exam_exam_id)
     }
     return <div className={style.exap_wrapper}>
         <h2 className='user-title'>创建试卷</h2>
@@ -77,10 +77,11 @@ const mapDispatch = dispatch => {
         questions(){
             dispatch({type:'questions/getQuestions'})
         },
-        createExamGet(params){
+        createExamGet(params,id){
             dispatch({
                 type:'exam/createExamGet',
-                params
+                params,
+                id
             })
         }
     }
