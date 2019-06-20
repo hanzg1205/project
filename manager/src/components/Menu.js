@@ -1,8 +1,10 @@
 import React from 'react';
 import { Menu, Icon, Layout  } from 'antd';
 import { Link } from 'dva/router';
-
-const MenuView = () => {
+//添加国际划
+import { injectIntl } from 'react-intl'
+const MenuView = (props) => {
+    console.log(props.intl)
     const { SubMenu }  = Menu;
     const { Sider } = Layout;
     return (
@@ -15,16 +17,16 @@ const MenuView = () => {
                 title={
                 <span>
                     <Icon type="project" />
-                    <span>试题管理</span>
+                    <span>{props.intl.formatMessage({id:'router.questions'})}</span>
                 </span>}>
                 <Menu.Item key="1">
-                    <Link to="/questions/add">添加试题</Link>
+                    <Link to="/questions/add">{props.intl.formatMessage({id:'router.questions.add'})}</Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Link to="/questions/type">试题分类</Link>
+                    <Link to="/questions/type">{props.intl.formatMessage({id:'router.qusetions.Type'})}</Link>
                 </Menu.Item>
                 <Menu.Item key="3">
-                    <Link to="/questions/See">查看试题</Link>
+                    <Link to="/questions/See">{props.intl.formatMessage({id:'router.questions.List'})}</Link>
                 </Menu.Item>
             </SubMenu>
             <SubMenu
@@ -91,4 +93,4 @@ const MenuView = () => {
 MenuView.propTypes = {
 };
 
-export default MenuView;
+export default injectIntl(MenuView);

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Meun.css';
 import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
+import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
 import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
@@ -13,7 +14,12 @@ import userAdd from './userManagement/userAdd';
 import ExamAdd from './examManagement/examAdd';
 import ExamList from './examManagement/examList';
 import ExamEdit from './examManagement/examEdit';
-function ExaminationMenu(){
+
+import ClassManagement from './classManagement/classManagement/classManagement'
+import ClassRoom from './classManagement/classRoom/classromm'
+import ClassStudent from './classManagement/classStudent/classStudent'
+
+function ExaminationMenu(props){
     let menu = (
         <Menu>
             <Menu.Item key="1">个人中心</Menu.Item>
@@ -37,8 +43,10 @@ function ExaminationMenu(){
                                 </a>
                             </Dropdown>
                         }
+                        <button onClick={()=>{props.changeLocal(props.locale==='zh'?'en':'zh')}}>{props.locale==='zh'?'英文':'中文'}</button>
                     </div>
                 </div>
+                
             </Header>
             <div className={styles.section}>
                 <MenuView />
@@ -58,15 +66,26 @@ function ExaminationMenu(){
                         <Route path="/exam/add" component={ExamAdd}></Route>                                              
                         <Route path="/exam/list" component={ExamList}></Route>
                         <Route path="/exam/edit" component={ExamEdit}></Route>
+                        {/* 班级管理 */}
+                        <Route path="/class/management" component={ClassManagement}></Route>                                              
+                        <Route path="/class/classroom" component={ClassRoom}></Route>
+                        <Route path="/class/student" component={ClassStudent}></Route>
                     </Switch>
                 </Content>
             </div>
         </Layout>
     )
 }
-
-ExaminationMenu.propTypes = {
-
-};
-
-export default ExaminationMenu
+const mapStateToProps=state=>{
+    return {
+        locale:state.global.locale
+    }
+}
+const mapDispatchToProps=dispatch=>{
+    return {
+        changeLocal(payload){
+            dispatch({type:'global/changeLocale',payload})
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ExaminationMenu)
