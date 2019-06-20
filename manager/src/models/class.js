@@ -65,6 +65,7 @@ export default {
         },
         *getStudetS({payload},{call,put}){
             let data = yield call(getStudent)
+            console.log(data)
             yield put({
                 type:'getStudestData',
                 action:data.data

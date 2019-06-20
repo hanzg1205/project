@@ -1,5 +1,5 @@
-import React,{ useState ,useEffect} from 'react'
-import { Button , Icon , Table, Select , Form , Input ,  message} from 'antd'
+import React,{useEffect} from 'react'
+import { Button , Table, Select , Form , Input ,  message} from 'antd'
 import { connect } from 'dva'
 import studentStyle from './classStudent.scss' 
 function ClassStudent(props){
@@ -11,7 +11,6 @@ function ClassStudent(props){
         getStudet();
     },[])
     const { Option } = Select;
-    let [data,]=useState(getStudentDatas)
     let remoteStudent=()=>{
         
     }
@@ -20,7 +19,7 @@ function ClassStudent(props){
           title: '姓名',
           dataIndex: 'student_name',
           key: 'name',
-          render: text => <a href="javascript:;">{text}</a>,
+          render: text => <a>{text}</a>,
         },
         {
           title: '学号',
@@ -66,6 +65,7 @@ function ClassStudent(props){
             props.form.resetFields()
         }
       }
+      let data = getStudentDatas
     console.log(props)
     return (
         <div>

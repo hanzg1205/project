@@ -16,6 +16,7 @@ import ExamList from './examManagement/examList';
 import ClassManagement from './classManagement/classManagement/classManagement'
 import ClassRoom from './classManagement/classRoom/classromm'
 import ClassStudent from './classManagement/classStudent/classStudent'
+import markingManagement from './markingManagement/markingManagement/markingManagement'
 
 function ExaminationMenu(props){
     let menu = (
@@ -67,6 +68,8 @@ function ExaminationMenu(props){
                         <Route path="/class/management" component={ClassManagement}></Route>                                              
                         <Route path="/class/classroom" component={ClassRoom}></Route>
                         <Route path="/class/student" component={ClassStudent}></Route>
+                        {/* 批卷管理 */}
+                        <Route path="/class/special" component={markingManagement}></Route>
                     </Switch>
                 </Content>
             </div>
