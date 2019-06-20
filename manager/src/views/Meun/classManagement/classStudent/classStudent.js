@@ -1,116 +1,112 @@
-import React,{useEffect} from 'react'
-import { Button , Icon , Table, Select , Form , Input , Tag , Divider , message} from 'antd'
+import React,{ useState ,useEffect} from 'react'
+import { Button , Icon , Table, Select , Form , Input ,  message} from 'antd'
 import { connect } from 'dva'
 import studentStyle from './classStudent.scss' 
 function ClassStudent(props){
     let { getFieldDecorator} = props.form
-    let { getClassData , getGrade , getStudet } = props
+    let { getClassData , getGrade , getStudet , getGradeViewData , getStudentDatas } = props
     useEffect(()=>{
         getClassData();
         getGrade();
         getStudet();
     },[])
+    const { Option } = Select;
+    let [data,]=useState(getStudentDatas)
+    let remoteStudent=()=>{
+        
+    }
     const columns = [
         {
           title: '姓名',
-          dataIndex: 'name',
+          dataIndex: 'student_name',
           key: 'name',
           render: text => <a href="javascript:;">{text}</a>,
         },
         {
           title: '学号',
-          dataIndex: 'age',
+          dataIndex: 'student_id',
           key: 'age',
         },
         {
           title: '班级',
-          dataIndex: 'address',
+          dataIndex: 'grade_name',
           key: 'address',
         },
         {
           title: '教室',
           key: 'tags',
-          dataIndex: 'tags'
+          dataIndex: 'room_text'
         },
         {
           title: '密码',
           key: 'action',
+          dataIndex: 'student_pwd'
         },
         {
           title: '操作',
           key: 'detail',
           render: (text, record) => (
             <span>
-              <a>删除</a>
+              <a onClick={()=>{remoteStudent()}}>删除</a>
             </span>
           ),
         },
       ];
-      const data = [
-        {
-          key: '1',
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer'],
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser'],
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park',
-          tags: ['cool', 'teacher'],
-        },
-      ];
       
+      const search=(type)=>{
+        if(type==='submit'){
+            props.form.validateFields((err, values) => {
+                if(values){
+                    //请求接口
+                }else{
+                    message.error('请完善信息')
+                }
+            })
+        }else{
+            props.form.resetFields()
+        }
+      }
     console.log(props)
     return (
         <div>
             <p className={studentStyle.title}>学生管理</p>
             <div className={studentStyle.bottom}>
                 <div>
-                    <Form className={studentStyle.form}>
+                    <Form className={studentStyle.form} >
                         <Form.Item>
-                            {getFieldDecorator('className',{
+                            {getFieldDecorator('studentName',{
                                 rules: [{required: true,message: '请填写班级名',}]
-                            })(<Input placeholder="班级名" />)}
+                            })(<Input placeholder="学生名" />)}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('className',{
+                            {getFieldDecorator('roomName',{
                                 rules: [{required: true,message: '请填写班级名',}]
                             })(
-                                <Select placeholder="教室号">
+                                <Select placeholder="教室号" style={{width:'150px'}}>
                                     {
-                                        // getClassRoomDataS.map((item,index)=>{
-                                        //     return  <Option key={index} value={item.room_id}>{item.room_text}</Option>
-                                        // })
+                                        getGradeViewData.map((item,index)=>{
+                                            return  <Option key={index} value={index}>{item.room_text}</Option>
+                                        })
                                     }
                                 </Select>
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('className',{
+                            {getFieldDecorator('classNames',{
                                 rules: [{required: true,message: '请填写班级名',}]
                             })(
-                                <Select placeholder="教室号">
+                                <Select placeholder="班级名" style={{width:'150px'}}>
                                     {
-                                        // getClassRoomDataS.map((item,index)=>{
-                                        //     return  <Option key={index} value={item.room_id}>{item.room_text}</Option>
-                                        // })
+                                        getGradeViewData.map((item,index)=>{
+                                            return  <Option key={index} value={index}>{item.grade_name}</Option>
+                                        })
                                     }
                                 </Select>
                             )}
                         </Form.Item>
-                        <Form.Item style={{width:'100%',display:'flex',justifyContent:'space-between'}}>
-                            <Button type="primary" >添加提交</Button>
-                            <Button type="primary" style={{margin:'0 20px'}}>取消</Button>
+                        <Form.Item style={{display:'flex'}}>
+                            <Button type="primary" onClick={()=>{search('submit')}}>添加提交</Button>
+                            <Button type="primary" style={{margin:'0 20px'}} onClick={()=>{search('sub')}}>取消</Button>
                         </Form.Item>
                     </Form>
                 </div>
@@ -120,6 +116,7 @@ function ClassStudent(props){
     )
 }
 const mapStateToProps=(state)=>{
+    console.log(state.class)
     return {
         ...state.class
     }
@@ -135,7 +132,6 @@ const mapDispatchToprops=(dispatch)=>{
         getStudet(){
             dispatch({type:'class/getStudetS'})
         }
-        // /manger/student
     }
 }
 export default connect(mapStateToProps,mapDispatchToprops)(Form.create()(ClassStudent))

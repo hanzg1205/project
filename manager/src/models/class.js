@@ -9,7 +9,8 @@ export default {
         getClassRoomData:[],
         getClassRoomDataS:[],
         getClassType:[],
-        getGrade:[]
+        getGradeViewData:[],
+        getStudentDatas:[]
     },
 
     // 异步操作
@@ -23,7 +24,6 @@ export default {
         },
         *getClassName({payload},{call,put}){
             let data = yield call(getClassNameData)
-            console.log(data.data)
             yield put({
                 type:'getClassRoomDatas',
                 action:data.data
@@ -31,7 +31,6 @@ export default {
         },
         *getExamTypeData({payload},{call,put}){
             let data = yield call(getExamType)
-            console.log(data.data)
             yield put({
                 type:'getExamData',
                 action:data.data
@@ -46,7 +45,6 @@ export default {
             data.code===1?message.success(data.msg):message.error(data.msg)
         },
         *setClassNum({payload},{call,put}){
-            console.log(payload)
             let data = yield call(remoteClassRoom,payload)
             data.code===1?message.success(data.msg):message.error(data.msg)
         },
@@ -60,15 +58,17 @@ export default {
         },
         *getGradeData({payload},{call,put}){
             let data=yield call(getGradeDatas)
-            console.log(data)
             yield put({
-                type:'getGrades',
+                type:'getGradeClass',
                 action:data.data
             })
         },
         *getStudetS({payload},{call,put}){
             let data = yield call(getStudent)
-            console.log(data)
+            yield put({
+                type:'getStudestData',
+                action:data.data
+            })
         }
     },
 
@@ -92,10 +92,16 @@ export default {
                 getClassType:action
             }
         },
-        getGrades(state,{action}){
+        getGradeClass(state,{action}){
             return {
                 ...state,
-                getGrade:action
+                getGradeViewData:action
+            }
+        },
+        getStudestData(state,{action}){
+            return{
+                ...state,
+                getStudentDatas:action
             }
         }
     }
