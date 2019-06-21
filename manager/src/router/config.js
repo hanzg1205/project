@@ -44,6 +44,13 @@ const ClassRoom =  dynamic({
 const ClassStudent =  dynamic({
     component: () => import('@/views/Meun/classManagement/classStudent/classStudent'),
 });
+// 批卷管理
+const MarkingManagement =  dynamic({
+    component: () => import('@/views/Meun/markingManagement/markingManagement/markingManagement'),
+});
+const MarkingMark =  dynamic({
+    component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
+});
 
 export default {
     routes: [{ // 试题管理
@@ -122,6 +129,19 @@ export default {
             id: 'main-student',
             path: '/class/student',
             component: ClassStudent
+        }]
+    },{ // 批卷管理
+        name: '批卷管理',
+        children: [{
+            name: '待批班级',
+            id: 'main-examPaperClassList',
+            path: '/class/special',
+            component: MarkingManagement
+        },{
+            name: '待批试卷',
+            id: 'main-examPaperClassmate',
+            path: '/class/marking/:grade_id',
+            component: MarkingMark
         }]
     }]
 }

@@ -87,3 +87,24 @@ export function getStudent(){
         method:'GET'
     })
 }
+
+export function remoteStuden(params){
+    return request({
+        data:{
+            params:{id:params.student_id}
+        },
+        url:'/manger/student/:id=>student_id',
+        method:'DELETE'
+    })
+}
+
+export function getClassStued(params){
+    console.log(params)
+    return request({
+        params:{
+            grade_id:params
+        },
+        url:'exam/student',
+        method:'GET'
+    })
+}

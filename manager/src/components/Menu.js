@@ -4,7 +4,6 @@ import { Link } from 'dva/router';
 //添加国际划
 import { injectIntl } from 'react-intl'
 const MenuView = (props) => {
-    console.log(props.intl)
     const { SubMenu }  = Menu;
     const { Sider } = Layout;
     return (

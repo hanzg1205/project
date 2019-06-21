@@ -1,5 +1,5 @@
-import React,{ useState ,useEffect} from 'react'
-import { Button , Icon , Table, Select , Form , Input ,  message} from 'antd'
+import React,{useEffect} from 'react'
+import { Button , Table, Select , Form , Input ,  message} from 'antd'
 import { connect } from 'dva'
 import studentStyle from './classStudent.scss' 
 function ClassStudent(props){
@@ -11,16 +11,16 @@ function ClassStudent(props){
         getStudet();
     },[])
     const { Option } = Select;
-    let [data,]=useState(getStudentDatas)
-    let remoteStudent=()=>{
-        
+    let remoteStudents=(text)=>{
+        let { remoteStudent } = props;
+        remoteStudent(text)
     }
     const columns = [
         {
           title: '姓名',
           dataIndex: 'student_name',
           key: 'name',
-          render: text => <a href="javascript:;">{text}</a>,
+          render: text => <a>{text}</a>,
         },
         {
           title: '学号',
@@ -47,7 +47,7 @@ function ClassStudent(props){
           key: 'detail',
           render: (text, record) => (
             <span>
-              <a onClick={()=>{remoteStudent()}}>删除</a>
+              <a onClick={()=>{remoteStudents(text)}}>删除</a>
             </span>
           ),
         },
@@ -66,6 +66,7 @@ function ClassStudent(props){
             props.form.resetFields()
         }
       }
+      let data = getStudentDatas
     console.log(props)
     return (
         <div>
@@ -131,6 +132,9 @@ const mapDispatchToprops=(dispatch)=>{
         },
         getStudet(){
             dispatch({type:'class/getStudetS'})
+        },
+        remoteStudent(payload){
+            dispatch({type:'class/remoteS',payload:payload})
         }
     }
 }

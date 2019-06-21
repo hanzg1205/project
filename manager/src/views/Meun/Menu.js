@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Meun.css';
-import { Menu, Dropdown, Layout  } from 'antd';
+import { Menu, Dropdown, Layout , Button } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
@@ -32,7 +32,7 @@ function ExaminationMenu(props){
                                 </a>
                             </Dropdown>
                         }
-                        <button onClick={()=>{props.changeLocal(props.locale==='zh'?'en':'zh')}}>{props.locale==='zh'?'英文':'中文'}</button>
+                        <Button onClick={()=>{props.changeLocal(props.locale==='zh'?'en':'zh')}}>{props.locale==='zh'?'英文':'中文'}</Button>
                     </div>
                 </div>
                 
