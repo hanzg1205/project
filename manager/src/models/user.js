@@ -75,10 +75,7 @@ export default {
     // 异步操作
     effects: {
         *login({payload},{call,put}){
-            // console.log('payload...',payload)
             let data = yield call(login,payload)
-            // console.log('data...',data)
-
             // 设置登录态到cookie里
             if(data.code === 1){
                 setToken(data.token)
@@ -91,7 +88,6 @@ export default {
         },
         *userInfo({payload},{call,put}){
             let data = yield call(userInfo);
-            // console.log(data);
             yield put({
                 type: 'getUserInfo',
                 action: data.data
@@ -100,7 +96,6 @@ export default {
         // 用户数据
         *userShow({payload},{call,put}){
             let data = yield call(userShow);
-            // console.log(data);
             yield put({
                 type: 'getUserShow',
                 action: data.data
@@ -109,7 +104,6 @@ export default {
         // 身份数据
         *userIdentity({payload},{call,put}){
             let data = yield call(userIdentity);
-            // console.log(data);
             yield put({
                 type: 'getUserIdentity',
                 action: data.data
@@ -118,7 +112,6 @@ export default {
         // api接口权限
         *userApi({payload},{call,put}){
             let data = yield call(userApi);
-            console.log(data);
             yield put({
                 type: 'getUserApi',
                 action: data.data
@@ -127,7 +120,6 @@ export default {
         // 身份和api权限关系  
         *userIdentity_api({payload},{call,put}){
             let data = yield call(userIdentity_api);
-            console.log(data);
             yield put({
                 type: 'getUserIdentity_api',
                 action: data.data
@@ -136,7 +128,6 @@ export default {
         // 视图接口权限   
         *userView_authority({payload},{call,put}){
             let data = yield call(userView_authority);
-            console.log(data);
             yield put({
                 type: 'getUserView_authority',
                 action: data.data
@@ -145,7 +136,6 @@ export default {
         // 身份和视图权限关系
         *userIdentity_view({payload},{call,put}){
             let data = yield call(userIdentity_view);
-            console.log(data);
             yield put({
                 type: 'getUserIdentity_view',
                 action: data.data
@@ -161,7 +151,6 @@ export default {
         },
         *userData({payload},{call,put}){
             let data = yield call(getData)
-            console.log(data.data)
             yield put({
                 type:'getUserData',
                 action:data.data
@@ -192,7 +181,6 @@ export default {
         },
         *getApiViews({payload},{call,put}){
             let data = yield call(getApiData)
-            console.log(data)
             yield put({
                 type:'getApiViewS',
                 action:data.data
@@ -204,32 +192,30 @@ export default {
         },
         *getApiStatus({payload},{call,put}){
             let data=yield call(getApiViewStatus,payload)
-            console.log(data)
             data.code===1?message.success(data.msg):message.error(data.msg)
         },
         *upDataUser({payload},{call,put}){
             let data=yield call(upDateUserId,payload)
-            console.log(data)
             data.code===1?message.success(data.msg):message.error(data.msg)
         },
         // 请求用户信息，请求用户权限
         *getUserInfoAll({payload},{call, put, select}){
             // 1. 判断是否有权限信息
             let myView = yield select(state=>state.user.myView);
-            console.log('请求用户信息...',myView)
+            // console.log('请求用户信息...',myView)
             if(myView.length){
                 return;
             }
             // 2. 获取用户信息
             let datas = yield call(userInfo);
-            console.log('获取用户信息...',datas);
+            // console.log('获取用户信息...',datas);
             yield put({
                 type: 'getUserInfo',
                 action: datas.data
             });
             // 3. 根据id获取视图权限
             let viewAuthority = yield call(getViewAuthority, datas.data.user_id);
-            console.log('根据id获取视图权限...',viewAuthority)
+            // console.log('根据id获取视图权限...',viewAuthority)
             yield put({
                 type: 'updateViewAuthority',
                 action: viewAuthority.data
@@ -332,7 +318,6 @@ export default {
                     }
                 })
             })
-            console.log('myView...', myView);
             return {
                 ...state,
                 viewAuthority: action,

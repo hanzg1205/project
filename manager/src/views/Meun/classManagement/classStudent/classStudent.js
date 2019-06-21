@@ -1,15 +1,16 @@
 import React,{useEffect} from 'react'
-import { Button , Table, Select , Form , Input ,  message} from 'antd'
+import { Button , Table, Select , Form , Input } from 'antd'
 import { connect } from 'dva'
 import studentStyle from './classStudent.scss' 
 function ClassStudent(props){
     let { getFieldDecorator} = props.form
-    let { getClassData , getGrade , getStudet , getGradeViewData , getStudentDatas } = props
+    let { getClassData , getGrade , getStudet , getGradeViewData ,getClassRoomDataS, getStudentDatas } = props
     useEffect(()=>{
         getClassData();
         getGrade();
-        getStudet();
+        getStudet();     
     },[])
+
     const { Option } = Select;
     let remoteStudents=(text)=>{
         let { remoteStudent } = props;
@@ -53,21 +54,17 @@ function ClassStudent(props){
         },
       ];
       
-      const search=(type)=>{
+    const search=(type)=>{
         if(type==='submit'){
             props.form.validateFields((err, values) => {
-                if(values){
-                    //请求接口
-                }else{
-                    message.error('请完善信息')
-                }
+                console.log('values...',values)
+                props.filterStudentData(values)
             })
         }else{
             props.form.resetFields()
         }
-      }
-      let data = getStudentDatas
-    console.log(props)
+    }
+    let data = getStudentDatas;
     return (
         <div>
             <p className={studentStyle.title}>学生管理</p>
@@ -75,31 +72,25 @@ function ClassStudent(props){
                 <div>
                     <Form className={studentStyle.form} >
                         <Form.Item>
-                            {getFieldDecorator('studentName',{
-                                rules: [{required: true,message: '请填写班级名',}]
-                            })(<Input placeholder="学生名" />)}
+                            {getFieldDecorator('studentName',{initialValue:''})(<Input placeholder="学生名" />)}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('roomName',{
-                                rules: [{required: true,message: '请填写班级名',}]
-                            })(
+                            {getFieldDecorator('roomName',{initialValue:''})(
                                 <Select placeholder="教室号" style={{width:'150px'}}>
                                     {
-                                        getGradeViewData.map((item,index)=>{
-                                            return  <Option key={index} value={index}>{item.room_text}</Option>
+                                        getClassRoomDataS.map((item,index)=>{
+                                            return  <Option key={item.room_id} value={item.room_text}>{item.room_text}</Option>
                                         })
                                     }
                                 </Select>
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('classNames',{
-                                rules: [{required: true,message: '请填写班级名',}]
-                            })(
+                            {getFieldDecorator('classNames',{initialValue:''})(
                                 <Select placeholder="班级名" style={{width:'150px'}}>
                                     {
-                                        getGradeViewData.map((item,index)=>{
-                                            return  <Option key={index} value={index}>{item.grade_name}</Option>
+                                        getGradeViewData.map((item)=>{
+                                            return  <Option key={item.grade_id} value={item.grade_name}>{item.grade_name}</Option>
                                         })
                                     }
                                 </Select>
@@ -111,7 +102,7 @@ function ClassStudent(props){
                         </Form.Item>
                     </Form>
                 </div>
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={data} rowKey={idx=>idx.student_id}/>
             </div>
         </div>
     )
@@ -135,6 +126,12 @@ const mapDispatchToprops=(dispatch)=>{
         },
         remoteStudent(payload){
             dispatch({type:'class/remoteS',payload:payload})
+        },
+        filterStudentData(payload){
+            dispatch({
+                type: 'class/filterStudentData',
+                action: payload
+            })
         }
     }
 }

@@ -99,7 +99,6 @@ export function remoteStuden(params){
 }
 
 export function getClassStued(params){
-    console.log(params)
     return request({
         params:{
             grade_id:params

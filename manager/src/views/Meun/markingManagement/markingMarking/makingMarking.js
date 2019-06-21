@@ -11,27 +11,27 @@ function MarkingMark(props){
       return props.match.params.grade_id===item.grade_id;
     })
     const columns = [
-        {
-          title: '班级',
-          dataIndex: 'grade_name',
-          key: 'name',
-          render: text => <a>{text}</a>,
-        },
-        {
-          title: '姓名',
-          dataIndex: 'student_name',
-          key: 'age',
-        },
-        {
-          title: '操作',
-          key: 'action',
-          render: (text, record) => (
-            <span>
-              <a>批卷</a>
-            </span>
-          ),
-        },
-      ];
+      {
+        title: '班级',
+        dataIndex: 'grade_name',
+        key: 'name',
+        render: text => <a>{text}</a>,
+      },
+      {
+        title: '姓名',
+        dataIndex: 'student_name',
+        key: 'age',
+      },
+      {
+        title: '操作',
+        key: 'action',
+        render: (text, record) => (
+          <span>
+            <a>批卷</a>
+          </span>
+        ),
+      },
+    ];
     return (
         <div style={{padding:'20px',background:'#fff'}}>
             <p>试卷列表</p>
