@@ -4,20 +4,6 @@ import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
-import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
-import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
-import QuestionsSee from './questionsManagement/QuestionsSee/QuestionsSee'
-import QuestionDetail from './questionsManagement/questionDetail/questionDetail';
-import QuestionsEdit from './questionsManagement/questionsEdit/questionsEdit';
-import UserSee from './userManagement/userSee';
-import userAdd from './userManagement/userAdd';
-import ExamAdd from './examManagement/examAdd';
-import ExamList from './examManagement/examList';
-import ExamEdit from './examManagement/examEdit';
-
-import ClassManagement from './classManagement/classManagement/classManagement'
-import ClassRoom from './classManagement/classRoom/classromm'
-import ClassStudent from './classManagement/classStudent/classStudent'
 
 function ExaminationMenu(props){
     let menu = (
@@ -29,6 +15,9 @@ function ExaminationMenu(props){
         </Menu>
     );
     const { Header, Content } = Layout;
+    if (!props.myView.length){
+        return null;
+    }
     return (
         <Layout className={styles.wrap} style={{flexDirection:"column"}}>
             <Header className={styles.header} >
@@ -52,24 +41,27 @@ function ExaminationMenu(props){
                 <MenuView />
                 <Content style={{ overflow: 'auto' }} className={styles.main}>
                     <Switch>
-                        {/* 试题管理 */}
-                        <Redirect from="/" to="/questions/add" exact></Redirect>
-                        <Route path="/questions/add" component={QuestionsAdd}></Route>
-                        <Route path="/questions/type" component={QuestionsType}></Route>
-                        <Route path="/questions/See" component={QuestionsSee}></Route>                      
-                        <Route path="/questions/edit/:id" component={QuestionsEdit}></Route>                      
-                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route> 
-                        {/* 用户管理 */}
-                        <Route path="/user/see" component={UserSee}></Route>                                              
-                        <Route path="/user/add" component={userAdd}></Route>            
-                        {/* 考试管理 */}
-                        <Route path="/exam/add" component={ExamAdd}></Route>                                              
-                        <Route path="/exam/list" component={ExamList}></Route>
-                        <Route path="/exam/edit" component={ExamEdit}></Route>
-                        {/* 班级管理 */}
-                        <Route path="/class/management" component={ClassManagement}></Route>                                              
-                        <Route path="/class/classroom" component={ClassRoom}></Route>
-                        <Route path="/class/student" component={ClassStudent}></Route>
+                        <Redirect exact from="/" to="/questions/add"/> 
+                        {/* 渲染该用户拥有的路由 */}
+                        {
+                            props.myView.map(item=>{
+                                if(item.children){
+                                    return item.children.map((value,key)=>{
+                                        return <Route key={key} path={value.path} component={value.component}/>
+                                    })
+                                }else{
+                                    return false;
+                                }                               
+                            })
+                        }
+                        {/* 403路由 */}
+                        {
+                            props.forbiddenView.map((item)=>{
+                                return <Redirect key={item} from={item} to="/403"/>
+                            })
+                        }
+                        {/* 剩余路由去404 */}
+                        <Redirect to="/404"/>
                     </Switch>
                 </Content>
             </div>
@@ -77,7 +69,9 @@ function ExaminationMenu(props){
     )
 }
 const mapStateToProps=state=>{
+    console.log('main..state..',state)
     return {
+        ...state.user,
         locale:state.global.locale
     }
 }
