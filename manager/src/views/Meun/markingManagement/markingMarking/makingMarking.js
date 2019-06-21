@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Table } from 'antd'
 import { connect } from 'dva'
+import { Link } from 'dva/router'
 function MarkingMark(props){
     let { getData }= props
     useEffect(()=>{
@@ -12,8 +13,8 @@ function MarkingMark(props){
             return item
         }
      })
-     let marking=(val)=>{
-        console.log(val)
+     let marking=()=>{
+        
      }
     const columns = [
         {
@@ -31,7 +32,7 @@ function MarkingMark(props){
           key: 'action',
           render: (text, record) => (
             <span>
-              <a onClick={()=>{marking(text)}}>批卷</a>
+              <Link to='/marking/notFount'>批卷</Link>
             </span>
           ),
         },
