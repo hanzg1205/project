@@ -1,4 +1,4 @@
-import { getClassData, getClassNameData, getExamType , addClass , updataClass , remoteClassRoom , addClassRoom , remoteClassroom , getGradeDatas , getStudent} from '@/services'
+import { getClassData, getClassNameData, getExamType , addClass , updataClass , remoteClassRoom , addClassRoom , remoteClassroom , getGradeDatas , getStudent , remoteStuden , getClassStued} from '@/services'
 import { message } from 'antd'
 export default {
     // 命名空间
@@ -58,6 +58,7 @@ export default {
         },
         *getGradeData({payload},{call,put}){
             let data=yield call(getGradeDatas)
+            console.log(data)
             yield put({
                 type:'getGradeClass',
                 action:data.data
@@ -70,6 +71,15 @@ export default {
                 type:'getStudestData',
                 action:data.data
             })
+        },
+        *remoteS({payload},{call,put}){
+            let data=yield call(remoteStuden,payload);
+            console.log(data)
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *getClassStund({payload},{call,put}){
+            let data = yield call(getClassStued,payload)
+            console.log(data)
         }
     },
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Meun.css';
-import { Menu, Dropdown, Layout  } from 'antd';
+import { Menu, Dropdown, Layout , Button } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
@@ -16,7 +16,8 @@ import ExamList from './examManagement/examList';
 import ClassManagement from './classManagement/classManagement/classManagement'
 import ClassRoom from './classManagement/classRoom/classromm'
 import ClassStudent from './classManagement/classStudent/classStudent'
-import markingManagement from './markingManagement/markingManagement/markingManagement'
+import MarkingManagement from './markingManagement/markingManagement/markingManagement'
+import MarkingMark from './markingManagement/markingMarking/makingMarking'
 
 function ExaminationMenu(props){
     let menu = (
@@ -42,7 +43,7 @@ function ExaminationMenu(props){
                                 </a>
                             </Dropdown>
                         }
-                        <button onClick={()=>{props.changeLocal(props.locale==='zh'?'en':'zh')}}>{props.locale==='zh'?'英文':'中文'}</button>
+                        <Button onClick={()=>{props.changeLocal(props.locale==='zh'?'en':'zh')}}>{props.locale==='zh'?'英文':'中文'}</Button>
                     </div>
                 </div>
                 
@@ -69,7 +70,8 @@ function ExaminationMenu(props){
                         <Route path="/class/classroom" component={ClassRoom}></Route>
                         <Route path="/class/student" component={ClassStudent}></Route>
                         {/* 批卷管理 */}
-                        <Route path="/class/special" component={markingManagement}></Route>
+                        <Route path="/class/special" component={MarkingManagement}></Route>
+                        <Route path="/class/marking/:grade_id" component={MarkingMark}></Route>
                     </Switch>
                 </Content>
             </div>

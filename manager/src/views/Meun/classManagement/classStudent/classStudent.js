@@ -11,8 +11,9 @@ function ClassStudent(props){
         getStudet();
     },[])
     const { Option } = Select;
-    let remoteStudent=()=>{
-        
+    let remoteStudents=(text)=>{
+        let { remoteStudent } = props;
+        remoteStudent(text)
     }
     const columns = [
         {
@@ -46,7 +47,7 @@ function ClassStudent(props){
           key: 'detail',
           render: (text, record) => (
             <span>
-              <a onClick={()=>{remoteStudent()}}>删除</a>
+              <a onClick={()=>{remoteStudents(text)}}>删除</a>
             </span>
           ),
         },
@@ -131,6 +132,9 @@ const mapDispatchToprops=(dispatch)=>{
         },
         getStudet(){
             dispatch({type:'class/getStudetS'})
+        },
+        remoteStudent(payload){
+            dispatch({type:'class/remoteS',payload:payload})
         }
     }
 }

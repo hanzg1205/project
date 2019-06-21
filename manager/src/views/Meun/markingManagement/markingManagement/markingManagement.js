@@ -1,52 +1,65 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import MarkingStyle from './markingManagement.scss'
 import { Table } from 'antd'
+import { connect } from 'dva'
+import { Link } from 'dva/router'
 function Marking (props){
+  let { getClass , getGradeViewData } = props
+  console.log(getGradeViewData)
+    useEffect(()=>{
+      getClass()
+    },[])
     const columns = [
         {
-          title: '姓名',
-          dataIndex: 'student_name',
+          title: '班级名',
+          dataIndex: 'grade_name',
           key: 'name',
           render: text => <a>{text}</a>,
         },
         {
-          title: '学号',
-          dataIndex: 'student_id',
+          title: '课程名称',
+          dataIndex: 'subject_text',
           key: 'age',
         },
         {
-          title: '班级',
-          dataIndex: 'grade_name',
+          title: '阅卷状态',
+          dataIndex: '',
           key: 'address',
         },
         {
-          title: '教室',
+          title: '教室号',
           key: 'tags',
           dataIndex: 'room_text'
         },
         {
-          title: '密码',
-          key: 'action',
-          dataIndex: 'student_pwd'
-        },
-        {
           title: '操作',
-          key: 'detail',
           render: (text, record) => (
             <span>
-              <a>批卷</a>
+              <Link to={`/class/marking/${text.grade_id}`}>批卷</Link>
             </span>
           ),
         },
       ];
-      let data=[]
+      let data=getGradeViewData
     return (
         <div>
             <p className={MarkingStyle.title}>待批班级</p>
             <div className={MarkingStyle.bottom}>
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={data} rowKey={data=>data.grade_id}/>
             </div>
         </div>
     )
 } 
-export default Marking
+const mapStateToProps=(state)=>{
+  return{
+    ...state.class
+  }
+}
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    getClass(){
+      dispatch({type:'class/getGradeData'})
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Marking)
