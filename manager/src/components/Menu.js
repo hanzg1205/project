@@ -25,7 +25,7 @@ const MenuView = (props) => {
                     <Link to="/questions/type">{props.intl.formatMessage({id:'router.qusetions.Type'})}</Link>
                 </Menu.Item>
                 <Menu.Item key="3">
-                    <Link to="/questions/See">{props.intl.formatMessage({id:'router.questions.List'})}</Link>
+                    <Link to="/questions/See">{props.intl.formatMessage({id:'router.questions.see'})}</Link>
                 </Menu.Item>
             </SubMenu>
             <SubMenu

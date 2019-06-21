@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import { Table } from 'antd'
 import { connect } from 'dva'
 import { Link } from 'dva/router'
@@ -21,6 +21,7 @@ function MarkingMark(props){
           title: '班级',
           dataIndex: 'grade_name',
           key: 'name',
+          render: text => <a>{text}</a>,
         },
         {
           title: '姓名',
@@ -40,7 +41,7 @@ function MarkingMark(props){
     return (
         <div style={{padding:'20px',background:'#fff'}}>
             <p>试卷列表</p>
-            <Table columns={columns} dataSource={classData} />
+            <Table columns={columns} dataSource={classData} rowKey={data=>data.student_id}/>
         </div>
     )
 }
