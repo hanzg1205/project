@@ -6,26 +6,20 @@ function MarkingMark(props){
     useEffect(()=>{
         getData()
     },[])
-    
-    console.log(props)
-    console.log(props.match)
     let { getStudentDatas } = props
     let classData=getStudentDatas.filter((item,index)=>{
         if(props.match.params.grade_id===item.grade_id){
             return item
         }
      })
-     console.log(getStudentDatas)
-     console.log(classData)
-     console.log(props.match)
-     let [data]=useState(classData)
-    console.log(data)
+     let marking=(val)=>{
+        console.log(val)
+     }
     const columns = [
         {
           title: '班级',
           dataIndex: 'grade_name',
           key: 'name',
-          render: text => <a href="javascript:;">{text}</a>,
         },
         {
           title: '姓名',
@@ -37,7 +31,7 @@ function MarkingMark(props){
           key: 'action',
           render: (text, record) => (
             <span>
-              <a>批卷</a>
+              <a onClick={()=>{marking(text)}}>批卷</a>
             </span>
           ),
         },

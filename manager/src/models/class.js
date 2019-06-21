@@ -58,7 +58,6 @@ export default {
         },
         *getGradeData({payload},{call,put}){
             let data=yield call(getGradeDatas)
-            console.log(data)
             yield put({
                 type:'getGradeClass',
                 action:data.data
@@ -66,7 +65,6 @@ export default {
         },
         *getStudetS({payload},{call,put}){
             let data = yield call(getStudent)
-            console.log(data)
             yield put({
                 type:'getStudestData',
                 action:data.data
@@ -74,7 +72,6 @@ export default {
         },
         *remoteS({payload},{call,put}){
             let data=yield call(remoteStuden,payload);
-            console.log(data)
             data.code===1?message.success(data.msg):message.error(data.msg)
         },
         *getClassStund({payload},{call,put}){

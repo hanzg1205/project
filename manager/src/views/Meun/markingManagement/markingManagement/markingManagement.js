@@ -5,7 +5,6 @@ import { connect } from 'dva'
 import { Link } from 'dva/router'
 function Marking (props){
   let { getClass , getGradeViewData } = props
-  console.log(getGradeViewData)
     useEffect(()=>{
       getClass()
     },[])
