@@ -97,7 +97,7 @@ export function editAdd(params){
 }
 
 export function apiAdd(params){
-    console.log(params)
+    // console.log(params)
     return request({
         params:{
             api_authority_text:params.apiIdentity,
@@ -135,7 +135,7 @@ export function getApiData(){
 }
 
 export function getApiView(params){
-    console.log(params)
+    // console.log(params)
     return request({
         params:{
             api_authority_text:params.setPower,
@@ -148,7 +148,7 @@ export function getApiView(params){
 }
 
 export function getApiViewStatus(params){
-    console.log(params)
+    // console.log(params)
     return request({
         params:{
             identity_id:params.statusId,
@@ -160,16 +160,16 @@ export function getApiViewStatus(params){
 }
 
 export function upDateUserId(params){
-    console.log(params)
+    // console.log(params)
     return request({
-        params:{
-            user_id:params.userId,
+        data:{
+            user_id:params.upData,
             user_name:params.userName,
             user_pwd:params.userPwd,
-            identity_id:params.upData
+            identity_id:params.userId
         },
-        url:'/user/setIdentityView',
-        method:'GET'
+        url:'/user/user',
+        method:'PUT'
     })
 }
 

@@ -34,7 +34,7 @@ function questionsAdd(props){
                 // console.log('Received values of form: ', values);
                 let params = values;
                 params.user_id = props.userInfoData.user_id;
-                console.log(params);
+                // console.log(params);
                 props.add(params)
             }
         });
@@ -141,7 +141,7 @@ questionsAdd.defaultProps={
     
 }
 const mapStateToProps=state=>{
-    console.log("state...",state)
+    // console.log("state...",state)
     return{
         ...state.questions,
         ...state.user
@@ -151,7 +151,7 @@ const mapDispatchToProps=dispatch=>{
     return{
         // 添加试题
         add(payload){
-            console.log(payload)
+            // console.log(payload)
             dispatch({
                 type:"questions/add",
                 payload

@@ -19,7 +19,7 @@ function examList(props){
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
 
             }
         });        
@@ -28,7 +28,8 @@ function examList(props){
     function computTime(obj) {
         let startTime = obj.start_time*1;
         let endTime = obj.end_time*1;
-        let newTime = endTime - startTime;
+        let newTime = Math.abs(endTime - startTime);
+        // console.log(newTime)
          //计算出小时数
         var leave1 = newTime % (24 * 3600 * 1000);   
         var hours = Math.floor(leave1 / (3600 * 1000));
@@ -155,7 +156,7 @@ function examList(props){
 }
 
 const mapStateToProps = state => {
-    console.log("state...",state)
+    // console.log("state...",state)
     return{
         ...state.questions,
         ...state.exam

@@ -37,7 +37,7 @@ class ClassRoom extends Component{
     }
     render(){
         let { getClassRoomDataS } = this.props
-        console.log(this.props)
+        // console.log(this.props)
         let { getFieldDecorator } = this.props.form
         const columns = [
             {

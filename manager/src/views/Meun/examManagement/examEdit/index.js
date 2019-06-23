@@ -21,7 +21,7 @@ function examEdit(props){
         let str = JSON.stringify(question_ids.join(','));
         // console.log(str.replace(/\"/g,"'"));
         let params = {question_ids:str};
-        console.log(params,props.createpaperList.exam_exam_id);
+        // console.log(params,props.createpaperList.exam_exam_id);
         props.createExamGet(params,props.createpaperList.exam_exam_id)
     }
     return <div className={style.exap_wrapper}>
@@ -66,7 +66,7 @@ function examEdit(props){
 }
 
 const mapState = state => {
-    console.log(state)
+    // console.log(state)
     return {
         ...state.questions
     }

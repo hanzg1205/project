@@ -9,9 +9,7 @@ function MarkingMark(props){
     },[])
     let { getStudentDatas } = props
     let classData=getStudentDatas.filter((item)=>{
-        if(props.match.params.grade_id===item.grade_id){
-            return item
-        }
+        return props.match.params.grade_id===item.grade_id;
      })
     const columns = [
       {
@@ -30,7 +28,7 @@ function MarkingMark(props){
         key: 'action',
         render: (text, record) => (
           <span>
-            <Link to='/marking/123456'>批卷</Link>
+            <Link to='/403'>批卷</Link>
           </span>
         ),
       },

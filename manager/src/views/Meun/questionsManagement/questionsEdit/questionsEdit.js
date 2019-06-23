@@ -6,10 +6,10 @@ import Editor from 'for-editor'
 
 const { Option } = Select;
 function questionsAdd(props){  
-    console.log(props);
+    // console.log(props);
     // 试题id
     let questions_id = props.match.params.id
-    console.log(props.match)
+    // console.log(props.match)
     useEffect(()=>{
         // 获取用户信息
         props.userInfo();
@@ -39,7 +39,7 @@ function questionsAdd(props){
                 let params = values;
                 // params.user_id = props.userInfoData.user_id;
                 params.questions_id = questions_id;
-                console.log(params);
+                // console.log(params);
                 // 更新试题
                 props.questionsUpdate(params)
             }
@@ -148,7 +148,7 @@ questionsAdd.defaultProps={
     
 }
 const mapStateToProps=state=>{
-    console.log("state00000...",state)
+    // console.log("state00000...",state)
     return{
         ...state.questions,
         ...state.user
