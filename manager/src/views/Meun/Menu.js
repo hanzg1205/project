@@ -18,13 +18,20 @@ const ExamEdit =  dynamic({
 const MarkingMark =  dynamic({
     component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
 });
+const examDetail =  dynamic({
+    component: () => import('@/views/Meun/examManagement/examDetail'),
+});
 function ExaminationMenu(props){
+    let { logout } = props
+    let logouts=()=>{
+        logout()
+    }
     let menu = (
         <Menu>
             <Menu.Item key="1">个人中心</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
-            <Menu.Item key="4">退出登录</Menu.Item>
+            <Menu.Item key="4" onClick={()=>{logouts()}}>退出登录</Menu.Item>
         </Menu>
     );
     const { Header, Content } = Layout;
@@ -71,6 +78,7 @@ function ExaminationMenu(props){
                         <Route path='/questions/detail/:id' component={QuestionDetail}/>
                         <Route path='/exam/edit' component={ExamEdit}/>
                         <Route path='/class/marking/:grade_id' component={MarkingMark}/>
+                        <Route path='/exam/detail/:id' component={examDetail}/>
                         {/* 403路由 */}
                         {
                             props.forbiddenView.map((item)=>{
@@ -96,6 +104,9 @@ const mapDispatchToProps=dispatch=>{
     return {
         changeLocal(payload){
             dispatch({type:'global/changeLocale',payload})
+        },
+        logout(){
+            dispatch({type:'user/logout'})
         }
     }
 }

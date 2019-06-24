@@ -42,7 +42,6 @@ function examEdit(props){
                                     <Button type="link" onClick={()=>handleDel(index)}>删除</Button>
                                 </h4> 
                                 <div>
-                                    {console.log(item.questions_stem)}
                                     <ReactMarkdown source={item.questions_stem} />
                                 </div>
                             </div>

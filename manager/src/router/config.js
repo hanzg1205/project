@@ -34,6 +34,9 @@ const ExamList =  dynamic({
 // const ExamEdit =  dynamic({
 //     component: () => import('@/views/Meun/examManagement/examEdit'),
 // });
+// const examDetail =  dynamic({
+//     component: () => import('@/views/Meun/examManagement/examDetail'),
+// });
 // 班级管理
 const ClassManagement =  dynamic({
     component: () => import('@/views/Meun/classManagement/classManagement/classManagement'),
@@ -117,6 +120,12 @@ export default {
         //     id: 'main-examEdit',
         //     path: '/exam/edit',
         //     component: ExamEdit
+        // }
+        // {
+        //     name: '试卷详情',
+        //     id: 'main-examDetail',
+        //     path: '/exam/detail/:id',
+        //     component: examDetail
         // }
     ]
     },{ // 班级管理
