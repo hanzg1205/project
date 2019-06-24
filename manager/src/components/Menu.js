@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Icon, Layout  } from 'antd';
 import { Link } from 'dva/router';
+import { connect } from 'dva';
 //添加国际划
 import { injectIntl } from 'react-intl'
 const MenuView = (props) => {
@@ -11,7 +12,25 @@ const MenuView = (props) => {
         <Menu theme="dark"
             defaultOpenKeys={['sub1']}
             mode="inline">
-            <SubMenu
+            {console.log(props.myView)}
+            {
+                props.myView.map((item, index)=> {
+                    return <SubMenu key={item.name} title={
+                        <span>
+                            <Icon type="project"/>
+                            <span>{props.intl.formatMessage({id:'router.questions'})}</span>
+                        </span>}>
+                        {
+                            item.children.map((value, key)=>{
+                                return <Menu.Item key={value.id}>
+                                    <Link to={value.path}>{props.intl.formatMessage({id:value.name})}</Link>
+                                </Menu.Item>
+                            })                           
+                        }
+                    </SubMenu>
+                })
+            }
+            {/* <SubMenu
                 key="sub1"
                 title={
                 <span>
@@ -83,7 +102,7 @@ const MenuView = (props) => {
                 <Menu.Item key="11">    
                     <Link to="/class/special">{props.intl.formatMessage({id:'router.marking.MarkingClass'})}</Link>
                 </Menu.Item>
-            </SubMenu>
+            </SubMenu> */}
         </Menu>
     </Sider>
     );
@@ -92,4 +111,10 @@ const MenuView = (props) => {
 MenuView.propTypes = {
 };
 
-export default injectIntl(MenuView);
+const mapStateProps = state => {
+    return {
+        myView: state.user.myView
+    }
+}
+
+export default injectIntl(connect(mapStateProps)(MenuView));

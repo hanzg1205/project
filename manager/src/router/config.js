@@ -66,82 +66,88 @@ export default {
             path: '/questions/See',
             component: QuestionsSee
         },{
-            name: 'router.questions.Type',
+            name: 'router.qusetions.Type',
             id: 'main-questionsType',
             path: '/questions/type',
             component: QuestionsType
-        },{
-            name: '编辑试题',
-            id: 'main-editQuestions',
-            path: '/questions/edit/:id',
-            component: QuestionsEdit
-        },{
-            name: '试题详情',
-            id: 'main-questionsDetail',
-            path: '/questions/detail/:id',
-            component: QuestionDetail
-        },]
+        },
+        // {
+        //     name: 'router.questions.edit',
+        //     id: 'main-editQuestions',
+        //     path: '/questions/edit/:id',
+        //     component: QuestionsEdit
+        // },{
+        //     name: 'router.questions.detail',
+        //     id: 'main-questionsDetail',
+        //     path: '/questions/detail/:id',
+        //     component: QuestionDetail
+        // }
+    ]
     },{  // 用户管理
-        name: '用户管理',
+        name: 'router.users',
         children: [{
-            name: '添加用户',
+            name: 'router.user.userAdd',
             id: 'main-addUser',
             path: '/user/add',
             component: UserAdd
         },{
-            name: '用户展示',
+            name: 'router.user.display',
             id: 'main-showUser',
             path: '/user/see',
             component: UserSee
         }]
     },{ // 考试管理
-        name: '考试管理',
+        name: 'router.exam',
         children: [{
-            name: '添加考试',
+            name: 'router.exam.ExamAdd',
             id: 'main-addExam',
             path: '/exam/add',
             component: ExamAdd
         },{
-            name: '试卷列表',
+            name: 'router.exam.ExamList',
             id: 'main-examList',
             path: '/exam/list',
             component: ExamList
-        },{
-            name: '创建试卷',
-            id: 'main-examEdit',
-            path: '/exam/edit',
-            component: ExamEdit
-        }]
+        },
+        // {
+        //     name: 'router.exam.ExamCreate',
+        //     id: 'main-examEdit',
+        //     path: '/exam/edit',
+        //     component: ExamEdit
+        // }
+    ]
     },{ // 班级管理
-        name: '班级管理',
+        name: 'router.class',
         children: [{
-            name: '班级管理',
+            name: 'router.class.Class',
             id: 'main-grade',
             path: '/class/management',
             component: ClassManagement
         },{
-            name: '教室管理',
+            name: 'router.class.classRoom',
             id: 'main-room',
             path: '/class/classroom',
             component: ClassRoom
         },{
-            name: '学生管理',
+            name: 'router.class.Stundent',
             id: 'main-student',
             path: '/class/student',
             component: ClassStudent
         }]
     },{ // 批卷管理
-        name: '批卷管理',
+        name: 'router.marking.Marking',
         children: [{
-            name: '待批班级',
+            name: 'router.marking.MarkingClass',
             id: 'main-examPaperClassList',
             path: '/class/special',
             component: MarkingManagement
-        },{
-            name: '待批试卷',
-            id: 'main-examPaperClassmate',
-            path: '/class/marking/:grade_id',
-            component: MarkingMark
-        }]
+        },
+        // {
+        //     name: 'router.marking.MarkingExam',
+        //     id: 'main-examPaperClassmate',
+        //     path: '/class/marking/:grade_id',
+        //     component: MarkingMark
+        // }
+        ]
     }]
 }

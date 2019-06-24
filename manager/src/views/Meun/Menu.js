@@ -3,8 +3,21 @@ import styles from './Meun.css';
 import { Menu, Dropdown, Layout , Button } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
-import MenuView from '@/components/Menu.js'
+import MenuView from '@/components/Menu.js';
+import dynamic from 'dva/dynamic';
 
+const QuestionsEdit =  dynamic({
+    component: () => import('@/views/Meun/questionsManagement/questionsEdit/questionsEdit'),
+});
+const QuestionDetail =  dynamic({
+    component: () => import('@/views/Meun/questionsManagement/questionDetail/questionDetail'),
+});
+const ExamEdit =  dynamic({
+    component: () => import('@/views/Meun/examManagement/examEdit'),
+});
+const MarkingMark =  dynamic({
+    component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
+});
 function ExaminationMenu(props){
     let menu = (
         <Menu>
@@ -54,6 +67,10 @@ function ExaminationMenu(props){
                                 }                               
                             })
                         }
+                        <Route path='/questions/edit/:id' component={QuestionsEdit}/>
+                        <Route path='/questions/detail/:id' component={QuestionDetail}/>
+                        <Route path='/exam/edit' component={ExamEdit}/>
+                        <Route path='/class/marking/:grade_id' component={MarkingMark}/>
                         {/* 403路由 */}
                         {
                             props.forbiddenView.map((item)=>{

@@ -3,16 +3,20 @@ export default{
     'router.questions.add':'添加试题',
     'router.qusetions.Type':'试题类型',
     'router.questions.List':'试题列表',
+    'router.questions.edit':'编辑试题',
+    'router.questions.detail':'试题详情',
     'router.users':'用户管理',
     'router.user.userAdd':'添加用户',
     'router.user.display':'用户展示',
     'router.exam':'考试管理',
     'router.exam.ExamAdd':'添加考试',
     'router.exam.ExamList':'试卷列表',
+    'router.exam.ExamCreate':'创建试卷',
     'router.class':'班级管理',
     'router.class.Class':'班级管理',
     'router.class.classRoom':'教室管理',
     'router.class.Stundent':'学生管理',
     'router.marking.Marking':'批卷管理',
-    'router.marking.MarkingClass':'待批班级'
+    'router.marking.MarkingClass':'待批班级',
+    'router.marking.MarkingExam':'待批试卷'
 }
