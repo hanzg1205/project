@@ -6,12 +6,16 @@ import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
 
 function ExaminationMenu(props){
+    let { logout } = props
+    let logouts=()=>{
+        logout()
+    }
     let menu = (
         <Menu>
             <Menu.Item key="1">个人中心</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
-            <Menu.Item key="4">退出登录</Menu.Item>
+            <Menu.Item key="4" onClick={()=>{logouts()}}>退出登录</Menu.Item>
         </Menu>
     );
     const { Header, Content } = Layout;
@@ -79,6 +83,9 @@ const mapDispatchToProps=dispatch=>{
     return {
         changeLocal(payload){
             dispatch({type:'global/changeLocale',payload})
+        },
+        logout(){
+            dispatch({type:'user/logout'})
         }
     }
 }

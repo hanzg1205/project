@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import { Select, Button, Form, Table } from 'antd';
+import { Link } from 'dva/router'
 import { connect } from 'dva';
 import './examList.scss';
 const { Option } = Select;
@@ -99,13 +100,14 @@ function examList(props){
             title: '操作',
             dataIndex: '',
             key: 'x',
-            render: () => <a style={{color:'#0139FD'}}>详情</a>,
+            render: (text) => <Link style={{color:'#0139FD'}} to={`/exam/detail/${text.question_ids}`}>详情</Link>,
         },
     ];
       
     const { getFieldDecorator } = props.form; 
     return (
         <div className='exam-wrapper'>
+
             <Form onSubmit={handleSearch} className="login-form">
                 <h2 className='user-title'>试卷列表</h2>
                 <div className='bottom'>

@@ -30,7 +30,7 @@ function MarkingMark(props){
         key: 'action',
         render: (text, record) => (
           <span>
-            <Link to='/marking/123456'>批卷</Link>
+            <Link to='/403'>批卷</Link>
           </span>
         ),
       },
