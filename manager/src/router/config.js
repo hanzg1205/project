@@ -11,12 +11,12 @@ const QuestionsType =  dynamic({
 const QuestionsSee =  dynamic({
     component: () => import('@/views/Meun/questionsManagement/QuestionsSee/QuestionsSee'),
 });
-const QuestionsEdit =  dynamic({
-    component: () => import('@/views/Meun/questionsManagement/questionsEdit/questionsEdit'),
-});
-const QuestionDetail =  dynamic({
-    component: () => import('@/views/Meun/questionsManagement/questionDetail/questionDetail'),
-});
+// const QuestionsEdit =  dynamic({
+//     component: () => import('@/views/Meun/questionsManagement/questionsEdit/questionsEdit'),
+// });
+// const QuestionDetail =  dynamic({
+//     component: () => import('@/views/Meun/questionsManagement/questionDetail/questionDetail'),
+// });
 // 用户管理
 const UserAdd =  dynamic({
     component: () => import('@/views/Meun/userManagement/userAdd'),
@@ -31,9 +31,9 @@ const ExamAdd =  dynamic({
 const ExamList =  dynamic({
     component: () => import('@/views/Meun/examManagement/examList'),
 });
-const ExamEdit =  dynamic({
-    component: () => import('@/views/Meun/examManagement/examEdit'),
-});
+// const ExamEdit =  dynamic({
+//     component: () => import('@/views/Meun/examManagement/examEdit'),
+// });
 // 班级管理
 const ClassManagement =  dynamic({
     component: () => import('@/views/Meun/classManagement/classManagement/classManagement'),
@@ -48,13 +48,14 @@ const ClassStudent =  dynamic({
 const MarkingManagement =  dynamic({
     component: () => import('@/views/Meun/markingManagement/markingManagement/markingManagement'),
 });
-const MarkingMark =  dynamic({
-    component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
-});
+// const MarkingMark =  dynamic({
+//     component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
+// });
 
 export default {
     routes: [{ // 试题管理
         name: 'router.questions',
+        icon: 'project',
         children: [{
             name: 'router.questions.add',
             id: 'main-addQuestions',
@@ -85,6 +86,7 @@ export default {
     ]
     },{  // 用户管理
         name: 'router.users',
+        icon: 'user',
         children: [{
             name: 'router.user.userAdd',
             id: 'main-addUser',
@@ -98,6 +100,7 @@ export default {
         }]
     },{ // 考试管理
         name: 'router.exam',
+        icon: 'setting',
         children: [{
             name: 'router.exam.ExamAdd',
             id: 'main-addExam',
@@ -118,6 +121,7 @@ export default {
     ]
     },{ // 班级管理
         name: 'router.class',
+        icon: 'desktop',
         children: [{
             name: 'router.class.Class',
             id: 'main-grade',
@@ -136,6 +140,7 @@ export default {
         }]
     },{ // 批卷管理
         name: 'router.marking.Marking',
+        icon: 'appstore',
         children: [{
             name: 'router.marking.MarkingClass',
             id: 'main-examPaperClassList',

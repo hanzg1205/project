@@ -44,7 +44,7 @@ export default {
         // 获取试卷列表
         *examList({payload},{call,put}){
             let data = yield call(examList,payload)
-            console.log(data)
+            // console.log(data)
             yield put({
                 type: 'getExamList',
                 action: data.exam
@@ -52,7 +52,7 @@ export default {
         },
         // 创建试卷到试卷列表
         *createExamGet({params,id},{call,put}){
-            console.log(params,id)
+            // console.log(params,id)
             let data = yield call(createExamGet,params,id);
             console.log('创建试题.....',data);
             // yield put({
@@ -82,6 +82,7 @@ export default {
                 ...state,
                 examListData: action
             };
-        }
+        },
+        
     },
 };

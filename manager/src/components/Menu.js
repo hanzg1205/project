@@ -12,16 +12,15 @@ const MenuView = (props) => {
         <Menu theme="dark"
             defaultOpenKeys={['sub1']}
             mode="inline">
-            {console.log(props.myView)}
             {
-                props.myView.map((item, index)=> {
+                props.myView.map((item)=> {
                     return <SubMenu key={item.name} title={
                         <span>
-                            <Icon type="project"/>
-                            <span>{props.intl.formatMessage({id:'router.questions'})}</span>
+                            <Icon type={item.icon}/>
+                            <span>{props.intl.formatMessage({id:item.name})}</span>
                         </span>}>
                         {
-                            item.children.map((value, key)=>{
+                            item.children.map((value)=>{
                                 return <Menu.Item key={value.id}>
                                     <Link to={value.path}>{props.intl.formatMessage({id:value.name})}</Link>
                                 </Menu.Item>

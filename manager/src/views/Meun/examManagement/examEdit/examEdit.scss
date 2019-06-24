@@ -1,5 +1,5 @@
 .exap_wrapper{
-    padding:0 20px;
+    padding:0 40px;
     .exam_main{
         background: #fff;
         border-radius: 10px;
@@ -44,5 +44,9 @@
 :global{
     .ant-drawer-body{
         padding:0;
+    }
+    .user-title {
+        padding: 20px 0px;
+        margin-top: 10px;
     }
 }
