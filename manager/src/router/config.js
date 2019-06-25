@@ -11,12 +11,12 @@ const QuestionsType =  dynamic({
 const QuestionsSee =  dynamic({
     component: () => import('@/views/Meun/questionsManagement/QuestionsSee/QuestionsSee'),
 });
-// const QuestionsEdit =  dynamic({
-//     component: () => import('@/views/Meun/questionsManagement/questionsEdit/questionsEdit'),
-// });
-// const QuestionDetail =  dynamic({
-//     component: () => import('@/views/Meun/questionsManagement/questionDetail/questionDetail'),
-// });
+const QuestionsEdit =  dynamic({
+    component: () => import('@/views/Meun/questionsManagement/questionsEdit/questionsEdit'),
+});
+const QuestionDetail =  dynamic({
+    component: () => import('@/views/Meun/questionsManagement/questionDetail/questionDetail'),
+});
 // 用户管理
 const UserAdd =  dynamic({
     component: () => import('@/views/Meun/userManagement/userAdd'),
@@ -31,12 +31,12 @@ const ExamAdd =  dynamic({
 const ExamList =  dynamic({
     component: () => import('@/views/Meun/examManagement/examList'),
 });
-// const ExamEdit =  dynamic({
-//     component: () => import('@/views/Meun/examManagement/examEdit'),
-// });
-// const examDetail =  dynamic({
-//     component: () => import('@/views/Meun/examManagement/examDetail'),
-// });
+const ExamEdit =  dynamic({
+    component: () => import('@/views/Meun/examManagement/examEdit'),
+});
+const examDetail =  dynamic({
+    component: () => import('@/views/Meun/examManagement/examDetail'),
+});
 // 班级管理
 const ClassManagement =  dynamic({
     component: () => import('@/views/Meun/classManagement/classManagement/classManagement'),
@@ -51,15 +51,13 @@ const ClassStudent =  dynamic({
 const MarkingManagement =  dynamic({
     component: () => import('@/views/Meun/markingManagement/markingManagement/markingManagement'),
 });
-// const MarkingMark =  dynamic({
-//     component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
-// });
-// const personalCenter =  dynamic({
-//     component: () => import('@/views/Meun/personalCenter/personalCenter'),
-// });
-// const MarkingMark =  dynamic({
-//     component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
-// });
+const MarkingMark =  dynamic({
+    component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
+});
+const personalCenter =  dynamic({
+    component: () => import('@/views/Meun/personalCenter/personalCenter'),
+});
+
 
 export default {
     routes: [{ // 试题管理
@@ -81,17 +79,17 @@ export default {
             path: '/questions/type',
             component: QuestionsType
         },
-        // {
-        //     name: 'router.questions.edit',
-        //     id: 'main-editQuestions',
-        //     path: '/questions/edit/:id',
-        //     component: QuestionsEdit
-        // },{
-        //     name: 'router.questions.detail',
-        //     id: 'main-questionsDetail',
-        //     path: '/questions/detail/:id',
-        //     component: QuestionDetail
-        // }
+        {
+            name: '',
+            id: 'main-editQuestions',
+            path: '/questions/edit/:id',
+            component: QuestionsEdit
+        },{
+            name: '',
+            id: 'main-questionsDetail',
+            path: '/questions/detail/:id',
+            component: QuestionDetail
+        }
     ]
     },{  // 用户管理
         name: 'router.users',
@@ -121,18 +119,18 @@ export default {
             path: '/exam/list',
             component: ExamList
         },
-        // {
-        //     name: 'router.exam.ExamCreate',
-        //     id: 'main-examEdit',
-        //     path: '/exam/edit',
-        //     component: ExamEdit
-        // }
-        // {
-        //     name: '试卷详情',
-        //     id: 'main-examDetail',
-        //     path: '/exam/detail/:id',
-        //     component: examDetail
-        // }
+        {
+            name: '',
+            id: 'main-examEdit',
+            path: '/exam/edit',
+            component: ExamEdit
+        },
+        {
+            name: '',
+            id: 'main-examDetail',
+            path: '/exam/detail/:id',
+            component: examDetail
+        }
     ]
     },{ // 班级管理
         name: 'router.class',
@@ -162,12 +160,11 @@ export default {
             path: '/class/special',
             component: MarkingManagement
         },
-        // {
-        //     name: 'router.marking.MarkingExam',
-        //     id: 'main-examPaperClassmate',
-        //     path: '/class/marking/:grade_id',
-        //     component: MarkingMark
-        // }
-        ]
+        {
+            name: '',
+            id: 'main',
+            path: '/personal/center',
+            component: personalCenter
+        }]
     }]
 }

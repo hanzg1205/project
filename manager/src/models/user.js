@@ -1,5 +1,5 @@
 import { login, userInfo, getUserId, getData, userAdd,editAdd,apiAdd,getAddViews,setAddViews,getApiData,getApiView,getApiViewStatus,upDateUserId,userShow,userIdentity,userApi,userIdentity_api,userView_authority,userIdentity_view,getViewAuthority} from '@/services'
-import { setToken, getToken , remoteToken } from '@/utils/user';
+import { setToken, getToken , remoteToken  } from '@/utils/user';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 // 引入路由表
