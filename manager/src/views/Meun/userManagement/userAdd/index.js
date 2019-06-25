@@ -27,7 +27,7 @@ class AddUser extends Component{
         this.state.formLayout==='horizontal'?this.setState({flag:false}):this.setState({flag:true})
     }
     upDataUser=(type)=>{
-        console.log(type)
+        // console.log(type)
        type==='submit'?
             this.props.form.validateFields((err, values) => {
                 if (!err) {
@@ -49,6 +49,7 @@ class AddUser extends Component{
         type==='submit'?
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                // console.log(values)
                 let { addUser} = this.props
                 addUser(values)
             }
@@ -93,7 +94,7 @@ class AddUser extends Component{
     render(){
         const { Option } = Select;
         let { getUserIDs , getUserDatas , viewData , getApiViewData} = this.props;
-        console.log(this.props)
+        // console.log(this.props)
         let { getFieldDecorator } = this.props.form;
         return (
             <div className={userAddStyle.wrap}>
@@ -360,7 +361,7 @@ class AddUser extends Component{
 }
 
 const mapStateToProps = state => {
-    console.log(state)
+    // console.log(state)
     return {
         ...state.user
     }

@@ -19,10 +19,12 @@ function examEdit(props){
             question_ids.push(item.questions_id)
         })
         let str = JSON.stringify(question_ids.join(','));
-        // console.log(str.replace(/\"/g,"'"));
         let params = {question_ids:str};
-        console.log(params,props.createpaperList.exam_exam_id);
-        props.createExamGet(params,props.createpaperList.exam_exam_id)
+        props.createExamGet(params,props.createpaperList.exam_exam_id);
+        props.history.replace('/exam/list')
+    }
+    let handleDel = (index) => {
+        props.questionDel(index)
     }
     return <div className={style.exap_wrapper}>
         <h2 className='user-title'>创建试卷</h2>
@@ -34,10 +36,10 @@ function examEdit(props){
                 <div className={style.exam_question_box}>
                     {
                         props.createpaperList.questions.map((item,index) => (
-                            <div className={style.exam_item} key={item.questions_id}>
+                            <div className={style.exam_item} key={index}>
                                 <h4>
                                     <p>{index+1}: {item.title}</p>
-                                    <Button type="link">删除</Button>
+                                    <Button type="link" onClick={()=>handleDel(index)}>删除</Button>
                                 </h4> 
                                 <div>
                                     <ReactMarkdown source={item.questions_stem} />
@@ -66,7 +68,7 @@ function examEdit(props){
 }
 
 const mapState = state => {
-    console.log(state)
+    // console.log(state)
     return {
         ...state.questions
     }
@@ -82,6 +84,13 @@ const mapDispatch = dispatch => {
                 type:'exam/createExamGet',
                 params,
                 id
+            })
+        },
+        // 删除试题
+        questionDel(index){
+            dispatch({
+                type: 'questions/questionDel',
+                index
             })
         }
     }

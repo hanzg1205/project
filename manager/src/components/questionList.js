@@ -1,21 +1,24 @@
 import React from 'react';
 import { List, Button } from 'antd';
+import { connect } from 'dva';
 import '../views/Meun/questionsManagement/QuestionsSee/Table.scss';
 
-function QuestionList({props}){
-    // console.log(props)
+function QuestionList(props){
+    let addQuestion=(item) => {
+        props.addQuestionFn(item)
+    }
     return (
         <div>
             <List
                 className="demo-loadmore-list"
                 itemLayout="horizontal"
-                dataSource={props&&props}
+                dataSource={props.props&&props.props}
                 style={{padding:20}}
                 pagination={{
                     pageSize: 6,
                 }}
                 renderItem={item => (                
-                    <List.Item actions={[<Button type="primary">添加</Button>] } style={{display:'flex',justifyContent:'space-between'}} className="table-list">
+                    <List.Item actions={[<Button type="primary" onClick={()=>addQuestion(item)}>添加</Button>] } style={{display:'flex',justifyContent:'space-between'}} className="table-list">
                         <div>
                             <p>{item.title}</p>
                             <div className="color">
@@ -32,4 +35,18 @@ function QuestionList({props}){
     )
 }
 
-export default (QuestionList)
+const mapState = state => {
+    return state;
+}
+const mapDispatch = dispatch => {
+    return {
+        addQuestionFn(item){
+            dispatch({
+                type:'questions/addQuestionFn',
+                item
+            })
+        }
+    }
+}
+
+export default connect(mapState,mapDispatch)(QuestionList)

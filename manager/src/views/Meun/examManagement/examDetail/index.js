@@ -10,13 +10,12 @@ function ExamDetail(props){
     },[])
     let detail=[]
     parmas.forEach((item)=>{
-        props.getQuestionsData&&props.getQuestionsData.map((items)=>{
+        props.getQuestionsData&&props.getQuestionsData.forEach((items)=>{
             if(item===items.questions_id){
                 detail.push(items)
             }
         })
     })
-    console.log(parmas)
     return (
         <div>
             <p className={detailStyle.title}>试卷详情</p>
@@ -33,7 +32,6 @@ function ExamDetail(props){
     )
 }
 const mapStateToProps=(state)=>{
-    console.log(state.questions)
     return{
         ...state.questions
     }

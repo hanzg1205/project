@@ -26,7 +26,7 @@ class ClassManagement extends Component{
     }   
     addClass(type){
         this.props.form.validateFields((err, values) => {
-            console.log(values)
+            // console.log(values)
             if(type==='submit'){
                 this.setState({
                     visible:false
@@ -48,7 +48,7 @@ class ClassManagement extends Component{
     }
     updata(type){
         this.props.form.validateFields((err, values) => {
-            console.log(values)
+            // console.log(values)
             if(type==='submit'){
                 this.setState({
                     visibleUpdata:false
@@ -71,7 +71,7 @@ class ClassManagement extends Component{
     render(){
         const { getFieldDecorator } = this.props.form
         const { Option } = Select;
-        console.log(this.props)
+        // console.log(this.props)
         let { getClassRoomData , getClassRoomDataS , getClassType } = this.props
         const columns = [
             {
@@ -179,7 +179,7 @@ const mapDispatchToProps=(dispatch)=>{
             dispatch({type:'class/upData',payload:payload})
         },
         getClassRoomNum(payload){
-            console.log(payload)
+            // console.log(payload)
             dispatch({type:'class/setClassNum',payload:payload})
         }
     }

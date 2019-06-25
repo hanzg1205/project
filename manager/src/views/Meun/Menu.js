@@ -5,6 +5,23 @@ import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
 import { remoteToken } from '@/utils/user'
+import dynamic from 'dva/dynamic';
+
+const QuestionsEdit =  dynamic({
+    component: () => import('@/views/Meun/questionsManagement/questionsEdit/questionsEdit'),
+});
+const QuestionDetail =  dynamic({
+    component: () => import('@/views/Meun/questionsManagement/questionDetail/questionDetail'),
+});
+const ExamEdit =  dynamic({
+    component: () => import('@/views/Meun/examManagement/examEdit'),
+});
+const MarkingMark =  dynamic({
+    component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
+});
+const examDetail =  dynamic({
+    component: () => import('@/views/Meun/examManagement/examDetail'),
+});
 function ExaminationMenu(props){
     let { history:{push} } = props
     let logouts=()=>{
@@ -65,6 +82,11 @@ function ExaminationMenu(props){
                                 }                               
                             })
                         }
+                        <Route path='/questions/edit/:id' component={QuestionsEdit}/>
+                        <Route path='/questions/detail/:id' component={QuestionDetail}/>
+                        <Route path='/exam/edit' component={ExamEdit}/>
+                        <Route path='/class/marking/:grade_id' component={MarkingMark}/>
+                        <Route path='/exam/detail/:id' component={examDetail}/>
                         {/* 403路由 */}
                         {
                             props.forbiddenView.map((item)=>{

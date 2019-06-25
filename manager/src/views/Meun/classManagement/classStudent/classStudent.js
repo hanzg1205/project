@@ -57,7 +57,7 @@ function ClassStudent(props){
     const search=(type)=>{
         if(type==='submit'){
             props.form.validateFields((err, values) => {
-                console.log('values...',values)
+                // console.log('values...',values)
                 props.filterStudentData(values)
             })
         }else{
@@ -108,7 +108,7 @@ function ClassStudent(props){
     )
 }
 const mapStateToProps=(state)=>{
-    console.log(state.class)
+    // console.log(state.class)
     return {
         ...state.class
     }

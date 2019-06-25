@@ -5,7 +5,7 @@ import locale from 'antd/lib/date-picker/locale/zh_CN';
 import './examAdd.scss';
 
 function AddUser(props) {
-    console.log(props)
+    // console.log(props)
     useEffect(()=>{
          // 获取考试类型
          props.examType();
@@ -31,7 +31,7 @@ function AddUser(props) {
                 values.start_time = +values.start_time._d;
                 values.end_time = +values.end_time._d;
                 values.number = values.number * 1;
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
                 // 添加考试
                 props.examAdd(values);
             }

@@ -113,9 +113,7 @@ export default {
                 getStudentDatasAll: action
             }
         },
-        filterStudentData(state, {action}){
-            console.log(action);
-            
+        filterStudentData(state, {action}){  
             return {
                 ...state,
                 getStudentDatas: state.getStudentDatasAll.filter(item => {

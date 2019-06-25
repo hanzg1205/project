@@ -9,7 +9,7 @@ function questionDetail(props){
     useEffect(()=>{
         detail(detailData)
     },[])
-    console.log(props)
+    // console.log(props)
     return (
         <div className={detailStyle.wrap}>
             <p className={detailStyle.title}>试题详情</p>

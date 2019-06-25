@@ -33,7 +33,7 @@ class QuestionsType extends Component{
     componentDidMount(){
         let { exam } = this.props
         exam()
-        console.log(this.props)
+        // console.log(this.props)
     }
     render(){
         const columns = [
@@ -98,7 +98,7 @@ const mapDispatchToProps=(dispatch)=>{
             dispatch({type:'exam/getQuestionsType'})
         },
         examadd(payload){
-            console.log(payload)
+            // console.log(payload)
             dispatch({type:'exam/insertQuestionsType',payload})
         }
     }

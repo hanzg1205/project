@@ -37,7 +37,7 @@ class ClassRoom extends Component{
     }
     render(){
         let { getClassRoomDataS } = this.props
-        console.log(this.props)
+        // console.log(this.props)
         let { getFieldDecorator } = this.props.form
         const columns = [
             {
@@ -54,8 +54,8 @@ class ClassRoom extends Component{
                 </span>
               ),
             },
-          ];
-          const data = getClassRoomDataS
+        ];
+        const data = getClassRoomDataS;
         return (
             <div className={classRoomStyle.wrap}>
                 <p className={classRoomStyle.title}>教室管理</p>
@@ -77,7 +77,7 @@ class ClassRoom extends Component{
                             </Form.Item>
                         </Form>
                     </Modal>
-                    <Table columns={columns} dataSource={data} style={{marginTop:'20px'}} />
+                    <Table columns={columns} dataSource={data} style={{marginTop:'20px'}} rowKey={record=>`${record.room_id}`}/>
                 </div>
             </div>
         )

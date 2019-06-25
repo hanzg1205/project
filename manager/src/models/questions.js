@@ -173,7 +173,7 @@ export default {
         },
         // 添加考试
         getExamAdd(state, {action,data}){
-            console.log('0000...',data);
+            // console.log('0000...',data);
             return {
                 ...state,
                 examAddFlag: action,
@@ -186,6 +186,26 @@ export default {
                 ...state,
                 examAddFlag: 0
             };
+        },
+        // 删除试题
+        questionDel(state, {index}){
+            let arr = JSON.parse(localStorage.exam);
+            arr.questions.splice(index,1);
+            localStorage.exam =JSON.stringify(arr);
+            return {
+                ...state,
+                createpaperList: arr
+            }
+        },
+        // 添加试题
+        addQuestionFn(state, {item}){
+            let arr = JSON.parse(localStorage.exam);
+            arr.questions.push(item);
+            localStorage.exam =JSON.stringify(arr);
+            return {
+                ...state,
+                createpaperList: arr
+            }
         }
     },
 };

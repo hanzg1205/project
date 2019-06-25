@@ -22,7 +22,7 @@ function QuestionsSee(props){
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
                 // 按条件获取试题
                 props.getQuestion(values) 
             }
@@ -99,7 +99,7 @@ function QuestionsSee(props){
 }
 
 const mapStateToProps = state => {
-    console.log("state...",state)
+    // console.log("state...",state)
     return{
         ...state.questions
     }
