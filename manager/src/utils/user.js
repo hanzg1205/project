@@ -14,6 +14,5 @@ export function setToken(val){
 }
 
 export function remoteToken(){
-    // expires 设置有效期7天
     Cookie.remove(key)
 }
