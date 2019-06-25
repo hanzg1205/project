@@ -6,6 +6,7 @@ import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
 import { remoteToken } from '@/utils/user'
 import dynamic from 'dva/dynamic';
+import Personal from './personalCenter/personalCenter'
 
 const QuestionsEdit =  dynamic({
     component: () => import('@/views/Meun/questionsManagement/questionsEdit/questionsEdit'),
@@ -87,6 +88,7 @@ function ExaminationMenu(props){
                         <Route path='/exam/edit' component={ExamEdit}/>
                         <Route path='/class/marking/:grade_id' component={MarkingMark}/>
                         <Route path='/exam/detail/:id' component={examDetail}/>
+                        <Route path='/personal/center' component={Personal}/>
                         {/* 403路由 */}
                         {
                             props.forbiddenView.map((item)=>{
