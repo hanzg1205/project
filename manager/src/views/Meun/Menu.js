@@ -1,23 +1,20 @@
 import React from 'react';
 import styles from './Meun.css';
-import { Menu, Dropdown, Layout , Button , message } from 'antd';
+import { Menu, Dropdown, Layout , Button } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
-import { connect } from 'dva'
-import MenuView from '@/components/Menu.js'
-import { remoteToken } from '@/utils/user'
-import dynamic from 'dva/dynamic';
+import { connect } from 'dva';
+import MenuView from '@/components/Menu.js';
 
 function ExaminationMenu(props){
     let { history:{push} } = props
-    let logouts=()=>{
-        remoteToken()
-        message.error('退出登录成功')
-        push('/login')
-        window.localStorage.clear();
-        
-    }
+    
     let Upload=()=>{
         push('/personal/center')
+    }
+
+    let logouts = () => {
+        props.logouts();    
+        props.history.replace('/');       
     }
     let menu = (
         <Menu>
@@ -82,7 +79,7 @@ function ExaminationMenu(props){
     )
 }
 const mapStateToProps=state=>{
-    console.log('main..state..',state)
+    // console.log('main..state..',state)
     return {
         ...state.user,
         locale:state.global.locale
@@ -92,6 +89,11 @@ const mapDispatchToProps=dispatch=>{
     return {
         changeLocal(payload){
             dispatch({type:'global/changeLocale',payload})
+        },
+        logouts(){
+            dispatch({
+                type: 'user/logout'
+            })
         }
     }
 }

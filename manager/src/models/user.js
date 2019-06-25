@@ -329,10 +329,11 @@ export default {
             remoteToken();
             return {
                 ...state,
+                userInfoData:{},
                 myView:[],
                 viewAuthority:[],
                 forbiddenView:[],
-                userInfoData:{}
+                isLogin: 0,
             }
         }
     },

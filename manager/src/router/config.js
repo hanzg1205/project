@@ -162,6 +162,12 @@ export default {
         },
         {
             name: '',
+            id: 'main-examPaperClassmate',
+            path: '/class/marking/:grade_id',
+            component: MarkingMark
+        },
+        {
+            name: '',
             id: 'main',
             path: '/personal/center',
             component: personalCenter
