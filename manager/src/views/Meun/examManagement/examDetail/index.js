@@ -24,7 +24,7 @@ function ExamDetail(props){
                 {
                     detail.map((item,index)=>{
                         return <div key={index} className={detailStyle.top}>
-                           <ReactMarkdown source={item.questions_stem}></ReactMarkdown>
+                            <ReactMarkdown source={item.questions_stem}></ReactMarkdown>
                         </div>
                     })
                 }

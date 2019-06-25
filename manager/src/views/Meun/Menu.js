@@ -6,16 +6,20 @@ import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
 import { remoteToken } from '@/utils/user'
 function ExaminationMenu(props){
+    let { history:{push} } = props
     let logouts=()=>{
-        let { history:{push} } = props
         remoteToken()
+        message.error('退出登录成功')
         push('/login')
         window.localStorage.clear();
-        message.error('退出登录成功')
+        
+    }
+    let Upload=()=>{
+        push('/person/center')
     }
     let menu = (
         <Menu>
-            <Menu.Item key="1">个人中心</Menu.Item>
+            <Menu.Item key="1" onClick={()=>{Upload()}}>个人中心</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
             <Menu.Item key="4" onClick={()=>{logouts()}}>退出登录</Menu.Item>

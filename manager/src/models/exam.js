@@ -1,4 +1,4 @@
-import {exam,examadd,getDetailData,examList,createExamGet} from '@/services'
+import {exam,examadd,getDetailData,examList,createExamGet,getDetailListData} from '@/services'
 export default {
     // 命名空间
     namespace: 'exam',
@@ -60,6 +60,11 @@ export default {
             //     action:data.code === 1 ? 1 : -1
             // })
         },
+        //获取试卷详情
+        *getDetail({payload},{call,put}){
+            let data = yield call(getDetailData,payload)
+            console.log(data)
+        }       
     },
 
     // 同步操作
