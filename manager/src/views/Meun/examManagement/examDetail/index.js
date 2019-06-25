@@ -23,14 +23,13 @@ function ExamDetail(props){
                 {
                     detail.map((item,index)=>{
                         return <div className={detailStyle.exam_item} key={index}>
-                                <h4>
-                                    <p>{index+1}: {item.title}</p>
-                                </h4> 
-                                <div>
-                                    <ReactMarkdown source={item.questions_stem} />
-                                </div>
+                            <h4>
+                                <p>{index+1}: {item.title}</p>
+                            </h4> 
+                            <div>
+                                <ReactMarkdown source={item.questions_stem} />
                             </div>
-                        
+                        </div>      
                     })
                 }
             </div>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        img,
+        .imgs {
+            width: 800px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" style="width: 800px;height: 500px;border: 1px solid #ccc"></canvas>
+    <input type="file">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var ele = document.querySelector('input');
+        var canvas = document.getElementById("myCanvas");
+        var cavs = canvas.getContext("2d");
+        function load(){
+            axios({
+                method: 'post',
+                url: 'http://123.206.55.50:11000/tobase64',
+                data: {url: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2062712286,1954365920&fm=26&gp=0.jpg'}
+            }).then(body=>{
+                console.log('body...', body);
+                let img = new Image()
+                console.log(body.data)
+                img.src=body.data.data.base64
+                img.onload=()=>{
+                    cavs.drawImage(img,0,0,300,150)
+                }
+            }).catch(e=>{
+                console.log('e..', e);
+            })
+        }
+        load()
+        ele.onchange = function (e) {
+            let files = e.target.files;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                console.log(e)
+                let img = new Image();
+                img.src=e.target.result;
+                img.onload=()=>{
+                    cavs.drawImage(img,60,60,100,50);
+                    let base=canvas.toDataURL('jpg',0.8)
+                }
+            }
+            reader.readAsDataURL(files[0]);
+        }
+    </script>
+</body>
+
+</html>

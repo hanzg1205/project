@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import { Select, Button, Form, Table, Radio, Icon } from 'antd';
+import { Select, Button, Form, Table, Radio } from 'antd';
 import { Link } from 'dva/router'
 import { connect } from 'dva';
 import './examList.scss';

@@ -61,6 +61,11 @@ export default {
             //     action:data.code === 1 ? 1 : -1
             // })
         },
+        //获取试卷详情
+        *getDetail({payload},{call,put}){
+            let data = yield call(getDetailData,payload)
+            console.log(data)
+        }       
     },
 
     // 同步操作

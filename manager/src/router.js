@@ -38,7 +38,6 @@ const RouterView = connect(mapStateToProps)(({locale,history})=>{
         <Route path="/" component={Meun} />
       </Switch>
     </Router>
-   
   </IntlProvider>
 })
 
