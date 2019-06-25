@@ -325,7 +325,7 @@ export default {
                 forbiddenView
             }
         },
-        logou(state){
+        logout(state){
             remoteToken();
             return {
                 ...state,

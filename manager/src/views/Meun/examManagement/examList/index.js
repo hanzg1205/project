@@ -20,8 +20,8 @@ function examList(props){
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                // console.log('Received values of form: ', values);
-
+                console.log('Received values of form: ', values);
+                props.examListFilter(values);
             }
         });        
     }
@@ -117,7 +117,7 @@ function examList(props){
                             <div className='Bottom_tit'>考试类型:</div>
                             <Form.Item>
                                 {getFieldDecorator('exam_id', {
-                                    initialValue: undefined
+                                    initialValue: ''
                                 })(
                                     <Select style={{ width: 160 }}>
                                     {                
@@ -133,7 +133,7 @@ function examList(props){
                             <div className='Bottom_tit'>课程:</div>
                             <Form.Item>
                                 {getFieldDecorator('subject_id', {
-                                    initialValue: undefined
+                                    initialValue: ''
                                 })(
                                     <Select style={{ width: 160 }}>
                                     {                
@@ -182,6 +182,13 @@ const mapDispatchToProps = dispatch => {
         examList(payload){
             dispatch({
                 type: "exam/examList",
+                payload
+            })
+        },
+        // 筛选试卷
+        examListFilter(payload){
+            dispatch({
+                type: "exam/examListFilter",
                 payload
             })
         }

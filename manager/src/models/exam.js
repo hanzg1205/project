@@ -9,6 +9,7 @@ export default {
         getDetailDates:[],
         // 试卷列表
         examListData: [],
+        examListDataAll: []
         
     },
 
@@ -80,9 +81,18 @@ export default {
         getExamList(state, {action}){
             return {
                 ...state,
-                examListData: action
+                examListData: action,
+                examListDataAll: action
             };
         },
-        
+        // 筛选试卷
+        examListFilter(state, {payload}){
+            return {
+                ...state,
+                examListData: state.examListDataAll.filter(item => {
+                    return item.exam_id.includes(payload.exam_id) && item.subject_id.includes(payload.subject_id)
+                })
+            }
+        }
     },
 };
