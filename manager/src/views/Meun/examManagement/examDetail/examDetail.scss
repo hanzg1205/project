@@ -9,7 +9,7 @@
     width: 90%;
     margin: 0 auto;
     background: #fff;
-    padding: 20px;
+    padding: 40px;
     height: auto;
     border-radius: 10px;
 }
@@ -30,3 +30,14 @@ p{
 img{
     max-width:100%;
 }   
+.exam_item{
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 26px;
+    margin-bottom: 20px;
+    h4{
+        display: flex;
+        justify-content: space-between;
+        line-height: 32px;
+    }
+}

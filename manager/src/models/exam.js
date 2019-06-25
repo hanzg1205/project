@@ -93,6 +93,25 @@ export default {
                     return item.exam_id.includes(payload.exam_id) && item.subject_id.includes(payload.subject_id)
                 })
             }
+        },
+        // 切换状态
+        toggleStatus(state, {status}){
+            let statusData = [];
+            if(status === 'all'){
+                statusData = state.examListDataAll;
+            }else if(status === 'have'){
+                statusData = state.examListDataAll.filter(item => {
+                    return item.start_time < +new Date() && item.end_time > +new Date();
+                })
+            }else if(status === "end"){
+                statusData = state.examListDataAll.filter(item => {
+                    return +new Date() > item.end_time;
+                })
+            }
+            return {
+                ...state,
+                examListData: statusData
+            }
         }
     },
 };

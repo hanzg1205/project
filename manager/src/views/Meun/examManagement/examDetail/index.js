@@ -4,7 +4,7 @@ import detailStyle from './examDetail.scss'
 import ReactMarkdown from 'react-markdown'
 function ExamDetail(props){
     let parmas=props.match.params.id.slice(1,-1).split(',')
-    let { getDetail } = props
+    let { getDetail } = props;
     useEffect(()=>{
         getDetail()
     },[])
@@ -22,9 +22,15 @@ function ExamDetail(props){
             <div className={detailStyle.bottom}>
                 {
                     detail.map((item,index)=>{
-                        return <div key={index} className={detailStyle.top}>
-                           <ReactMarkdown source={item.questions_stem}></ReactMarkdown>
-                        </div>
+                        return <div className={detailStyle.exam_item} key={index}>
+                                <h4>
+                                    <p>{index+1}: {item.title}</p>
+                                </h4> 
+                                <div>
+                                    <ReactMarkdown source={item.questions_stem} />
+                                </div>
+                            </div>
+                        
                     })
                 }
             </div>

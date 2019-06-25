@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import { Select, Button, Form, Table } from 'antd';
+import React, {useState,useEffect} from 'react'
+import { Select, Button, Form, Table, Radio, Icon } from 'antd';
 import { Link } from 'dva/router'
 import { connect } from 'dva';
 import './examList.scss';
@@ -20,7 +20,7 @@ function examList(props){
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
                 props.examListFilter(values);
             }
         });        
@@ -42,6 +42,15 @@ function examList(props){
         var seconds = Math.round(leave3 / 1000);
         return hours + ":" + minutes + ":" + seconds;
     }
+    
+    // 切换按钮
+    let [status,upDateStatus] = useState('all')
+    let handleSizeChange = e => {
+        upDateStatus(e.target.value)
+        console.log(e.target.value);
+        props.toggleStatus(e.target.value);
+    } 
+    ;
     const columns = [
         {
             title: '试卷信息',
@@ -81,8 +90,8 @@ function examList(props){
             dataIndex: 'start_time',
             render: (item) => {
                 return <>
-                    <p>{new Date(item*1).toLocaleDateString()}</p>
-                    <p>{new Date(item*1).toLocaleTimeString()}</p>
+                    <p>{new Date(item*1).toLocaleDateString('chinese',{hour12:false})}</p>
+                    <p>{new Date(item*1).toLocaleTimeString('chinese',{hour12:false})}</p>
                 </>
             }          
         },
@@ -92,8 +101,8 @@ function examList(props){
             dataIndex: 'end_time',
             render: (item) => {
                 return <>
-                    <p>{new Date(item*1).toLocaleDateString()}</p>
-                    <p>{new Date(item*1).toLocaleTimeString()}</p>
+                    <p>{new Date(item*1).toLocaleDateString('chinese',{hour12:false})}</p>
+                    <p>{new Date(item*1).toLocaleTimeString('chinese',{hour12:false})}</p>
                 </>
             }            
         },
@@ -104,7 +113,7 @@ function examList(props){
             render: (text) => <Link style={{color:'#0139FD'}} to={`/exam/detail/${text.question_ids}`}>详情</Link>,
         },
     ];
-      
+    
     const { getFieldDecorator } = props.form; 
     return (
         <div className='exam-wrapper'>
@@ -150,7 +159,13 @@ function examList(props){
                 </div>
             </Form>
             <div className="exam-list-table">
-                <h4>试卷列表</h4>
+                <h4>试卷列表 
+                    <Radio.Group value={status} onChange={handleSizeChange}>
+                        <Radio.Button value="all">全部</Radio.Button>
+                        <Radio.Button value="have">进行中</Radio.Button>
+                        <Radio.Button value="end">已结束</Radio.Button>
+                    </Radio.Group>
+                </h4>
                 <Table columns={columns} dataSource={props.examListData} rowKey={record =>`${record.exam_exam_id}`}></Table>
             </div>
         </div>
@@ -190,6 +205,13 @@ const mapDispatchToProps = dispatch => {
             dispatch({
                 type: "exam/examListFilter",
                 payload
+            })
+        },
+        // 切换状态
+        toggleStatus(status){
+            dispatch({
+                type: "exam/toggleStatus",
+                status
             })
         }
     }
