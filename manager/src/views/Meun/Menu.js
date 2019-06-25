@@ -15,7 +15,7 @@ function ExaminationMenu(props){
         
     }
     let Upload=()=>{
-        push('/person/center')
+        push('/personal/center')
     }
     let menu = (
         <Menu>

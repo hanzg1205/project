@@ -54,6 +54,9 @@ const MarkingManagement =  dynamic({
 const MarkingMark =  dynamic({
     component: () => import('@/views/Meun/markingManagement/markingMarking/makingMarking'),
 });
+const personalCenter =  dynamic({
+    component: () => import('@/views/Meun/personalCenter/personalCenter'),
+});
 
 export default {
     routes: [{ // 试题管理
