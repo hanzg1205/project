@@ -47,7 +47,7 @@ function examList(props){
     let [status,upDateStatus] = useState('all')
     let handleSizeChange = e => {
         upDateStatus(e.target.value)
-        console.log(e.target.value);
+        // console.log(e.target.value);
         props.toggleStatus(e.target.value);
     } 
     ;
