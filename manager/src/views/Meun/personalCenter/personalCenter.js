@@ -3,43 +3,24 @@ import { connect } from 'dva'
 import { findDomNode } from 'react-dom';
 function Personal(props){
     console.log(props)
-    let [canvas,setCanvas]=useState("");
-    let [change,setChange]=useState("");
     useEffect(()=>{
         props.getData()
     },[])
-    function changeCan(){
-        let cxt = canvas && canvas.getContext('2d');
-        if(props.base&&props.base){
-           
-        }else{
-            
+    const [visible,setvisible]=useState(false)
+    const [val,setval]=useState('https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1551624718911&amp;di=4a7004f8d71bd8da84d4eadf1b59e689&amp;imgtype=0&amp;src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg')
+    let inpChange=e=>{
+        let files=e.target.files
+        var reader=new FileReader()
+        reader.onload=function(e){
+            setval(this.result)
+            let base=e.target.result
+            props.setImg(base)
         }
-    //     if(srcImg){
-    //         newImg.src = srcImg;
-    //       cxt.drawImage(newImg,0,0,1200,633,0,0,250,158);
-    //      if(change){
-    //         let files = change;
-    //         var reader = new FileReader();
-    //         reader.onload = function(){
-    //             setimgs(this.result);
-    //             if(newTopImg){
-    //              cxt.drawImage(newTopImg,0,0,533,299,150,25,104,77);
-    //              if(!imgSrc){
-    //                 props.changeImg({base64:canvas.toDataURL()})
-    //              }
-    //             }
-    //         }
-    //         reader.readAsDataURL(files[0]);
-    //      }
-    //   }
+        reader.readAsDataURL(files[0])
     }
+
     return (<div>
-        <canvas id="myCanvas" style={{width: '300px',height: '300px',border: '1px solid #ccc'}} ref={ref=>{
-         setCanvas(ref);
-         changeCan();
-     }} />
-        <input type="file" onChange={(e)=>{setChange(e.target.files)}}></input>
+          <p><input type="file" onChange={inpChange}/></p>
     </div>)
 }
 const mapStateToProps=(state)=>{
@@ -52,7 +33,10 @@ const mapDispatchToProps=(dispatch)=>{
     return {
         getData(){
             dispatch({type:'upload/getData'})
-        }       
+        },
+        setImg(payload){
+            dispatch({type:'upload/setImg',payload})
+        }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Personal)

@@ -5,7 +5,8 @@ export default {
 
     // 模块内部的状态
     state: {
-        base:''
+        base:'',
+        img:''
     },
 
     // 订阅路由跳转
@@ -25,7 +26,7 @@ export default {
                type:'baseImg',
                action:data.data.base64
            })
-       }
+       },
     },
 
     // 同步操作
@@ -34,6 +35,12 @@ export default {
             return{
                 ...state,
                 base:action
+            }
+        },
+        setImg(state,{payload}){
+            return {
+                ...state,
+                img:payload
             }
         }
     },
