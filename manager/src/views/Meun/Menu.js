@@ -5,8 +5,6 @@ import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
 import MenuView from '@/components/Menu.js'
 import { remoteToken } from '@/utils/user'
-import dynamic from 'dva/dynamic';
-import Personal from './personalCenter/personalCenter'
 
 function ExaminationMenu(props){
     let { history:{push} } = props
