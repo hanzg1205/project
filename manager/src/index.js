@@ -13,6 +13,7 @@ app.model(require('./models/exam').default);
 app.model(require('./models/global').default);
 app.model(require('./models/questions').default);
 app.model(require('./models/class').default);
+app.model(require('./models/upload').default);
 
 // 4. Router
 app.router(require('./router').default);

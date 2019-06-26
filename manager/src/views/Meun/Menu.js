@@ -5,9 +5,9 @@ import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva';
 import MenuView from '@/components/Menu.js';
 
+
 function ExaminationMenu(props){
     let { history:{push} } = props
-    
     let Upload=()=>{
         push('/personal/center')
     }
@@ -37,7 +37,7 @@ function ExaminationMenu(props){
                         {
                             <Dropdown overlay={menu}>
                                 <a className={["ant-dropdown-link",styles.headerBottomList]}>
-                                  <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt=""/>
+                                  <img src={props.img?props.img:'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} alt=""/>
                                   <span>{props.userInfoData.user_name}</span>
                                 </a>
                             </Dropdown>
@@ -82,6 +82,7 @@ const mapStateToProps=state=>{
     // console.log('main..state..',state)
     return {
         ...state.user,
+        ...state.upload,
         locale:state.global.locale
     }
 }
